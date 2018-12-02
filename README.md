@@ -11,7 +11,8 @@ Project |Description | Type
 [SpamGame](https://github.com/Hackin7/SpamGame)| Spam the button as much as possible in 60 seconds for a High Score|Android App (Java)
 [MiniSites](https://github.com/Hackin7/MiniSites)|Collection of small websites with multiple functions|HTML, CSS, Javascript
 [FBCPConfig](https://github.com/Hackin7/FBCPconfig)|Software to change the screen resolution of the Raspberry Pi| Python<li>Pygame
-
+[Data Science Projects](https://github.com/Hackin7/Data-Science-Projects)| Collection of Data Science, Machine Learning, NLP and more projects| Python
+	
 Software with Hardware Projects
 
 | Project | Description | Type |
