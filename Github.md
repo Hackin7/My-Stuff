@@ -4,25 +4,28 @@ title:  "Github"
 permalink: /github/
 ---
 
-Software Projects
+[Link to profile](https://github.com/Hackin7)
+
+# Software Projects
 
 Project |Description | Type
  -|-|-
-[Exam Snippets](https://github.com/Hackin7/ExamSnippet) |Examination Questions on the Web for online practice| Web (HTML and CSS)<br><li>AngularJS<br><li>NodeJS and Express
-[TextStatsAnalyser](https://github.com/Hackin7/TextStatsAnalyser) |A website to analyse Text and give the appropriate analysis |Python<br><li>Flask (HTML, CSS)<br><li>NLTK 
+[Exam Snippets](https://github.com/Hackin7/ExamSnippet) |Examination Questions on the Web for online practice| {::nomarkdown}Web (HTML and CSS)<ul><li>AngularJS</li><li>NodeJS and Express</ul>{:/}
+[TextStatsAnalyser](https://github.com/Hackin7/TextStatsAnalyser) |A website to analyse Text and give the appropriate analysis |{::nomarkdown}Python<ul><li>Flask (HTML, CSS)</li><li>NLTK</li></ul>{:/} 
 [SpamGame](https://github.com/Hackin7/SpamGame)| Spam the button as much as possible in 60 seconds for a High Score|Android App (Java)
 [MiniSites](https://github.com/Hackin7/MiniSites)|Collection of small websites with multiple functions|HTML, CSS, Javascript
-[FBCPConfig](https://github.com/Hackin7/FBCPconfig)|Software to change the screen resolution of the Raspberry Pi| Python<li>Pygame
-[Data Science Projects](https://github.com/Hackin7/Data-Science-Projects)| Collection of Data Science, Machine Learning, NLP and more projects| Python
+[FBCPConfig](https://github.com/Hackin7/FBCPconfig)|Software to change the screen resolution of the Raspberry Pi| {::nomarkdown}Python<ul><li>Pygame</li></ul>{:/}
+[Data Science Projects](https://github.com/Hackin7/Data-Science-Projects)| Collection of Data Science, Machine Learning, NLP and more projects| {::nomarkdown}Python{:/}
 	
-Software with Hardware Projects
+# Software with Hardware Projects
 
 | Project | Description | Type |
 |-|-|-|
-[BlockComPi](https://github.com/Hackin7/BlockComPi)| A Raspberry Pi Phone that can receive Phone Calls, Take Photos and More| <li>Raspberry Pi<li>Python<li>PiTFT
-[ComputeHub](https://github.com/Hackin7/ComputeHub)|A failed project to try and make an all-in one device to act as a router, TV Box, Smart Home Hub and More| <li>Raspberry Pi<li>Python<li>PiTFT
+[BlockComPi](https://github.com/Hackin7/BlockComPi)| A Raspberry Pi Phone that can receive Phone Calls, Take Photos and More|{::nomarkdown}<ul> <li>Raspberry Pi<li>Python<li>PiTFT</ul>{:/}
+[ComputeHub](https://github.com/Hackin7/ComputeHub)|A failed project to try and make an all-in one device to act as a router, TV Box, Smart Home Hub and More|{::nomarkdown}<ul> <li>Raspberry Pi<li>Python<li>PiTFT</ul>{:/}
+[Pixel Art Editor](https://github.com/Hackin7/Pixel-Art-Editor)|Edit 8x8 Pixel Arts, Save to the Server, and show on an LED Matrix. {::nomarkdown}<ul><li>Take note that this could also be run on a normal computer, but the LED Matrix functionality is no longer available there</li><li>Also available on Instructables></ul>{:/}|{::nomarkdown}<ul> <li>Raspberry Pi<li>Python<li>WS2812 LEDs</ul>{:/}
 
-Scripts
+# Scripts
 
 | Project | Description |
 |-|-|
@@ -30,7 +33,7 @@ Scripts
 
 
 
-Contributing
+# Contributing
 * Forked Repositories 
 	* [Awesome Electronics](https://github.com/Hackin7/awesome-electronics)
     * [Elphas](https://github.com/Hackin7/Elphas)
@@ -41,5 +44,5 @@ Contributing
     * [Primero1LandingSite](https://github.com/Hackin7/Primero1LandingSite)
     * [JBoss OutReach Android App](https://github.com/Hackin7/JBoss-OutReach-Android-App)
 
-Events
+#Events
 [Building BLOCS Competition Code](https://github.com/Hackin7/G08_BBCS) 

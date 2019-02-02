@@ -4,7 +4,14 @@
 
 #layout: home
 layout: page
-title: About
+#title: About
 ---
 
-A quick organised list of all my projects, be it Software or Hardware
+Hi. I'm a hobbyist Tinkerer, Maker and Coder.
+
+This website is a quick organised list of all my projects, be it Hardware or Software
+
+# Platforms
+* [Github](github)
+* [Instructables](instructables)
+* [Codepen](https://codepen.io/Hackin7/)
