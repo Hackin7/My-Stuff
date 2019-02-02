@@ -1,7 +1,9 @@
-# My-Stuff
-Stuff about me, like my Github repositories and more
+---
+layout: page
+title:  "Github"
+permalink: /github/
+---
 
-## Github Repositories
 Software Projects
 
 Project |Description | Type
@@ -41,11 +43,3 @@ Contributing
 
 Events
 [Building BLOCS Competition Code](https://github.com/Hackin7/G08_BBCS) 
-
-## [Instructables](https://www.instructables.com/member/Hackin7/instructables/)
-* [Binary Switch Game](https://www.instructables.com/id/Binary-Switch-Game/)
-* [Microbit Gun Light Sound Thing](https://www.instructables.com/id/Microbit-Gun-Light-Sound-Thing-Toy/)
-* [DIY Arcade Joysticks](https://www.instructables.com/id/DIY-Arcade-Joystick/)
-* [LED Matrix](https://www.instructables.com/id/LED-Matrix-2/)
-* [Raspberry Pi Cases](https://www.instructables.com/id/Raspberry-Pi-Cases-1/)
-* [Arduboy Shield](https://www.instructables.com/id/Arduboy-Shield/)

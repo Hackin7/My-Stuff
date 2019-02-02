@@ -1,0 +1,10 @@
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+
+#layout: home
+layout: page
+title: About
+---
+
+A quick organised list of all my projects, be it Software or Hardware
