@@ -49,6 +49,6 @@ Project |Description | Type
     * [JBoss OutReach Android App](https://github.com/Hackin7/JBoss-OutReach-Android-App)
 
 # Events
-[Building BLOCS Competition Code](https://github.com/Hackin7/G08_BBCS) 
-[ReStation ](https://github.com/Hackin7/ReStation) Raspberry Pi Project (For CodeXtremeApps Hackathon 2019)
-[AndWhyJayCee](https://github.com/andwhyjaycee/andwhyjaycee) Web App for the FOSSASIA UNESCO Hackathon in Singapore 2019
+* [Building BLOCS Competition Code](https://github.com/Hackin7/G08_BBCS) 
+* [ReStation ](https://github.com/Hackin7/ReStation) Raspberry Pi Project (For CodeXtremeApps Hackathon 2019)
+* [AndWhyJayCee](https://github.com/andwhyjaycee/andwhyjaycee) Web App for the FOSSASIA UNESCO Hackathon in Singapore 2019
