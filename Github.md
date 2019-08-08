@@ -16,7 +16,11 @@ Project |Description | Type
 [MiniSites](https://github.com/Hackin7/MiniSites)|Collection of small websites with multiple functions|HTML, CSS, Javascript
 [FBCPConfig](https://github.com/Hackin7/FBCPconfig)|Software to change the screen resolution of the Raspberry Pi| {::nomarkdown}Python<ul><li>Pygame</li></ul>{:/}
 [Data Science Projects](https://github.com/Hackin7/Data-Science-Projects)| Collection of Data Science, Machine Learning, NLP and more projects| {::nomarkdown}Python{:/}
-	
+[BulletHell](https://github.com/Hackin7/BulletHell) | A Simple Dodge the Letters Minigame | Lua, LOVE2D
+[BasicQtPrograms](https://github.com/Hackin7/BasicQtPrograms) | A list of simple Programs using Qt | C++, Qt
+[SuperBasicAppMenu](https://github.com/Hackin7/SuperBasicAppMenu) | A Basic Application Menu made in pyGTK to show a list of apps | Python, PyGTK
+[Programming Crappy Solutions](https://github.com/Hackin7/Programming-Crappy-Solutions) | A list of crappy (or not working) solutions to some Competitive Programming Problems | C++, Python
+
 # Software with Hardware Projects
 
 | Project | Description | Type |
@@ -44,5 +48,6 @@ Project |Description | Type
     * [Primero1LandingSite](https://github.com/Hackin7/Primero1LandingSite)
     * [JBoss OutReach Android App](https://github.com/Hackin7/JBoss-OutReach-Android-App)
 
-#Events
+# Events
 [Building BLOCS Competition Code](https://github.com/Hackin7/G08_BBCS) 
+[ReStation ](https://github.com/Hackin7/ReStation) Raspberry Pi Project (For CodeXtremeApps Hackathon 2019)
