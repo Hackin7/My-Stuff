@@ -11,6 +11,8 @@ Hi. I'm Terence, a hobbyist Tinkerer, Maker and Coder.
 
 This website is a quick organised list of all my projects, be it Hardware or Software
 
+[About Me](about)
+
 # Platforms
 * [Github](github)
 * [Instructables](instructables)
