@@ -25,7 +25,7 @@ github_username:  Hackin7
 # Build settings
 markdown: kramdown 
 html_to_native: true
-theme: jekyll-theme-dinky
+theme: jekyll-theme-slate
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
