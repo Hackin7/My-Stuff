@@ -13,7 +13,7 @@ When I was in Chung Cheng High Yishun. I took up O Level Computing. In Nanyang J
 
 However, that is not to say that Computing and Electronics are the only things in my life. I have also liked music, having obtained a Yamaha Electone Grade 6 Certification and am currently preparing for Electone Grade 5 Examination. I also like playing sports like Volleyball, Basketball, and more. One of my favourite moments in life is when I finally won 3rd place in the Chung Cheng Marina Bay Run (My Secondary School's Marathon Event) in 2018, after much training.
 
-To me, both the hardware and the software of modern devices and systems are interesting, as one cannot exist without the other. When combined, they can create spectacular experiences for users. As such, I aim to pursue Electrical Engineering at NUS.
+To me, both the hardware and the software of modern devices and systems are interesting, as one cannot exist without the other. When combined, they can create spectacular experiences for users. 
 
 # Main Achievements
 
