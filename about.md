@@ -46,7 +46,7 @@ To me, both the hardware and the software of modern devices and systems are inte
 ## 2019-2020
 - Enrolled in Nanyang Junior College
 - Was in the Robotics Club as a CCA
-- Was in the team that got 
+- Was in the robotics team (NYCasuals 2019) that got 
     - 1st in RoboCupJunior Rescue CoSpace during RoboCup Singapore 2019 and
     - Best Presentation Award in RoboCupJunior Rescue Simulation during RoboCup Sydney 2019
 - Co-founded (and am currently the Vice President of) the NYCompSci Student Interest Group
