@@ -1,0 +1,17 @@
+<h1>DangerNoodle</h1>
+<p>100, Reverse Engineering, 30 Solves as of Solving</p>
+<h2>Description</h2>
+<p>Seems like the flag has been encoded by a python program. Can we possibly write a script to decode it?</p>
+<p>Hint: Decompilation</p>
+<h2>Given</h2>
+<p>flag.jpg.out</p>
+<p>main.pyc</p>
+<h1>Solution</h1>
+<p>Search on how to decompile bytecode</p>
+<p>https://stackoverflow.com/questions/1149513/exploring-and-decompiling-python-bytecode
+<code>pip install uncompyle6
+uncompyle6 main.pyc</code></p>
+<p>Once you get the code, just reverse the steps in python and run.
+<img alt="" src="sol.jpg" /></p>
+<h1>Flag</h1>
+<p>`CTFSG{3GG1N3R1NG_M0D3_4CT1V4T3D}</p>

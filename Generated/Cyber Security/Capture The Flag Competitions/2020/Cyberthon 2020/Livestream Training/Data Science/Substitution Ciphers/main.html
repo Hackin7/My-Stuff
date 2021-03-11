@@ -1,0 +1,19 @@
+<h1>Substitution Ciphers</h1>
+<p>100 Points, Data Science</p>
+<h2>Description</h2>
+<p>There are patterns in most things we create, these patterns can be used to study and recover data. In this challenge we will be using the naturally observed frequencies of English words and letters to decode a cipher text made by a simple substitution cipher.</p>
+<p>English like most other languages has letter frequencies associated with it:
+- See https://commons.wikimedia.org/wiki/File:English_letter_frequency_(alphabetic).svg
+- See https://en.wikipedia.org/wiki/Frequency_analysis</p>
+<p>You may find this tool useful: https://studio.code.org/s/frequency_analysis
+FLAG IS IN ALL CAPS WITH CTFSG{####} FORMAT</p>
+<h1>Solution</h1>
+<p>Using <a href="https://studio.code.org/s/frequency_analysis">this website</a>, 
+match the letters by frequency, and you fill get this</p>
+<p><img alt="Match by Frequency" src="MatchByFrequency.png" /></p>
+<p>However, you notice there are some letters off, like <code>FOJ</code>, instead of <code>FOX</code>. Just do a few substitutions (switch J and X substitutions) and you get something resembling English.</p>
+<p><img alt="Substitution" src="Substitution.png" /></p>
+<p>After that just use Ctrl-F "CTFSG{" to find the Flag in the Text
+<code>IT MADE AN INSTANT CHANGE IN HIM, FOR THE FURY PASSED SO QUICKLY THAT I COULD HARDLY BELIEVE THAT IT WAS EVER THERE. "TAKE CARE," HE SAID, "TAKE CARE HOW YOU CUT YOURSELF. IT IS MORE CTFSG{GOT_FREQUENCIES_BUTWHEREARETHEWAVELENGTHS} DANGEROUS THAN YOU THINK IN THIS COUNTRY." THEN SEIZING THE SHAVING GLASS, HE WENT ON:</code></p>
+<h1>Flag</h1>
+<p><code>CTFSG{GOT_FREQUENCIES_BUTWHEREARETHEWAVELENGTHS}</code></p>

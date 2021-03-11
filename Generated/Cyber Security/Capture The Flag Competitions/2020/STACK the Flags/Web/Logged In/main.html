@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+    
+  </head>
+     
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/about.html">About</a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2020/STACK the Flags/Web/Logged In/README.md'>Original Github Link</a></div><h1>Logged In</h1>
+<p>965, WEB, 15 SOLVES</p>
+<h3>Description</h3>
+<p>It looks like COViD's mobile application is connecting to this API! Fortunately, our agents stole part of the source code. Can you find a way to log in?</p>
+<p><a href="http://yhi8bpzolrog3yw17fe0wlwrnwllnhic.alttablabs.sg:41061/">API Server</a></p>
+<p>ZIP File Password: web-challenge-6</p>
+<p>Note: Wondering what the second flag is about? Maybe check for a MOBILE Network?</p>
+<p>This challenge:</p>
+<ul>
+<li>Unlocks other challenge(s)</li>
+<li>Is eligible for Awesome Write-ups Award</li>
+</ul>
+<h2>Solution</h2>
+<p>Firstly I analysed the code <code>app.js</code>. The important things to take note were that it used a router</p>
+<pre><code>app.use('/api', apiRouter);
+</code></pre>
+<p>I then looked at <code>routes/api.js</code></p>
+<pre><code>router.get('/', function (req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+router.post('/login', loginValidator, sendValidationErrors, localAuthenticator, function (req, res) {
+  res.json({ &quot;flagOne&quot;: process.env.FLAG_ONE, &quot;encryptedFlagTwo&quot;: encryptFlag(process.env.FLAG_TWO) })
+});
+
+router.get('/user/:userId', async function (req, res) {
+  const user = await User.findByPk(req.params.userId, { &quot;attributes&quot;: [&quot;username&quot;] });
+  res.json(user)
+});
+</code></pre>
+<p>I randomly decided to look at <code>seeders.js/20201023021100-user.js</code>. You can identify some user accounts. Accessing the route <code>/user/:userId</code> confirms at the accounrs are indeed these ones</p>
+<pre><code>'use strict';
+const bcrypt = require('bcryptjs');
+
+var generatePassword = require('../helpers/generatePassword');
+
+module.exports = {
+  up: async (queryInterface, Sequelize) =&gt; {
+    await queryInterface.bulkInsert('Users', [{
+      username: 'bob_minion',
+      password: bcrypt.hashSync(generatePassword(32), 10),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      username: 'kevin_minion',
+      password: bcrypt.hashSync(generatePassword(32), 10),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      username: 'stuart_minion',
+      password: bcrypt.hashSync(generatePassword(32), 10),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      username: 'gru_felonius',
+      password: bcrypt.hashSync(generatePassword(32), 10),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }], {});
+  },
+
+  down: async (queryInterface, Sequelize) =&gt; {
+  }
+};
+</code></pre>
+<p><img src="Images/api_user_id.jpg" alt="" /></p>
+<p>I then made a python program in <code>solve.py</code> to interact with <code>/api/login</code> through a POST request. I tried logging in as <code>bob_minion</code>
+I guessed that the password is empty, and surprisingly, I managed to get the flag</p>
+<pre><code>{&quot;flagOne&quot;:&quot;govtech-csg{m!sS1nG_cR3DeN+!@1s}&quot;,&quot;encryptedFlagTwo&quot;:&quot;717f4cda287d40c47e7b50cb772b4def5a415387257510d1&quot;}
+</code></pre>
+<h3>Why does it work?</h3>
+<p>I solved this challenge without understanding, but I want to know why this solution works.</p>
+<p>Looking at the code in <code>routes/api.js</code>, you notice the middleware functions <code>loginValidator</code>, <code>sendValidationErrors</code>, <code>localAuthenticator</code>. To be able to access these routes we should have been able to bypass these middleware</p>
+<pre><code>var { loginValidator, sendValidationErrors } = require('../middlewares/validators');
+var { localAuthenticator } = require('../middlewares/authenticators');
+.
+.
+.
+router.post('/login', loginValidator, sendValidationErrors, localAuthenticator, function (req, res) {
+  res.json({ &quot;flagOne&quot;: process.env.FLAG_ONE, &quot;encryptedFlagTwo&quot;: encryptFlag(process.env.FLAG_TWO) })
+});
+</code></pre>
+<p>Checking <code>middlewares/validators.js</code> reveals something mroe interesting. On doing research on <code>express-validator</code>, it looks like <code>loginValidator</code> checks if the <code>username</code> and <code>password</code> fields exist, while <code>sendValidationErrors</code> returns an error when the fields are exist.</p>
+<pre><code>var { check, validationResult } = require('express-validator');
+
+const loginValidator = [
+  check('username').exists(),
+  check('password').exists()
+]
+
+function sendValidationErrors(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: `Invalid parameters: ${errors.array().map(error =&gt; error.param).join(', ')}` });
+  }
+  next()
+}
+
+module.exports = {
+  loginValidator,
+  sendValidationErrors,
+}
+</code></pre>
+<p>Checking <code>middlewares/authenticators.js</code>, the function <code>localAuthenticator</code> uses the NodeJS authentication library <code>passport</code>. Maybe there's an error here but I'm not sure. It returns an error when the password and username are incorrect.</p>
+<pre><code>var passport = require('passport')
+
+function localAuthenticator(req, res, next) {
+    passport.authenticate('local', { session: false }, function (err, user, info) {
+        if (err) {
+            return res.status(401).json({
+                &quot;error&quot;: err.message
+            });
+        }
+        next();
+    })(req, res, next)
+}
+
+module.exports = {
+    localAuthenticator,
+}
+</code></pre>
+<p>Maybe the reason why putting empty strings works is because the fields are technically in the payload, to bypass <code>loginValidator</code>, <code>sendValidationErrors</code>. However, with some being empty strings, it bypasses <code>localAuthenticator</code></p>
+<p>I researched on <code>passport</code>, checking <a href="http://www.passportjs.org/packages/passport-local/">http://www.passportjs.org/packages/passport-local/</a>. Checking <code>app.js</code> again, the local strategy is in <code>helpers/initLocalStrategy.js</code></p>
+<pre><code>var passport = require('passport')
+    , LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcryptjs');
+var { User } = require('../models')
+
+module.exports = function () {
+    passport.serializeUser(function (user, done) {
+        done(null, user);
+    });
+
+    passport.deserializeUser(function (user, done) {
+        done(null, user);
+    });
+
+    passport.use(new LocalStrategy(
+        async function (username, password, done) {
+            const user = await User.findOne({ where: { username } });
+            if (user !== null &amp;&amp; bcrypt.compareSync(password, user.password)) {
+                if (user.username === 'gru_felonius' &amp;&amp; bcrypt.compareSync(password, user.password)) {
+                    return done(null, user);
+                }
+                return done(new Error('Only Gru is allowed!'));
+            }
+            return done(new Error('Invalid credentials'));
+        }
+    ));
+}
+</code></pre>
+<p>Ok after looking at the code, it looks like my payload works because it finds a user. I'm still not sure why it works, maybe it screws with the function because it is async, or maybe bcrypt screws up when comparing with an empty string.</p>
+<p>In the end I didn't have time to complete this, but checking <a href="https://github.com/IRS-Cybersec/ctfdump/tree/stack-mitsuha/STACK%20the%20Flags%202020/Mitsuha/Web/2.%20Logged%20In">https://github.com/IRS-Cybersec/ctfdump/tree/stack-mitsuha/STACK%20the%20Flags%202020/Mitsuha/Web/2.%20Logged%20In</a> may give a more in depth explanation.</p>
+<p>After the challenge I also know that an empty username also works.</p>
+<h2>Flag</h2>
+<p><code>govtech-csg{m!sS1nG_cR3DeN+!@1s}&quot;</code></p>
+</div>
+    </div>
+    
+  </body>
+</html>

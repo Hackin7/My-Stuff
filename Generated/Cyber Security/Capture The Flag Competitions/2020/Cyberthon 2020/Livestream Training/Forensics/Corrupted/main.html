@@ -1,0 +1,15 @@
+<h1>Corrupted</h1>
+<p>100, Forensics, 139 SOLVES</p>
+<h2>Description</h2>
+<p>This JPEG file seems to be corrupted. Can you fix it?</p>
+<h2>Attached Files</h2>
+<p>corrupted.jpg</p>
+<h1>Solution</h1>
+<p>Basically When you open the jpeg with a hex editor, you notice the file header is not the file header for jpeg files.
+<img alt="Hex editor" src="Step 1.png" /></p>
+<p>So just modify the file header. You can use a python program or whatever.
+<img alt="Hex editor Modified" src="Step 2.png" /></p>
+<p>You should get the image working
+<img alt="Uncorrupted Image" src="Solution/uncorrupted.jpg" /></p>
+<h1>Flag</h1>
+<p><code>CTFSG{HUDSON_YARDZ}</code></p>

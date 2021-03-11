@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+    
+  </head>
+     
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/about.html">About</a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2020/Whitehacks 2020/GovTech/GovTech SecTech (6_6) - OSINT/README.md'>Original Github Link</a></div><h1>GovTech SecTech (6/6) - OSINT</h1>
+<p>500, GOVTECH, 11 SOLVES</p>
+<h2>Description</h2>
+<p>GovTech Sponsor Challenge</p>
+<p>We love how the system archives past student records - after all, data is gold. If you don't find the gold, we suggest you dig deeper and look beyond the surface, specifically the 'root' :)</p>
+<p><a href="http://sec-tech.cf/">Challenge here</a></p>
+<p>Login with the username <code>temp_acc</code> and password <code>temp_pass</code></p>
+<h1>Solution</h1>
+<p>This is one of the challenges I'm most proud of doing, especially since the organisers ended up going through this challenge. I'll be talking about how I got this challenge</p>
+<p>Firsly, when looking at the past student records, the URL of the links seemed interesting, linking to some AWS server.</p>
+<p><img src="records.png" alt="" /></p>
+<p>I decided to go to the base URL <code>https://sectech-archived-student-records.s3-ap-southeast-1.amazonaws.com/</code>, and got these</p>
+<p><img src="URL.png" alt="" /></p>
+<p>Most of these are student records, but one interesting thing is the <code>backup-notes.txt</code>. On checking that by going to the URL <code>https://sectech-archived-student-records.s3-ap-southeast-1.amazonaws.com/backup-notes.txt</code> you get to find some interesting information</p>
+<p><img src="backup-notes.png" alt="" /></p>
+<p>Now we know that the script is in github, the person is Chris Wang, and that he can be identified by <code>@chriswang-sectech</code>. Doing a quick search on Github, you get this</p>
+<p><img src="github-search.png" alt="" /></p>
+<p>We know that the main repo is <code>https://github.com/chriswang-sectech/sectech-backup-scripts</code>. Looking to it at first glance, there is an SSH command of <code>ssh chrisw@sec-tech.cf -p 8822</code>. However, I guessed that it could be hidden in one of the commits. Looking through them, you get to find the username and password</p>
+<p><img src="github-commit.png" alt="" /></p>
+<p>With this important credentials we can SSH into the system using <code>chrisw</code>:<code>7cj5dvv4uhBRLIpMNPeT</code>. You get a simple command shell.</p>
+<p><img src="new-shell.png" alt="" /></p>
+<p>Originally I was stuck at this. <code>list</code> is just a simplified version of <code>ls</code>, <code>print</code> is a simplified version of <code>cat</code> and so on. On experimenting, I tried to do something like this to get a shell</p>
+<pre><code>print | bash
+</code></pre>
+<p>After that I realised that characters like <code>&gt;</code>, <code>|</code> and more are eliminated.</p>
+<p>And then, <a href="https://github.com/undefined-func">undefined-func</a> reminded me that you can just <code>list .aws</code> and stuff.</p>
+<p><img src="navigation.png" alt="" /></p>
+<h1>Flag</h1>
+<p><code>WH2020{CR3dent1als_FiL3_IS_ImPT0rt4nt}</code></p>
+</div>
+    </div>
+    
+  </body>
+</html>

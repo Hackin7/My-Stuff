@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+    
+  </head>
+     
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/about.html">About</a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2020/Whitehacks 2020/RE/gdbtutor/README.md'>Original Github Link</a></div><h1>gdbtutor</h1>
+<p>54, RE, 50 SOLVES</p>
+<h2>Description</h2>
+<p>You’ve heard of vimtutor, now let me introduce you to gdbtutor!</p>
+<p>nc chals.whitehacks.ctf.sg 12002</p>
+<p>Author: lord_idiot</p>
+<h1>Solution</h1>
+<p>Just follow along the guide after netcaatting.</p>
+<pre><code>$ nc chals.whitehacks.ctf.sg 12002
+/home/gdbtutor/gdb: warning: Couldn't determine a path for the index cache directory.
+Breakpoint 1 at 0x400a0a
+[guide]                dP dP         dP              dP
+[guide]                88 88         88              88
+[guide] .d8888b. .d888b88 88d888b. d8888P dP    dP d8888P .d8888b. 88d888b.
+[guide] 88'  `88 88'  `88 88'  `88   88   88    88   88   88'  `88 88'  `88
+[guide] 88.  .88 88.  .88 88.  .88   88   88.  .88   88   88.  .88 88
+[guide] `8888P88 `88888P8 88Y8888'   dP   `88888P'   dP   `88888P' dP
+[guide]      .88
+[guide]  d8888P
+[guide]
+[guide]
+[guide] Welcome to gdbtutor!
+[guide] This will be a guided tour through the commands and uses of gdb, a
+[guide] powerful debugger tool that will be very useful for any reverse
+[guide] engineering work you do in the future
+[guide]
+[guide] Lets first load our crackme binary:
+[ cmd ]   file ./crackme.bin
+(gdb) file ./crackme.bin
+Reading symbols from ./crackme.bin...
+
+[guide] To make reversing easier, debug information and the source
+[guide] code for `./crackme.bin` has been provided.
+[guide] Run the `list` command to display the source
+[guide] code for the `main` function of our crackme.
+[ cmd ]   list main
+(gdb) list main
+1       #include &lt;stdio.h&gt;
+2       #include &lt;fcntl.h&gt;
+3       #include &lt;string.h&gt;
+4       #include &lt;unistd.h&gt;
+5       #include &lt;sys/types.h&gt;
+6       #include &lt;sys/stat.h&gt;
+7
+8       /* gcc ./crackme.c -o crackme.bin -g */
+9
+10      char secret_key[] = &quot;&lt;REDACTED FROM SOURCE&gt;&quot;;
+11      void initialisation(){
+12              setvbuf(stdout, 0, 2, 0);
+13      }
+14
+15      int main(){
+16              initialisation();
+17
+18              /* stage one */
+19              puts(&quot;[Stage 1]&quot;);
+20              if(getuid() != 0){
+21                      puts(&quot;You are not root, fail stage 1!&quot;);
+22                      return -1;
+23              }
+24              else{
+25                      puts(&quot;Stage 1 pass. Welcome root!&quot;);
+26              }
+27
+28              /* stage two */
+29              puts(&quot;[Stage 2]&quot;);
+30              char buf[100];
+31              memset(buf, '\x00', 100);
+32              printf(&quot;Give me the secret key: &quot;);
+33              fgets(buf, 99, stdin);
+34              buf[strlen(buf)-1] = '\x00'; // remove trailing newline
+35              if(strcmp(buf, secret_key) != 0){
+36                      puts(buf);
+37                      puts(&quot;You do not know the secret_key, fail stage 2!&quot;);
+38                      return -1;
+39              }
+40
+41              /* win */
+42              int fd = open(&quot;flag.txt&quot;, O_RDONLY);
+43              char flag[100];
+44              memset(flag, '\x00', 100);
+45              read(fd, flag, 100);
+46              printf(&quot;Congratulations, here is the flag: %s&quot;, flag);
+47
+48              return 0;
+49      }
+
+[guide] Now we can run the binary till the main function
+[guide] using the `start` command
+[ cmd ]   start
+(gdb) start
+Temporary breakpoint 2 at 0x4008c6: file ./crackme.c, line 15.
+Starting program: /home/gdbtutor/crackme.bin
+warning: Error disabling address space randomization: Operation not permitted
+
+[guide] Looking at the `main` function source code. We can see that
+[guide] `getuid()` needs to return 0 for us to pass the first stage.
+[guide] However, our user does not have a uid of 0, and thus `getuid()`
+[guide] will not return 0. Let's try to use gdb to change the return
+[guide] value of `getuid()` ourselves!
+[guide]
+[guide] First, disassemble `main` to get the exact assembly code being run.
+[ cmd ]   disassemble main
+[guide]
+[guide]
+
+Temporary breakpoint 2, main () at ./crackme.c:15
+15      int main(){
+(gdb) disassemble main
+Dump of assembler code for function main:
+   0x00000000004008bb &lt;+0&gt;:     push   rbp
+   0x00000000004008bc &lt;+1&gt;:     mov    rbp,rsp
+   0x00000000004008bf &lt;+4&gt;:     sub    rsp,0xf0
+=&gt; 0x00000000004008c6 &lt;+11&gt;:    mov    rax,QWORD PTR fs:0x28
+   0x00000000004008cf &lt;+20&gt;:    mov    QWORD PTR [rbp-0x8],rax
+   0x00000000004008d3 &lt;+24&gt;:    xor    eax,eax
+   0x00000000004008d5 &lt;+26&gt;:    mov    eax,0x0
+   0x00000000004008da &lt;+31&gt;:    call   0x400896 &lt;initialisation&gt;
+   0x00000000004008df &lt;+36&gt;:    mov    edi,0x400ab8
+   0x00000000004008e4 &lt;+41&gt;:    call   0x4006d0 &lt;puts@plt&gt;
+   0x00000000004008e9 &lt;+46&gt;:    call   0x400700 &lt;getuid@plt&gt;
+   0x00000000004008ee &lt;+51&gt;:    test   eax,eax
+   0x00000000004008f0 &lt;+53&gt;:    je     0x400906 &lt;main+75&gt;
+   0x00000000004008f2 &lt;+55&gt;:    mov    edi,0x400ac8
+   0x00000000004008f7 &lt;+60&gt;:    call   0x4006d0 &lt;puts@plt&gt;
+   0x00000000004008fc &lt;+65&gt;:    mov    eax,0xffffffff
+   0x0000000000400901 &lt;+70&gt;:    jmp    0x400a14 &lt;main+345&gt;
+   0x0000000000400906 &lt;+75&gt;:    mov    edi,0x400ae8
+   0x000000000040090b &lt;+80&gt;:    call   0x4006d0 &lt;puts@plt&gt;
+   0x0000000000400910 &lt;+85&gt;:    mov    edi,0x400b04
+   0x0000000000400915 &lt;+90&gt;:    call   0x4006d0 &lt;puts@plt&gt;
+   0x000000000040091a &lt;+95&gt;:    lea    rax,[rbp-0xe0]
+   0x0000000000400921 &lt;+102&gt;:   mov    edx,0x64
+   0x0000000000400926 &lt;+107&gt;:   mov    esi,0x0
+   0x000000000040092b &lt;+112&gt;:   mov    rdi,rax
+   0x000000000040092e &lt;+115&gt;:   call   0x400720 &lt;memset@plt&gt;
+   0x0000000000400933 &lt;+120&gt;:   mov    edi,0x400b0e
+   0x0000000000400938 &lt;+125&gt;:   mov    eax,0x0
+   0x000000000040093d &lt;+130&gt;:   call   0x400710 &lt;printf@plt&gt;
+   0x0000000000400942 &lt;+135&gt;:   mov    rdx,QWORD PTR [rip+0x200797]        # 0x6010e0 &lt;stdin@@GLIBC_2.2.5&gt;
+   0x0000000000400949 &lt;+142&gt;:   lea    rax,[rbp-0xe0]
+   0x0000000000400950 &lt;+149&gt;:   mov    esi,0x63
+   0x0000000000400955 &lt;+154&gt;:   mov    rdi,rax
+   0x0000000000400958 &lt;+157&gt;:   call   0x400750 &lt;fgets@plt&gt;
+   0x000000000040095d &lt;+162&gt;:   lea    rax,[rbp-0xe0]
+   0x0000000000400964 &lt;+169&gt;:   mov    rdi,rax
+   0x0000000000400967 &lt;+172&gt;:   call   0x4006e0 &lt;strlen@plt&gt;
+   0x000000000040096c &lt;+177&gt;:   sub    rax,0x1
+   0x0000000000400970 &lt;+181&gt;:   mov    BYTE PTR [rbp+rax*1-0xe0],0x0
+   0x0000000000400978 &lt;+189&gt;:   lea    rax,[rbp-0xe0]
+   0x000000000040097f &lt;+196&gt;:   mov    esi,0x6010a0
+   0x0000000000400984 &lt;+201&gt;:   mov    rdi,rax
+   0x0000000000400987 &lt;+204&gt;:   call   0x400760 &lt;strcmp@plt&gt;
+   0x000000000040098c &lt;+209&gt;:   test   eax,eax
+   0x000000000040098e &lt;+211&gt;:   je     0x4009b0 &lt;main+245&gt;
+   0x0000000000400990 &lt;+213&gt;:   lea    rax,[rbp-0xe0]
+   0x0000000000400997 &lt;+220&gt;:   mov    rdi,rax
+   0x000000000040099a &lt;+223&gt;:   call   0x4006d0 &lt;puts@plt&gt;
+   0x000000000040099f &lt;+228&gt;:   mov    edi,0x400b28
+   0x00000000004009a4 &lt;+233&gt;:   call   0x4006d0 &lt;puts@plt&gt;
+   0x00000000004009a9 &lt;+238&gt;:   mov    eax,0xffffffff
+   0x00000000004009ae &lt;+243&gt;:   jmp    0x400a14 &lt;main+345&gt;
+   0x00000000004009b0 &lt;+245&gt;:   mov    esi,0x0
+   0x00000000004009b5 &lt;+250&gt;:   mov    edi,0x400b56
+   0x00000000004009ba &lt;+255&gt;:   mov    eax,0x0
+   0x00000000004009bf &lt;+260&gt;:   call   0x400780 &lt;open@plt&gt;
+   0x00000000004009c4 &lt;+265&gt;:   mov    DWORD PTR [rbp-0xe4],eax
+   0x00000000004009ca &lt;+271&gt;:   lea    rax,[rbp-0x70]
+   0x00000000004009ce &lt;+275&gt;:   mov    edx,0x64
+   0x00000000004009d3 &lt;+280&gt;:   mov    esi,0x0
+   0x00000000004009d8 &lt;+285&gt;:   mov    rdi,rax
+   0x00000000004009db &lt;+288&gt;:   call   0x400720 &lt;memset@plt&gt;
+   0x00000000004009e0 &lt;+293&gt;:   lea    rcx,[rbp-0x70]
+   0x00000000004009e4 &lt;+297&gt;:   mov    eax,DWORD PTR [rbp-0xe4]
+   0x00000000004009ea &lt;+303&gt;:   mov    edx,0x64
+   0x00000000004009ef &lt;+308&gt;:   mov    rsi,rcx
+   0x00000000004009f2 &lt;+311&gt;:   mov    edi,eax
+   0x00000000004009f4 &lt;+313&gt;:   call   0x400730 &lt;read@plt&gt;
+   0x00000000004009f9 &lt;+318&gt;:   lea    rax,[rbp-0x70]
+   0x00000000004009fd &lt;+322&gt;:   mov    rsi,rax
+   0x0000000000400a00 &lt;+325&gt;:   mov    edi,0x400b60
+   0x0000000000400a05 &lt;+330&gt;:   mov    eax,0x0
+   0x0000000000400a0a &lt;+335&gt;:   call   0x400710 &lt;printf@plt&gt;
+   0x0000000000400a0f &lt;+340&gt;:   mov    eax,0x0
+   0x0000000000400a14 &lt;+345&gt;:   mov    rcx,QWORD PTR [rbp-0x8]
+   0x0000000000400a18 &lt;+349&gt;:   xor    rcx,QWORD PTR fs:0x28
+   0x0000000000400a21 &lt;+358&gt;:   je     0x400a28 &lt;main+365&gt;
+   0x0000000000400a23 &lt;+360&gt;:   call   0x4006f0 &lt;__stack_chk_fail@plt&gt;
+   0x0000000000400a28 &lt;+365&gt;:   leave
+   0x0000000000400a29 &lt;+366&gt;:   ret
+End of assembler dump.
+
+[guide] The disassembly may look confusing, but let's zoom in on the call
+[guide] to the `getuid` function.
+[code]  -----------------------------------------------------------------
+[code]  0x00000000004008e9 &lt;+46&gt;:       call   0x400700 &lt;getuid@plt&gt;
+[code]  0x00000000004008ee &lt;+51&gt;:       test   eax,eax
+[code]  -----------------------------------------------------------------
+[guide] Based on the `System V AMD64 ABI` calling convention used by linux
+[guide] the return value of a function is stored in the `rax` register.
+[guide] The eax register is just the value of the lower 32-bits of the `rax` register.
+[guide] So if we change the value of `rax`/`eax`, we can change the return value of `getuid`!
+[guide] First let's set a breakpoint at the address where `eax` is used
+[ cmd ]   break * 0x00000000004008ee
+[guide] Afterwards, continue the execution of the program with
+[ cmd ]   continue
+(gdb) break * 0x00000000004008ee
+Breakpoint 3 at 0x4008ee: file ./crackme.c, line 20.
+(gdb) continue
+Continuing.
+[Stage 1]
+[guide]
+Breakpoint 4 at 0x40093d: file ./crackme.c, line 32.
+[guide] We can view the curent value of `eax` in two ways.
+[ cmd ]   print $eax
+[ cmd ]   info register eax
+[guide] Then, change the value of `eax` to 0 to pass stage 1
+[ cmd ]   set $eax = 0
+[guide] If you display the value of `eax`, you'll see it's changed!
+[guide] Finally, continue execution to move on to stage 2
+[ cmd ]   continue
+[guide]
+
+Breakpoint 3, 0x00000000004008ee in main () at ./crackme.c:20
+20              if(getuid() != 0){
+(gdb) print $eax
+$1 = 1000
+(gdb) info register eax
+eax            0x3e8               1000
+(gdb) set $eax = 0
+(gdb) continue
+Continuing.
+Stage 1 pass. Welcome root!
+[Stage 2]
+[guide]
+[guide] I have helped you to set a breakpoint before the checks
+[guide] are done for stage 2. In this stage. We are doing a strcmp
+[guide] of the user's input with a `secret_key` in memory
+[code]  -----------------------------------------------------------------
+[code]  printf(&quot;Give me the secret key: &quot;);
+[code]  fgets(buf, 99, stdin);
+[code]  ...
+[code]  if(strcmp(buf, secret_key) != 0){
+[code]  ...
+[code]      puts(&quot;You do not know the secret_key, fail stage 2!&quot;);
+[code]  -----------------------------------------------------------------
+[guide] With the `secret_key` being the string value at address `0x6010a0`
+[code]  -----------------------------------------------------------------
+[code]  0x000000000040097f &lt;+196&gt;:      mov    esi,0x6010a0
+[code]  -----------------------------------------------------------------
+[guide] Let's find out the value of `secret_key`
+[ cmd ]   x/s 0x6010a0
+[ cmd ]   x/s secret_key
+[guide] After finding the value, continue execution and enter the `secret_key`
+[ cmd ]   continue
+[guide]
+
+Breakpoint 4, 0x000000000040093d in main () at ./crackme.c:32
+32              printf(&quot;Give me the secret key: &quot;);
+(gdb) x/s 0x6010a0
+0x6010a0 &lt;secret_key&gt;:  &quot;Ay, ay, ay. I'm your little butterfly&quot;
+(gdb) x/s secret_key
+0x6010a0 &lt;secret_key&gt;:  &quot;Ay, ay, ay. I'm your little butterfly&quot;
+(gdb) continue
+Continuing.
+Give me the secret key: Ay, ay, ay. I'm your little butterfly
+[guide]
+[guide] Great job on this challenge!
+[guide] I hope you have learnt something new
+[guide] about the power of gdb in debugging
+Congratulations, here is the flag: WH2020{The_beginnings_of_a_gdb_master}
+[Inferior 1 (process 1013) exited normally]
+[guide]
+(gdb)
+The program is not being run.
+(gdb)
+</code></pre>
+<p>Good challenge and tutorial</p>
+<h1>Flag</h1>
+<p><code>WH2020{The_beginnings_of_a_gdb_master}</code></p>
+</div>
+    </div>
+    
+  </body>
+</html>

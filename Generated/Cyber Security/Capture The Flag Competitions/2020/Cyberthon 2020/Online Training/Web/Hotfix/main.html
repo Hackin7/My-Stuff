@@ -1,0 +1,41 @@
+<h1>Hotfix</h1>
+<p>400 Points, Web, 8 Solves as of solving</p>
+<h2>Description</h2>
+<p>Thanks to the shenanigans you pulled in the previous challenge to log yourself in, the developers of this website are now in a state of panic and deployed a series of hotfixes. I'm not completely convinced they did a good job.</p>
+<h2>Given</h2>
+<p>login.php</p>
+<h1>Solution</h1>
+<h2>Experiments</h2>
+<p>The php code given tells us that we can't use the  <code>admin</code>,<code>'</code> and whitespaces. So the idea is to craft a SQL injection without needing any of those (Because doing it from the password is unrealistic)</p>
+<p>BUT
+1. the word <code>admin</code> is replaced first before replacing <code>'</code>. So theoretically, we can put in <code>ad'min</code> and it will become <code>admin</code> </p>
+<p>Google, my best friend</p>
+<p>Fun things researched upon (may be a sidetrack)
+1. % is a wildcard character
+2. \ is an escape character
+3. https://ctf-wiki.github.io/ctf-wiki/web/sqli/
+4. https://websec.wordpress.com/2010/12/04/sqli-filter-evasion-cheat-sheet-mysql/</p>
+<p>Unicode Smuggling (Using <code>ʼ</code> instead of <code>'</code>) doesn't work</p>
+<p>By the way, sqlmap fails
+<img alt="sqlmap_fail" src="sqlmap_fail.png" /></p>
+<h2>robots.txt</h2>
+<p>After spending so much time trying to find vulnerabilities in the PHP and SQL, I decided to just try checking <code>robots.txt</code></p>
+<p><code>http://challenges.csdc20t.ctf.sg:10044/robots.txt</code>
+<code>User-Agent: *
+Disallow: /accounts.db</code></p>
+<p>If you go to <code>http://challenges.csdc20t.ctf.sg:10044/accounts.db</code>, you get to download the database file. Then 
+read the db file for the password
+<img alt="DB Browser" src="dbfile.png" /></p>
+<p>Oh yeah we need to decrypt the md5 password first. I used this <a href="https://hashtoolkit.com/decrypt-hash/?hash=53a22cfda4298c118a95df7cf66314b0">online converter</a>
+<img alt="Decoding Results" src="md5decode.png" /></p>
+<p>Username: <code>ad'min</code></p>
+<p>Password: <code>tinkerbell+peterpan</code></p>
+<p><img alt="External Login" src="extenal_login.png" /></p>
+<h2>Referrer</h2>
+<p>Ah right, no external login. Let's use <code>curl</code> to change our referrer
+<code>$ curl -d "username=ad%20min&amp;password=tinkerbell%2Bpeterpan" "http://challenges.csdc20t.ctf.sg:10044/login.php"
+&lt;br /&gt;&lt;b&gt;No external admin access!&lt;/b&gt;
+$ curl -e internal.krytec.org -d "username=ad%20min&amp;password=tinkerbell%2Bpeterpan" "http://challenges.csdc20t.ctf.sg:10044/login.php"
+&lt;h1&gt;Hello&lt;/h1&gt;&lt;br/&gt;Username: admin&lt;br /&gt;CTFSG{H0TF1X_M0R3_L1K3_H0TC4K35}</code></p>
+<h1>Flag</h1>
+<p><code>CTFSG{H0TF1X_M0R3_L1K3_H0TC4K35}</code></p>
