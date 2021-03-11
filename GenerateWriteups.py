@@ -28,7 +28,7 @@ def textToMarkdown(text):
     return pycmarkgfm.gfm_to_html(text)
 
 def generateDirectory(hierarchy):
-    newpath = "./Generated/"+'/'.join(hierarchy[2:])
+    newpath = "./Generated/"+'/'.join(hierarchy[2:]).replace(" ", "_")
     os.makedirs(newpath, exist_ok=True)
     return newpath
     
