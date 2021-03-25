@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2021/CTF.SG CTF/Reversing/Haachama Cooking/README.md'>Original Github Link</a></div><h1>Haachama Cooking</h1>
+<p>1000, REVERSE ENGINEERING, 0 SOLVES</p>
+<h3>Description</h3>
+<p>Welcome to Haachama cooking! Today's I'm going to make my very own blend of AES! A little sprinkle of
+... Or was it parallism? Whatever, either one will work, this should still taste better than the tarantula ramen I had last time anyway.</p>
+<!-- raw HTML omitted -->
+<p>(Note: The youtube link is only a <em>cultured</em> bgm recommendation by the challenge creator and has nothing to do with the solution.)</p>
+<p>Author: violenttestpen</p>
+<h3>Attached Files</h3>
+<p>haachama-cooking</p>
+<h2>Solution</h2>
+<p>Having gotten into Vtubers mainly because of Haachama, I knew I had to try this challenge.</p>
+<h3>Basic Analysis</h3>
+<h3>Binary</h3>
+<pre><code>$ file haachama-cooking
+haachama-cooking: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), statically linked, Go BuildID=-AA-1INLPpPSO2dvoOwc/i6l5o4uDtgizVcUm6ckO/9J4soZWU7R1iHPBf0e3x/Pz6FIHdzlJMuvwQvNdKi, not stripped
+$ checksec haachama-cooking
+[*] '/mnt/c/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions/2021/CTF.SG CTF/Reversing/Haachama Cooking/haachama-cooking'
+    Arch:     i386-32-little
+    RELRO:    No RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x8048000)
+$ strings haachama-cooking  | grep CTFSG{
+$ ./haachama-cooking
+bash: ./haachama-cooking: cannot execute binary file: Exec format error
+$
+</code></pre>
+<p>Here are some interesting observations</p>
+<ol>
+<li>It is a Intel 80386 of all things. Also it doesn't run. This could mean that the typical reverse engineering tricks don't work?</li>
+<li><code>LSB executable</code> : Least-Significant Byte, Little Endian</li>
+<li><code>Go BuildID=-AA-1INLPpPSO2dvoOwc/i6l5o4uDtgizVcUm6ckO/9J4soZWU7R1iHPBf0e3x/Pz6FIHdzlJMuvwQvNdKi</code> suggests it is coded in Golang.</li>
+</ol>
+<p>Reversing the binary in cutter brings up a lot of function names, like <code>sym.fmt.Fprintln</code>, which suggest this is not coded in C. The main functions are</p>
+<ul>
+<li><code>sym.main.main</code></li>
+<li><code>sym.main.aesEncrypt</code></li>
+<li><code>sym.main.encryptPart</code></li>
+<li><code>sym.main.encryptPart.func1</code></li>
+<li><code>sym.main.merge</code></li>
+<li><code>sym.main.merge.func1</code></li>
+</ul>
+<h3>Challenge Description</h3>
+<p>The description brought out some interesting words and concepts, which I'll google on, since they'll be used in the binary</p>
+<table>
+<thead>
+<tr>
+<th>Concepts</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AES</td>
+<td>Some encryption standard, quite common.</td>
+</tr>
+<tr>
+<td>concurrency</td>
+<td>Concurrency is the ability of different parts or units of a program, algorithm, or problem to be executed out-of-order or in partial order, without affecting the final outcome.</td>
+</tr>
+<tr>
+<td>parallism</td>
+<td>Doing lots of things at once</td>
+</tr>
+</tbody>
+</table>
+<h3>Addressing all the concerns</h3>
+<p>Turns out for the 1st observation, all I needed to do was run it in a proper Linux virtual machine and not Windows Subsystem for Linux. Doing so gives me this</p>
+<pre><code>$./haachama-cooking
+Enter your flag here:
+Invalid flag length
+</code></pre>
+<h2>Flag</h2>
+<p>``</p>
+</div>
+    </div>
+
+  </body>
+</html>

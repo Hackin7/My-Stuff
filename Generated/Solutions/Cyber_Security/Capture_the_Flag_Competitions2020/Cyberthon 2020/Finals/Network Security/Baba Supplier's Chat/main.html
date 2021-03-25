@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2020/Cyberthon 2020/Finals/Network Security/Baba Supplier's Chat/README.md'>Original Github Link</a></div><h1>Baba Supplier's Chat</h1>
+<p>180, NETWORK SECURITY, 13 SOLVES</p>
+<h2>Description</h2>
+<p>ShoppingBaba uses a chat server to interact with their suppliers.</p>
+<p>Their suppliers connects to this chat server by using a client python script. Upon connecting, the server usually will provide the supplier with a random username with password for login purposes.</p>
+<p>However, suppliers now complain that the connection ends too quickly and they can no longer login!</p>
+<p>Investigate the client script and connect to p7ju6oidw6ayykt9zeglwyxired60yct.ctf.sg:21011 to get to the bottom of this!</p>
+<h2>Given</h2>
+<p>client.py</p>
+<h1>Solution</h1>
+<p>Upon reading the client.py, the part that stands out the most to me is this</p>
+<pre><code>try:    
+    #Standard login
+    data = sock.recv(1024)
+    print &gt;&gt;sys.stderr, 'received &quot;%s&quot;' % data
+    print 'sending &quot;%s&quot; ' % &quot;shake_baba&quot;
+    sock.sendall(&quot;shake_baba&quot;)
+    data = sock.recv(1024)
+    print &gt;&gt;sys.stderr, 'received &quot;%s&quot;' % data
+
+    # Reply hash of the message send to login
+    print 'sending hashed &quot;%s&quot; ' % str(data)
+    sock.sendall(str(hash(data)))
+
+    data = sock.recv(1024)
+    print &gt;&gt;sys.stderr, 'received &quot;%s&quot;' % data
+
+    # Get login credentials
+    print 'sending hashed &quot;%s&quot; ' % str(data)
+    sock.sendall(&quot;Hello!&quot;)
+
+    data = sock.recv(1024)
+    print &gt;&gt;sys.stderr, 'received &quot;%s&quot;' % data
+</code></pre>
+<p>The code above basically retrieves data from and sends data to the server 3 times. That's why the connection is so short.
+What I did was to retrieve and send data many times (using a while loop), as shown in the code below</p>
+<pre><code>try:    
+    #Standard login
+    data = sock.recv(1024)
+    print &gt;&gt;sys.stderr, 'received &quot;%s&quot;' % data
+    print 'sending &quot;%s&quot; ' % &quot;shake_baba&quot;
+    sock.sendall(&quot;shake_baba&quot;)
+    data = sock.recv(1024)
+    print &gt;&gt;sys.stderr, 'received &quot;%s&quot;' % data
+
+    ### Basically change the code such that it runs many times ###########
+    while True:
+        # Reply hash of the message send to login
+        print 'sending hashed &quot;%s&quot; ' % str(data)
+        sock.sendall(str(hash(data)))
+
+        data = sock.recv(1024)
+        print &gt;&gt;sys.stderr, 'received &quot;%s&quot;' % data
+    ######################################################################
+</code></pre>
+<p>By the way, the code has to run on python2, which is annoying, but at least I have it installed I guess, so it's not so bad.</p>
+<p>And here's the output:</p>
+<pre><code>$ python2 ./solve.py p7ju6oidw6ayykt9zeglwyxired60yct.ctf.sg 21011
+connecting to p7ju6oidw6ayykt9zeglwyxired60yct.ctf.sg port 21011
+received &quot;Welcome to ShoppingBaba Supplier's Chat Server!&quot;
+sending &quot;shake_baba&quot;
+received &quot;courage&quot;
+sending hashed &quot;courage&quot;
+received &quot;related&quot;
+sending hashed &quot;related&quot;
+received &quot;top&quot;
+sending hashed &quot;top&quot;
+received &quot;on&quot;
+sending hashed &quot;on&quot;
+received &quot;difficult&quot;
+sending hashed &quot;difficult&quot;
+received &quot;begun&quot;
+sending hashed &quot;begun&quot;
+received &quot;master&quot;
+sending hashed &quot;master&quot;
+received &quot;count&quot;
+sending hashed &quot;count&quot;
+received &quot;wrote&quot;
+sending hashed &quot;wrote&quot;
+received &quot;shown&quot;
+sending hashed &quot;shown&quot;
+received &quot;pay&quot;
+sending hashed &quot;pay&quot;
+received &quot;nobody&quot;
+sending hashed &quot;nobody&quot;
+received &quot;salmon&quot;
+sending hashed &quot;salmon&quot;
+received &quot;create&quot;
+sending hashed &quot;create&quot;
+received &quot;more&quot;
+sending hashed &quot;more&quot;
+received &quot;actually&quot;
+sending hashed &quot;actually&quot;
+received &quot;brief&quot;
+sending hashed &quot;brief&quot;
+received &quot;continent&quot;
+sending hashed &quot;continent&quot;
+received &quot;door&quot;
+sending hashed &quot;door&quot;
+received &quot;fully&quot;
+sending hashed &quot;fully&quot;
+received &quot;want&quot;
+sending hashed &quot;want&quot;
+received &quot;believed&quot;
+sending hashed &quot;believed&quot;
+received &quot;angry&quot;
+sending hashed &quot;angry&quot;
+received &quot;instant&quot;
+sending hashed &quot;instant&quot;
+received &quot;tears&quot;
+sending hashed &quot;tears&quot;
+received &quot;ants&quot;
+sending hashed &quot;ants&quot;
+received &quot;this&quot;
+sending hashed &quot;this&quot;
+received &quot;recently&quot;
+sending hashed &quot;recently&quot;
+received &quot;indicate&quot;
+sending hashed &quot;indicate&quot;
+received &quot;model&quot;
+sending hashed &quot;model&quot;
+received &quot;of&quot;
+sending hashed &quot;of&quot;
+received &quot;animal&quot;
+sending hashed &quot;animal&quot;
+received &quot;tank&quot;
+sending hashed &quot;tank&quot;
+received &quot;consist&quot;
+sending hashed &quot;consist&quot;
+received &quot;wealth&quot;
+sending hashed &quot;wealth&quot;
+received &quot;wing&quot;
+sending hashed &quot;wing&quot;
+received &quot;ten&quot;
+sending hashed &quot;ten&quot;
+received &quot;caught&quot;
+sending hashed &quot;caught&quot;
+received &quot;pack&quot;
+sending hashed &quot;pack&quot;
+received &quot;pipe&quot;
+sending hashed &quot;pipe&quot;
+received &quot;dozen&quot;
+sending hashed &quot;dozen&quot;
+received &quot;phrase&quot;
+sending hashed &quot;phrase&quot;
+received &quot;doing&quot;
+sending hashed &quot;doing&quot;
+received &quot;lucky&quot;
+sending hashed &quot;lucky&quot;
+received &quot;eight&quot;
+sending hashed &quot;eight&quot;
+received &quot;birthday&quot;
+sending hashed &quot;birthday&quot;
+received &quot;grow&quot;
+sending hashed &quot;grow&quot;
+received &quot;field&quot;
+sending hashed &quot;field&quot;
+received &quot;pair&quot;
+sending hashed &quot;pair&quot;
+received &quot;smaller&quot;
+sending hashed &quot;smaller&quot;
+received &quot;found&quot;
+sending hashed &quot;found&quot;
+received &quot;mouse&quot;
+sending hashed &quot;mouse&quot;
+received &quot;necessary&quot;
+sending hashed &quot;necessary&quot;
+received &quot;way&quot;
+sending hashed &quot;way&quot;
+received &quot;support&quot;
+sending hashed &quot;support&quot;
+received &quot;coffee&quot;
+sending hashed &quot;coffee&quot;
+received &quot;fine&quot;
+sending hashed &quot;fine&quot;
+received &quot;ranch&quot;
+sending hashed &quot;ranch&quot;
+received &quot;reason&quot;
+sending hashed &quot;reason&quot;
+received &quot;wherever&quot;
+sending hashed &quot;wherever&quot;
+received &quot;traffic&quot;
+sending hashed &quot;traffic&quot;
+received &quot;egg&quot;
+sending hashed &quot;egg&quot;
+received &quot;variety&quot;
+sending hashed &quot;variety&quot;
+received &quot;form&quot;
+sending hashed &quot;form&quot;
+received &quot;sense&quot;
+sending hashed &quot;sense&quot;
+received &quot;instance&quot;
+sending hashed &quot;instance&quot;
+received &quot;mirror&quot;
+sending hashed &quot;mirror&quot;
+received &quot;road&quot;
+sending hashed &quot;road&quot;
+received &quot;hospital&quot;
+sending hashed &quot;hospital&quot;
+received &quot;charge&quot;
+sending hashed &quot;charge&quot;
+received &quot;liquid&quot;
+sending hashed &quot;liquid&quot;
+received &quot;face&quot;
+sending hashed &quot;face&quot;
+received &quot;class&quot;
+sending hashed &quot;class&quot;
+received &quot;sea&quot;
+sending hashed &quot;sea&quot;
+received &quot;connected&quot;
+sending hashed &quot;connected&quot;
+received &quot;active&quot;
+sending hashed &quot;active&quot;
+received &quot;finest&quot;
+sending hashed &quot;finest&quot;
+received &quot;discuss&quot;
+sending hashed &quot;discuss&quot;
+received &quot;larger&quot;
+sending hashed &quot;larger&quot;
+received &quot;obtain&quot;
+sending hashed &quot;obtain&quot;
+received &quot;chief&quot;
+sending hashed &quot;chief&quot;
+received &quot;slope&quot;
+sending hashed &quot;slope&quot;
+received &quot;action&quot;
+sending hashed &quot;action&quot;
+received &quot;string&quot;
+sending hashed &quot;string&quot;
+received &quot;son&quot;
+sending hashed &quot;son&quot;
+received &quot;dawn&quot;
+sending hashed &quot;dawn&quot;
+received &quot;ordinary&quot;
+sending hashed &quot;ordinary&quot;
+received &quot;comfortable&quot;
+sending hashed &quot;comfortable&quot;
+received &quot;both&quot;
+sending hashed &quot;both&quot;
+received &quot;pet&quot;
+sending hashed &quot;pet&quot;
+received &quot;represent&quot;
+sending hashed &quot;represent&quot;
+received &quot;difference&quot;
+sending hashed &quot;difference&quot;
+received &quot;birthday&quot;
+sending hashed &quot;birthday&quot;
+received &quot;review&quot;
+sending hashed &quot;review&quot;
+received &quot;corner&quot;
+sending hashed &quot;corner&quot;
+received &quot;effect&quot;
+sending hashed &quot;effect&quot;
+received &quot;struggle&quot;
+sending hashed &quot;struggle&quot;
+received &quot;except&quot;
+sending hashed &quot;except&quot;
+received &quot;toy&quot;
+sending hashed &quot;toy&quot;
+received &quot;ready&quot;
+sending hashed &quot;ready&quot;
+received &quot;week&quot;
+sending hashed &quot;week&quot;
+received &quot;compass&quot;
+sending hashed &quot;compass&quot;
+received &quot;horse&quot;
+sending hashed &quot;horse&quot;
+received &quot;carry&quot;
+sending hashed &quot;carry&quot;
+received &quot;new&quot;
+sending hashed &quot;new&quot;
+received &quot;am&quot;
+sending hashed &quot;am&quot;
+received &quot;sort&quot;
+sending hashed &quot;sort&quot;
+received &quot;system&quot;
+sending hashed &quot;system&quot;
+received &quot;page&quot;
+sending hashed &quot;page&quot;
+received &quot;factory&quot;
+sending hashed &quot;factory&quot;
+received &quot;bit&quot;
+sending hashed &quot;bit&quot;
+received &quot;egg&quot;
+sending hashed &quot;egg&quot;
+received &quot;stick&quot;
+sending hashed &quot;stick&quot;
+received &quot;event&quot;
+sending hashed &quot;event&quot;
+received &quot;today&quot;
+sending hashed &quot;today&quot;
+received &quot;drove&quot;
+sending hashed &quot;drove&quot;
+received &quot;service&quot;
+sending hashed &quot;service&quot;
+received &quot;sing&quot;
+sending hashed &quot;sing&quot;
+received &quot;poet&quot;
+sending hashed &quot;poet&quot;
+received &quot;although&quot;
+sending hashed &quot;although&quot;
+received &quot;wave&quot;
+sending hashed &quot;wave&quot;
+received &quot;combine&quot;
+sending hashed &quot;combine&quot;
+received &quot;quickly&quot;
+sending hashed &quot;quickly&quot;
+received &quot;character&quot;
+sending hashed &quot;character&quot;
+received &quot;younger&quot;
+sending hashed &quot;younger&quot;
+received &quot;party&quot;
+sending hashed &quot;party&quot;
+received &quot;such&quot;
+sending hashed &quot;such&quot;
+received &quot;increase&quot;
+sending hashed &quot;increase&quot;
+received &quot;fell&quot;
+sending hashed &quot;fell&quot;
+received &quot;soldier&quot;
+sending hashed &quot;soldier&quot;
+received &quot;independent&quot;
+sending hashed &quot;independent&quot;
+received &quot;magnet&quot;
+sending hashed &quot;magnet&quot;
+received &quot;ruler&quot;
+sending hashed &quot;ruler&quot;
+received &quot;real&quot;
+sending hashed &quot;real&quot;
+received &quot;island&quot;
+sending hashed &quot;island&quot;
+received &quot;mother&quot;
+sending hashed &quot;mother&quot;
+received &quot;summer&quot;
+sending hashed &quot;summer&quot;
+received &quot;telephone&quot;
+sending hashed &quot;telephone&quot;
+received &quot;repeat&quot;
+sending hashed &quot;repeat&quot;
+received &quot;due&quot;
+sending hashed &quot;due&quot;
+received &quot;dozen&quot;
+sending hashed &quot;dozen&quot;
+received &quot;gas&quot;
+sending hashed &quot;gas&quot;
+received &quot;bite&quot;
+sending hashed &quot;bite&quot;
+received &quot;spread&quot;
+sending hashed &quot;spread&quot;
+received &quot;depend&quot;
+sending hashed &quot;depend&quot;
+received &quot;gasoline&quot;
+sending hashed &quot;gasoline&quot;
+received &quot;central&quot;
+sending hashed &quot;central&quot;
+received &quot;for&quot;
+sending hashed &quot;for&quot;
+received &quot;luck&quot;
+sending hashed &quot;luck&quot;
+received &quot;Cyberthon{chat_pwned}&quot;
+sending hashed &quot;Cyberthon{chat_pwned}&quot;
+received &quot;&quot;
+sending hashed &quot;&quot;
+received &quot;&quot;
+sending hashed &quot;&quot;
+received &quot;&quot;
+sending hashed &quot;&quot;
+socket.error - Broken pipe addr:  ('p7ju6oidw6ayykt9zeglwyxired60yct.ctf.sg', 21011)
+</code></pre>
+<h1>Flag</h1>
+<p><code>Cyberthon{chat_pwned}</code></p>
+</div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2020/Cyberthon 2020/Online Training/Web/Walrus/README.md'>Original Github Link</a></div><h1>Walrus</h1>
+<p>100
+Web
+38 Solves as of solving</p>
+<h2>Description</h2>
+<p>Evil mastermind Dr. Warudo seems to be working a secret project called the <a href="http://challenges.csdc20t.ctf.sg:10041/">Walrus Project</a>. Can you retrieve his project files so that we can investigate further?</p>
+<h1>Solution</h1>
+<p>On inspecting the entire site</p>
+<pre><code class="language-&lt;!DOCTYPE">&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;title&gt;WALRUS&lt;/title&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;style&gt;
+body {
+    font-family: Verdana, sans-serif;
+    font-size: 0.8em;
+}
+
+header, nav, section, article, footer {
+    border: 1px solid grey;
+    margin: 5px;
+    padding: 8px;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 5px;
+}
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+
+        &lt;header&gt;
+            &lt;h1&gt;PROJECT WALRUS&lt;/h1&gt;
+        &lt;/header&gt;
+
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;index.html&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;team.html&quot;&gt;The Team&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;rules.html&quot;&gt;Rules&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;files.html&quot;&gt;Project Files&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+
+        &lt;article&gt;
+            &lt;marquee&gt;Welcome. Velkommen. Welkom. 歡迎. Bienvenue. Willkommen. ようこそ. Benvenuto. Välkommen. 환영합니다. Bienvenido. 欢迎. Tervetuloa. Bem-vindo. добро пожаловать.&lt;/marquee&gt;
+        &lt;/article&gt;
+
+        &lt;article&gt;
+            &lt;h2&gt;Project Rules&lt;/h2&gt;
+            &lt;ol&gt;
+                &lt;li&gt;You do not talk about the WALRUS&lt;/li&gt;
+                &lt;li&gt;When in doubt, refer to Rule 1&lt;/li&gt;
+                &lt;li&gt;All unlabelled items in the pantry will be disposed of at the end of each week.&lt;/li&gt;
+                &lt;!-- Damn it Warudo, I know those unlabelled sandwiches I end up clearing every week belongs to you. To anyone that sees this, his credentials are warudo:thew@lrusm4n. Hack him, shame him for all I care.--&gt;
+            &lt;/ol&gt;
+        &lt;/article&gt;
+
+        &lt;footer&gt;
+            &lt;p&gt;&amp;copy; 2020 Krytec Inc. All rights reserved.&lt;/p&gt;
+        &lt;/footer&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Now just enter the username and password, download the walrus.gz, and extract it</p>
+<h1>Flag</h1>
+<p><code>CTFSG{z444_w4Lrud0}</code></p>
+</div>
+    </div>
+
+  </body>
+</html>

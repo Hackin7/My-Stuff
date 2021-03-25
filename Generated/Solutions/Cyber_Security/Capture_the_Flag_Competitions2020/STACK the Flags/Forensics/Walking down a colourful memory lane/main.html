@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2020/STACK the Flags/Forensics/Walking down a colourful memory lane/README.md'>Original Github Link</a></div><h1>Walking down a colourful memory lane</h1>
+<p>992, FORENSICS, 6 SOLVES</p>
+<h3>Description</h3>
+<p>We are trying to find out how did our machine get infected. What did the user do?</p>
+<p>Please view this Document for download instructions.</p>
+<p>This challenge:</p>
+<ul>
+<li>Is eligible for Awesome Write-ups Award</li>
+<li>Prerequisite for Mastery Award - Forensicator</li>
+</ul>
+<h2>Solution</h2>
+<h3>Volatility</h3>
+<p>My friend undefined-func used volatility to extract out some files during the challenge, the most important one is <code>file.None.0xfffffa801a81fab0.dat</code></p>
+<p>On redoing the challnge here are the steps he told me</p>
+<ol>
+<li>First step of volatility is always <code>imageinfo</code> to know what profile to use
+<ol>
+<li>The profile we could use is <code>Win7SP1x64</code> from the output below</li>
+</ol>
+<pre><code>$ volatility imageinfo -f forensics-challenge-1.mem
+Volatility Foundation Volatility Framework 2.6
+INFO    : volatility.debug    : Determining profile based on KDBG search...
+        Suggested Profile(s) : Win7SP1x64, Win7SP0x64, Win2008R2SP0x64, Win2008R2SP1x64_24000, Win2008R2SP1x64_23418, Win2008R2SP1x64, Win7SP1x64_24000, Win7SP1x64_23418
+                    AS Layer1 : WindowsAMD64PagedMemory (Kernel AS)
+                    AS Layer2 : FileAddressSpace (/mnt/c/Users/zunmu/Documents/Stuff/forensics-challenge-1.mem)
+                    PAE type : No PAE
+                        DTB : 0x187000L
+                        KDBG : 0xf800029fb0a0L
+        Number of Processors : 1
+    Image Type (Service Pack) : 1
+                KPCR for CPU 0 : 0xfffff800029fcd00L
+            KUSER_SHARED_DATA : 0xfffff78000000000L
+        Image date and time : 2020-12-03 09:12:22 UTC+0000
+    Image local date and time : 2020-12-03 17:12:22 +0800
+</code></pre>
+</li>
+<li>As the challenge said &quot;how did our machine get infected. What did the user do?&quot;, we can think that maybe the user did something through the network.
+<ol>
+<li>So we should <code>netscan</code></li>
+</ol>
+<pre><code>$ volatility --profile=Win7SP1x64 netscan -f forensics-challenge-1.mem
+Volatility Foundation Volatility Framework 2.6
+Offset(P)          Proto    Local Address                  Foreign Address      State            Pid      Owner          Created
+0x7dc07790         UDPv4    0.0.0.0:68                     *:*                                   756      svchost.exe    2020-12-03 09:12:15 UTC+0000
+0x7dc6d700         UDPv4    0.0.0.0:58881                  *:*                                   500      svchost.exe    2020-12-03 09:11:26 UTC+0000
+0x7dc9b010         UDPv4    0.0.0.0:49797                  *:*                                   692      chrome.exe     2020-12-03 09:12:14 UTC+0000
+0x7dcbad70         UDPv4    0.0.0.0:59347                  *:*                                   692      chrome.exe     2020-12-03 09:11:25 UTC+0000
+0x7dcbad70         UDPv6    :::59347                       *:*                                   692      chrome.exe     
+</code></pre>
+<pre><code>2020-12-03 08:52:06 UTC+0000
+0x7e3b0010         UDPv4    0.0.0.0:3702                   *:*                                   252      svchost.exe    2020-12-03 08:52:06 UTC+0000
+0x7e3b0350         UDPv4    0.0.0.0:54247                  *:*                                   252      svchost.exe    2020-12-03 08:52:06 UTC+0000
+0x7e3b0350         UDPv6    :::54247                       *:*                                   252      svchost.exe    2020-12-03 08:52:06 UTC+0000
+0x7dc18580         TCPv4    192.168.197.128:49308          23.44.5.89:80        ESTABLISHED      2904     chrome.exe    
+0x7dc46cf0         TCPv4    192.168.197.128:49307          192.124.249.31:80    ESTABLISHED      2904     chrome.exe    
+0x7dccdcf0         TCPv4    -:49293                        151.101.9.140:443    CLOSED           692      chrome.exe    
+0x7dcfa810         TCPv4    -:49301                        119.9.70.218:443     CLOSED           692      chrome.exe    
+0x7dd38c50         TCPv4    192.168.197.128:49278          23.5.165.147:80      ESTABLISHED      2904     chrome.exe    
+0x7dda5010         TCPv4    192.168.197.128:49309          104.18.21.226:80     ESTABLISHED      2904     chrome.exe    
+0x7e0737f0         TCPv6    -:0                            38ab:2f1a:80fa:ffff:38ab:2f1a:80fa:ffff:0 CLOSED           4        System
+0x7e3b19e0         TCPv6    -:0                            38ab:2f1a:80fa:ffff:38ab:2f1a:80fa:ffff:0 CLOSED         
+</code></pre>
+</li>
+<li>We see chrome (with the id <code>2904</code>) got ESTABLISHED connection, which is suspicious.
+<ol>
+<li>I tried dumping out the data, and seeing the URL's unside</li>
+</ol>
+<pre><code>$ volatility -f forensics-challenge-1.mem --profile=Win7SP1x64 memdump dumpfiles --dump-dir=./ -p 2904
+Volatility Foundation Volatility Framework 2.6
+************************************************************************
+Writing chrome.exe [  2904] to 2904.dmp
+$ strings 2904.dmp | grep &quot;http://&quot;
+</code></pre>
+<pre><code>http://ocsp.digicert.com0:
+)http://crl3.digicert.com/Omniroot2025.crl0m
+http://www.mediafire.com/view/5wo9db2pa7gdcoc/This_is_a_png_file.png/file
+http://www.mediafire.com/view/5wo9db2pa7gdcoc/This_is_a_png_file.png/file
+http://mediafire.com/
+MmCahttp://s@^
+http://a
+ReTahttp://s
+FMslhttp://w
+http://www.mediafire.com/view/5wo9db2pa7gdcoc/This_is_a_png_file.png/file
+$http://certs.godaddy.com/repository/1301
+&amp;http://crl.godaddy.com/gdig2s1-910.crl0]
++http://certificates.godaddy.com/repository/0
+http://ocsp.godaddy.com/0@
+4http://certificates.godaddy.com/repository/gdig2.crt0
+$
+</code></pre>
+You can see the suspicious URL to work from: <a href="http://www.mediafire.com/view/5wo9db2pa7gdcoc/This_is_a_png_file.png/file">http://www.mediafire.com/view/5wo9db2pa7gdcoc/This_is_a_png_file.png/file</a> More about how to deal with this URL in the later part of the writeup
+<ol>
+<li>Alternatively we can use the <code>chromehistory</code> command to check. You can get the plugin from <a href="https://blog.superponible.com/2014/08/31/volatility-plugin-chrome-history/">here</a>. Then you can get the suspicious URL to work through there</li>
+<li>Following <a href="https://www.petermstewart.net/memlabs-memory-forensics-challenges-lab-2-write-up/">https://www.petermstewart.net/memlabs-memory-forensics-challenges-lab-2-write-up/</a> to extract chrome history</li>
+</ol>
+<pre><code>$ volatility -f forensics-challenge-1.mem --profile=Win7SP1x64 filescan &gt; filescan.txt
+Volatility Foundation Volatility Framework 2.6
+$ head filescan.txt
+Offset(P)            #Ptr   #Hnd Access Name
+------------------ ------ ------ ------ ----
+0x000000007d292510      1      1 R--r-d \Device\HarddiskVolume1\Program Files\Google\Chrome\Application\86.0.4240.198\chrome_100_percent.pak
+0x000000007d292900     12      0 R--r-d \Device\HarddiskVolume1\Windows\System32\wercplsupport.dll
+0x000000007dc018b0      2      1 ------ \Device\NamedPipe\mojo.2904.1772.18008832196772932115
+0x000000007dc01a00      1      1 R--rw- \Device\HarddiskVolume1\Program Files\Google\Chrome\Application\86.0.4240.198
+0x000000007dc03260      2      1 ------ \Device\NamedPipe\mojo.2904.1772.718663783432554285
+0x000000007dc04310      3      3 R--r-- \Device\HarddiskVolume1\Windows\Fonts\segoeuib.ttf
+0x000000007dc04730      2      1 ------ \Device\NamedPipe\mojo.2904.1772.939864627197359849
+0x000000007dc04880      2      1 ------ \Device\NamedPipe\mojo.2904.1772.7433814428407545744
+$ volatility -f forensics-challenge-1.mem --profile=Win7SP1x64 dumpf
+iles -Q 0x000000007f38d070 -D .
+Volatility Foundation Volatility Framework 2.6
+DataSectionObject 0x7f38d070   None   \Device\HarddiskVolume1\Users\owlli\AppData\Local\Google\Chrome\User Data\Default\History
+SharedCacheMap 0x7f38d070   None   \Device\HarddiskVolume1\Users\owlli\AppData\Local\Google\Chrome\User Data\Default\History
+$ ls
+file.None.0xfffffa801998b780.vacb  file.None.0xfffffa801a81fab0.dat
+$ file file.None.0xfffffa801998b780.vacb
+file.None.0xfffffa801998b780.vacb: empty
+$ file file.None.0xfffffa801a81fab0.dat
+file.None.0xfffffa801a81fab0.dat: SQLite 3.x database, last written using SQLite version 3033000
+</code></pre>
+</li>
+</ol>
+<p>Some useful links to know more about volatility are</p>
+<ol>
+<li><a href="https://medium.com/@zemelusa/first-steps-to-volatile-memory-analysis-dcbd4d2d56a1">https://medium.com/@zemelusa/first-steps-to-volatile-memory-analysis-dcbd4d2d56a1</a></li>
+<li><a href="https://medium.com/@Flying_glasses/retrieving-files-from-memory-dump-34d9fa573033">https://medium.com/@Flying_glasses/retrieving-files-from-memory-dump-34d9fa573033</a></li>
+</ol>
+<h3>Extracting Browser History (What I did in the actual CTF)</h3>
+<p>He extracted out a <code>.dat</code> file. On running that through the <code>file</code> command, it revealed a database file</p>
+<pre><code>$ file file.None.0xfffffa801a81fab0.dat
+file.None.0xfffffa801a81fab0.dat: SQLite 3.x database, last written using SQLite version 3033000
+</code></pre>
+<p>Opening it in DB browser and looking through the database revealed the Chrome browser history.</p>
+<p><img src="Screenshots/db.png" alt="" /></p>
+<p>The links which stand out are</p>
+<ol>
+<li><a href="http://www.mediafire.com/view/5wo9db2pa7gdcoc/This_is_a_png_file.png/file">http://www.mediafire.com/view/5wo9db2pa7gdcoc/This_is_a_png_file.png/file</a></li>
+<li><a href="https://pastebin.com/KeqPRaaY">https://pastebin.com/KeqPRaaY</a></li>
+</ol>
+<p>Pastebin seemed like nothing suspicious
+<img src="Screenshots/pastebin.png" alt="" /></p>
+<p>The png file seemed interesting (Because it was colourful like what the challenge title suggested). I downloaded it.</p>
+<p>I then used Python and the Python Imaging Library with <code>solve.py</code> to extract the RGB values from the image, and convert them into letters through ASCII</p>
+<h2>Flag</h2>
+<p><code>govtech-csg{m3m0ry_R3dGr33nBlu3z}</code></p>
+</div>
+    </div>
+
+  </body>
+</html>

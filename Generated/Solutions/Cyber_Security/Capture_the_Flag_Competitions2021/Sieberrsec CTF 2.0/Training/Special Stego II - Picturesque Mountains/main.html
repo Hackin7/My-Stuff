@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2021/Sieberrsec CTF 2.0/Training/Special Stego II - Picturesque Mountains/README.md'>Original Github Link</a></div><h1>Special Stego II - Picturesque Mountains</h1>
+<p>Forensics, 50</p>
+<h3>Description</h3>
+<p>Due to the exploit discovered, VNI Inc.'s development team has patched the issue with a simple but confidential solution.
+Sun Hong happens to be a digital artist, so he created a bunch of mountains.
+That's where he realised that he had found a workaround to the original exploit.
+Instead of reporting to the higher ups, he decided to send this <a href="https://drive.google.com/u/0/uc?id=1td8jelC0WDQ3AqkfPoUPPwyy_-BxQAiP&amp;export=download">screenshot</a> to you as a toy example of how this workaround works.
+Find a way to extract the hidden data.</p>
+<p>Original Challenge Author: xzy_10</p>
+<h2>Solution</h2>
+<h3>Inspection and extracting out Base64 Data?</h3>
+<p>I downloaded and looked at the screenshot
+<img src="NiceMountains.svg" alt="NiceMountains.svg" /></p>
+<p>Opening up in notepad and looking through the code reveals some base64 data</p>
+<pre><code>&lt;defs&gt;
+        &lt;linearGradient id=&quot;_Linear1&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot; gradientUnits=&quot;userSpaceOnUse&quot; gradientTransform=&quot;matrix(2000.78,0,0,1187,-144.101,569.187)&quot;&gt;&lt;stop offset=&quot;0&quot; style=&quot;stop-color:rgb(156,255,255);stop-opacity:1&quot;/&gt;&lt;stop offset=&quot;0&quot; style=&quot;stop-color:rgb(184,255,255);stop-opacity:1&quot;/&gt;&lt;stop offset=&quot;1&quot; style=&quot;stop-color:white;stop-opacity:1&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;image id=&quot;_Image2&quot; width=&quot;281px&quot; height=&quot;272px&quot; xlink:href=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARkAAAEQCAYAAACEHwDfAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAgAElEQVR4nO2d55rrynG1V4Nh0t57djjBko7sI1nBsn13ug5dnf1ZsoIVjsIJO6dJJPr7QTRYKFZ1V4NgnF7PgwHRAEkAA7xYVdUAHYqOQt7/ygFwu16PgeSd
+</code></pre>
+<p>...</p>
+<pre><code>        OXgPUIdOJgKOI5Mh3ogFiV0oKApgDlC/X+PevPcqkkf3AAAAABJRU5ErkJggg==&quot;/&gt;
+    &lt;/defs&gt;
+</code></pre>
+<p>I used Cyberchef to convert it into raw data and store it in a png file. I get this
+<img src="extracted.png" alt="extracted.png" /></p>
+<p>Running <code>strings</code> on the png appears to do nothing. Right now this png appears to be just the sun.</p>
+<h3>Finding out more about Stegnography Methods</h3>
+<p>I tried googling more about stegnography methods for svg and png files</p>
+<p>For svg files</p>
+<ol>
+<li><a href="https://github.com/japplebaum/svgsteg">https://github.com/japplebaum/svgsteg</a> (Doesn't seem applicable since the data we have is only up to 3 decimal places not 5)</li>
+</ol>
+<p>General?</p>
+<ol>
+<li><a href="https://stylesuxx.github.io/steganography/">https://stylesuxx.github.io/steganography/</a> (Tried it on the svg, gave me garbage data)</li>
+</ol>
+<h2>Flag</h2>
+<p>``</p>
+</div>
+    </div>
+
+  </body>
+</html>

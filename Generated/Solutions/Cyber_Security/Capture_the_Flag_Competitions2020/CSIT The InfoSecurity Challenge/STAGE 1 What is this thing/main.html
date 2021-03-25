@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2020/CSIT The InfoSecurity Challenge/STAGE 1 What is this thing/README.md'>Original Github Link</a></div><h1>STAGE 1: What is this thing?</h1>
+<p>STAGE ONE</p>
+<h2>Description</h2>
+<p>You are working as a cyber security analyst for TISC (The InfoSecurity Company). A client has recently approached us after they were struck by ransomware on their database servers!</p>
+<p>The last script the sysadmin remembered running was something he took off a stackoverflow page: stackoverflowed.png attached below!
+This lead to a github page: <a href="https://github.com/divoc-91/AnorocWare-Server-Patch">https://github.com/divoc-91/AnorocWare-Server-Patch</a>
+We also found some deleted files: Some sort of transactional diagram</p>
+<p>We noticed unusual network activity around the time that the user reported being ransomware-d. There were files being sent and received, some of which we were unable to inspect. We suspect they are using a simple password (6 characters, hexadecimal) on the zip files as well as several layers of encoding / compression so it cannot be automatically unpacked by the company's firewall or antivirus. Think of it roughly like zipping a file many times. We need your help to write some code that will get to the bottom of this!</p>
+<p>Connect using</p>
+<p><code>nc fqybysahpvift1nqtwywevlr7n50zdzp.ctf.sg 31081</code></p>
+<p>You will need your SUBMISSION_TOKEN too! (find below)</p>
+<p>REMINDER!</p>
+<ul>
+<li>Save any code you wrote and take screenshots of your work, THESE WILL NEED TO BE SUBMITTED IN YOUR WRITEUP FOR YOUR ATTEMPT TO BE CONSIDERED VALID!</li>
+<li>Writeups should be sent from the email address used to sign up for TISC to <a href="mailto:tisc_contactus@csit.gov.sg">tisc_contactus@csit.gov.sg</a> within 48h after the end of your 48h session.</li>
+<li>Emails should have &quot;tiscwriteup your_fullname_goes_here&quot; as the subject.</li>
+<li>You should not share your writeups with anyone else or post them publicly before 08 Sept 2020 0000hrs.</li>
+<li>The clarity of your documentation will contribute to a better evaluation of your work.</li>
+</ul>
+<h2>Attached Files</h2>
+<p>planBscheme.png</p>
+<p>stackoverflowed.png</p>
+<p>suspectedscript.png</p>
+<h1>Solution</h1>
+<p>Use fcrackzip to bruteforce the password of the zip file and extract out <code>temp.mess</code>.</p>
+<p>Make a python program that can identify if a file is <code>gzip</code>/<code>xz</code>/<code>bzip</code>/<code>zlib</code> compressed, Base64,  a regular hexdump, a list of integers. Then either extract it out (for <code>gzip</code>/<code>xz</code>/<code>bzip</code>/<code>zlib</code>), convert into raw data (Base64, hexdump), or convert each integer in the list of integers to a character and write all of the characters to a raw file.</p>
+<p>Run this program recursively on <code>temp.mess</code> and you will get the flag</p>
+<h1>My Thought Process</h1>
+<h2>Cracking Zip</h2>
+<p>Firstly, I netcat using the given command</p>
+<pre><code>~$ nc fqybysahpvift1nqtwywevlr7n50zdzp.ctf.sg 31081
+
+
+$$$$$$$$\ $$$$$$\  $$$$$$\   $$$$$$\
+\__$$  __|\_$$  _|$$  __$$\ $$  __$$\
+   $$ |     $$ |  $$ /  \__|$$ /  \__|
+   $$ |     $$ |  \$$$$$$\  $$ |
+   $$ |     $$ |   \____$$\ $$ |
+   $$ |     $$ |  $$\   $$ |$$ |  $$\
+   $$ |   $$$$$$\ \$$$$$$  |\$$$$$$  |
+   \__|   \______| \______/  \______/
+
+CSIT's The Infosecurity Challenge 2020
+https://play.tisc.csit-events.sg/
+
+CHALLENGE 1: What is this thing?
+======================================
+
+SUBMISSION_TOKEN? PUTINYOURTOKENHERE
+
+We noticed unusually network activity around the time that the user reported being ransomware-d.
+There were files being sent and recieved, some of which we were unable to inspect.
+Could you try to decode this?
+
+Reminder! SAVE ANY CODE YOU WROTE / TAKE SCREENSHOTS OF YOUR WORK, THIS WILL NEED TO BE SUBMITTED IN YOUR WRITEUP!
+CLARITY OF DOCUMENTATION WILL CONTRIBUTE TO A BETTER EVALUATION OF YOUR WRITEUP.
+
+The file is hosted at http://fqybysahpvift1nqtwywevlr7n50zdzp.ctf.sg:31080/04979fdc74cffb769440fd8c69a7c5c0.zip .
+
+
+Flag?
+
+</code></pre>
+<p>After that I downloaded the zip file and found a temp.mess file. However, extracting it seems to require a password. Since the challenge said the password was 6 characters and hexadecimal, I used fcrackzip to get the password. It took 20 min or so?</p>
+<pre><code>$ fcrackzip -b -u -v -l 6 -c ':0123456789ABCDEF' 04979fdc74cffb769440fd8c69a7c5c0.zip
+found file 'temp.mess', (size cp/uc 245827/245740, flags 3, chk a499)
+$ fcrackzip -b -u -v -l 6 -c ':0123456789abcdef' 04979fdc74cffb769440fd8c69a7c5c0.zip   found file 'temp.mess', (size cp/uc 245827/245740, flags 3, chk a499)
+checking pw 98967f
+
+PASSWORD FOUND!!!!: pw == 9a035a
+</code></pre>
+<p>Basic analysis of <code>temp.mess</code> show that it is gzip compressed data</p>
+<pre><code>$ file temp.mess
+temp.mess: gzip compressed data, last modified: Wed Aug  5 11:28:11 2020, max compression, original size modulo 2^32 245647
+$ binwalk temp.mess
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             gzip compressed data, maximum compression, last modified: 2020-08-05 11:28:11
+15            0xF             gzip compressed data, maximum compression, last modified: 2020-08-05 11:28:11
+
+$ mv temp.mess temp.gz
+$ gunzip -d temp.gz
+$
+</code></pre>
+<p>On extracting it seems like you get another gzip file. So I extracted that</p>
+<pre><code>$ file temp
+temp: gzip compressed data, last modified: Wed Aug  5 11:28:11 2020, max compression, original size modulo 2^32 245554
+$ mv temp temp.gz &amp;&amp; gunzip -d temp.gz
+$ file temp
+temp: zlib compressed data
+</code></pre>
+<h2>Extracting zlib data</h2>
+<p>To extract the zlib data, I used zlib-flate (<code>sudo apt install qpdf</code> first to use it)</p>
+<pre><code>$ zlib-flate -uncompress &lt; temp | cat &gt; tempdata.txt
+</code></pre>
+<h2>Extracting hexdump and list of integers (JSON Data)</h2>
+<p>Opening the text file makes it seem like base64 data. However, decoding it doesn't seem to give any useful data</p>
+<pre><code>$ base64 -d tempdata.txt &gt; tempdata-b64decoded
+$ file tempdata-b64decoded
+tempdata-b64decoded: data
+$ binwalk tempdata-b64decoded
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+
+
+</code></pre>
+<p>Another possible form of data is Hex. I coded a simple python program to convert the hex string into raw byte data</p>
+<pre><code>def reverseHexDump(filename, outFile = &quot;temp&quot;):
+    with open(filename) as f:
+        data = f.read()
+    
+    # Read 2 characters at a time
+    intData = []
+    charAtTime = 2
+    for i in range(0,len(data),charAtTime):
+        intData.append(int( data[i:i+charAtTime] ,16))
+    
+    byteData = bytes(intData)
+    with open(outFile,'wb') as f:
+        f.write(byteData)
+
+reverseHexDump('tempdata.txt')
+</code></pre>
+<pre><code>$ file temp
+temp: JSON data
+</code></pre>
+<p>Moreover, it's actually a list of integers. On converting them to ASCII, I get garbage text, so I put this text into a new file with another python code</p>
+<pre><code>def readInJson(file, out):
+    with open(file) as f:
+        data = f.read()
+    processedData = eval(data)
+
+    strData = &quot;&quot;
+    for i in processedData:
+        strData += chr(i)
+    with open(out,'w') as f:
+        f.write(strData)
+readInJson('temp','temp')
+</code></pre>
+<h2>Extrcating <code>xz</code></h2>
+<p>After that extract it out again</p>
+<pre><code>$ file temp
+temp: XZ compressed data
+$ mv temp temp.xz
+$ xz -d temp.xz
+$ file temp
+temp: gzip compressed data, last modified: Wed Aug  5 11:28:11 2020, max compression, original size modulo 2^32 215096
+</code></pre>
+<p>After that I extracted it with <code>gunzip</code> and <code>xz</code> again to get a text file, with a bunch of integers this time</p>
+<pre><code>$ file temp
+temp: ASCII text, with very long lines, with no line terminators
+$ head -c 100 temp
+3738396338346237363535303163346566303236386362623834653061656331323162383562373037373737373730626236
+</code></pre>
+<p>I guessed that these integers could mean more byte data so I converted them into byte data and wrote the bytes into raw file</p>
+<pre><code>def readInIntegers(file,out):
+    with open(file) as f:
+        data = f.read()
+    intData = int(data)
+    #print(intData)
+    byteData = bytes([intData])
+    with open(out,'wb') as f:
+        f.write(byteData)
+readInIntegers('temp', 'temp1')
+</code></pre>
+<pre><code>$ file temp1
+temp1: ASCII text, with very long lines, with no line terminators
+$ head -c20 temp1
+[3738396338346237363
+$ tail -c20 temp1
+306533333239353537L]
+$
+</code></pre>
+<p>Ok it's just the same number. After that I thought that this may just be hex data again, and converted it into raw byte data again (and that was JSON so I converted the strings inside and so on) After that there is way more tedious extraction.</p>
+<h2>Some other file types</h2>
+<p>After going through several times of extraction, there were some new file formats I figured out</p>
+<p>One of them was bzip. I used <code>dtrx</code> to extract it (because I'm lazy)</p>
+<pre><code>$ file tempbzip
+tempbzip: bzip2 compressed data, block size = 900k
+</code></pre>
+<p>Here's how to install <code>dtrx</code> by the way.</p>
+<pre><code>wget http://ftp.br.debian.org/debian/pool/main/d/dtrx/dtrx_7.1-2_all.deb
+sudo dpkg -i dtrx_7.1-2_all.deb
+sudo apt update
+sudo apt install -f
+</code></pre>
+<p>Another type I was decoding (and struggling to do so) is a type of string with only alphanumeric characters.Then I realised it is Base64</p>
+<pre><code>$ cat temp1 | grep -o -P '.{0,3}[^0-9A-Za-z].{0,4}'
+$ head -c20 temp1
+UWxwb09URkJXU1pUV1V4
+$ tail -c20 temp1
+Ulwd29TQ1kwcklDQT0K
+$ cat temp1 | base64 -d | base64 -d &gt; tempbzip
+$
+</code></pre>
+<h2>Scripting</h2>
+<p>I started getting bored of doing things manually. Also I don't think thats what they wanted. I decided to start scripting the automatic extraction of files. There was probably an online extractor online that could do this for you, but <del>I'm not very smart</del> I wanted to challenge myself.</p>
+<p>After that I let the program run until it crashes correctly, and I can get the flag</p>
+<pre><code>$ python solve.py
+...
+an integer is required
+Traceback (most recent call last):
+  File &quot;solve.py&quot;, line 135, in &lt;module&gt;
+    scriptRun('test')
+  File &quot;solve.py&quot;, line 129, in scriptRun
+    raise Exception(str(e)+&quot;\nCurrent counter at &quot;+str(counter))
+Exception: an integer is required
+Current counter at 163
+$ cat test163
+{&quot;anoroc&quot;: &quot;v1.320&quot;, &quot;secret&quot;: &quot;TISC20{q1_409393ef1b650092ce346a09205c40d6}&quot;, &quot;desc&quot;: &quot;Submit this.secret to the TISC grader to complete challenge&quot;, &quot;constants&quot;: [1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221], &quot;sign&quot;: &quot;boy0NNVUj2epGX0mAv5bo9nwBqqwcQ&quot;}
+</code></pre>
+<p>Wow I took 6.5 hours.</p>
+<h1>Flag</h1>
+<p><code>TISC20{q1_409393ef1b650092ce346a09205c40d6}</code></p>
+<h2>Final Submission</h2>
+<pre><code>$  nc fqybysahpvift1nqtwywevlr7n50zdzp.ctf.sg 31081                 
+.
+.
+.
+
+Flag? TISC20{q1_409393ef1b650092ce346a09205c40d6}
+
+Reminder! SAVE ANY CODE YOU WROTE / TAKE SCREENSHOTS OF YOUR WORK, THIS WILL NEED TO BE SUBMITTED IN YOUR WRITEUP!
+Winner Winner Vegan Dinner 🎉🎊🎁🥳
+{&quot;challenge&quot;:{&quot;name&quot;:&quot;STAGE 1: What is this thing?&quot;},&quot;id&quot;:&quot;ckdmq8vtn0x9b07045jkr7cbx&quot;,&quot;status&quot;:&quot;CORRECT&quot;,&quot;multiplier&quot;:1,&quot;submittedBy&quot;:{&quot;username&quot;:&quot;manually_endless_ape_YIAWCoYH&quot;},&quot;createdAt&quot;:&quot;2020-08-09T06:49:52Z&quot;}
+</code></pre>
+<p><img src="1.png" alt="Solution" /></p>
+<h1>Final Python Solution</h1>
+<pre><code># Run in python 2
+ZIP_FILE = &quot;04979fdc74cffb769440fd8c69a7c5c0.zip&quot;
+PASSWORD = &quot;9a035a&quot;
+
+import os
+def route(inname,out):
+    if inname != out:
+        os.system(&quot;mv &quot;+inname+&quot; &quot;+out)
+        
+def unzip(filename, out=&quot;temp.mess&quot;):
+    os.system(&quot;unzip&quot;+&quot; -P &quot;+PASSWORD+&quot; &quot;+ZIP_FILE)
+    route(&quot;temp.mess&quot;,out)
+
+def unGZ(filename, out):
+    os.system(&quot;gunzip &quot;+filename)
+    route(filename.split('.')[0],out)
+def unXz(filename, out):
+    command = &quot;xz -d &quot;+filename
+    print('Command:' + command)
+    os.system(command)
+    route(filename.split('.')[0],out)
+
+def unZlib(filename,out):
+    command = 'zlib-flate -uncompress &lt; '+filename+' | cat &gt; '+out
+    os.system(command)
+
+def reverseHexDump(filename, outFile = &quot;rawFile&quot;):
+    with open(filename) as f:
+        data = f.read()
+    
+    # Read 2 characters at a time
+    intData = []
+    charAtTime = 2
+    for i in range(0,len(data),charAtTime):
+        intData.append(int( data[i:i+charAtTime] ,16))
+    
+    byteData = bytes(intData)
+    with open(outFile,'wb') as f:
+        f.write(byteData)
+
+def readInJson(file, out):
+    with open(file) as f:
+        data = f.read()
+    processedData = eval(data)
+
+    strData = &quot;&quot;
+    for i in processedData:
+        strData += chr(i)
+    with open(out,'w') as f:
+        f.write(strData)
+
+#############################################################################
+        
+def legacy():
+    os.system('rm temp*')
+
+    unzip(ZIP_FILE,'temp.gz')
+    unGZ('temp.gz','temp.gz')
+    unGZ('temp.gz','temp.zlib')
+    unZlib('temp.zlib','temp')
+    reverseHexDump('temp','temp.json')
+    readInJson('temp.json', 'temp.xz')
+    os.system('rm temp')
+    unXz('temp.xz', 'temp.gz')
+    unGZ('temp.gz','temp.xz')
+    unXz('temp.xz', 'temp')
+
+    reverseHexDump('temp','temp.json')
+    readInJson('temp.json', 'temp')
+    reverseHexDump('temp', 'temp')
+    readInJson('temp', 'temp.zlib')
+
+    unZlib('temp.zlib','temp.bzip')
+    os.system(&quot;dtrx temp.bzip &amp;&amp; mv temp.bzip.1 temp.zlib&quot;)
+    unZlib('temp.zlib','temp')
+    reverseHexDump('temp','temp.json')
+    readInJson('temp.json', 'tempb64')
+    readInJson('temp.json', 'test')
+    #os.system('$ cat tempb64 | base64 -d &gt; test')
+    
+    #os.system('rm temp*')
+
+def singleExtraction(filename, outfile):
+    cmd = os.popen('file '+filename).read()
+    cmdOut = cmd.split(':')[1]
+    print(cmdOut)
+    
+    if 'gzip compressed data' in cmdOut:
+        #unGZ(filename,outfile)
+        os.system(&quot;dtrx &quot;+filename+&quot; &amp;&amp; mv &quot;+filename+&quot;.1 &quot;+outfile)
+        
+    elif 'XZ compressed data' in cmdOut:
+        os.system('mv '+filename+' '+filename+'.xz')
+        unXz(filename+'.xz', outfile)
+        
+    elif 'zlib compressed data' in cmdOut:
+        unZlib(filename, outfile)
+        
+    elif 'ASCII text, with very long lines' in cmdOut:
+        with open(filename) as f:
+            data = f.read()
+        b64Identify = False
+        for i in &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;:
+            if i in data: b64Identify = True
+        if b64Identify: #base64
+           os.system(&quot;cat &quot;+filename+&quot; | base64 -d &gt; &quot;+outfile)
+        else:
+            reverseHexDump(filename,outfile)
+            
+    elif 'JSON data' in cmdOut:
+        readInJson(filename, outfile)
+        
+    elif 'bzip2 compressed data' in cmdOut:
+        os.system(&quot;dtrx &quot;+filename+&quot; &amp;&amp; mv &quot;+filename+&quot;.1 &quot;+outfile)
+        
+    else:
+        os.system(&quot;cp &quot;+filename+&quot; undoneyet&quot;)
+        raise Exception(&quot;Not implemented file type of &quot;+cmdOut)
+
+
+def scriptRun(ogFile):
+    os.system(&quot;cp &quot;+ogFile+&quot; &quot;+ogFile+str(0))
+    counter = 0
+    while True:
+        inf , outf = ogFile+str(counter), ogFile+str(counter+1) 
+        try:
+            singleExtraction(inf, outf)
+        except Exception as e:
+            print(str(e))
+            raise Exception(str(e)+&quot;\nCurrent counter at &quot;+str(counter))
+        counter += 1
+
+if True:
+    legacy()
+#singleExtraction('tempb64', 'temp8')
+scriptRun('test')
+#reverseHexDump('temp1','temp.json')
+</code></pre>
+</div>
+    </div>
+
+  </body>
+</html>

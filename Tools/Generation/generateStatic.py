@@ -1,6 +1,6 @@
 from jinja2 import Template
 
-with open('templates/overall.html', 'r') as f: 
+with open('templates/overall.html', 'r') as f:
     templateOverall = Template(f.read())
 
 
@@ -13,16 +13,15 @@ with open('templates/overall.html', 'r') as f:
     <br><br>
     <div class="content">
     {{content|safe}}
-      
+
     </div>
 """
 
 
 MAINDIR = "../../"
 
-staticPages = ["about.html", "index.html", "achievements.html", "links.html"]
+staticPages = ["about.html", "index.html", "achievements.html", "links.html", "all_projects.html"]
 for pageName in staticPages:
     with open("content/"+pageName, "r") as f:
         with open(MAINDIR + pageName, 'w') as out:
             out.write(templateOverall.render(title=pageName[:-4], content = f.read()))
-

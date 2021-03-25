@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2020/STACK the Flags/Web/Unlock Me/README.md'>Original Github Link</a></div><h1>Unlock Me</h1>
+<p>905, WEB, 22 SOLVES</p>
+<h3>Description</h3>
+<p>Our agents discovered COViD's admin panel! They also stole the credentials minion:banana, but it seems that the user isn't allowed in. Can you find another way?</p>
+<p><a href="http://yhi8bpzolrog3yw17fe0wlwrnwllnhic.alttablabs.sg:41031/">Admin Panel</a></p>
+<p>This challenge:</p>
+<ul>
+<li>Unlocks other challenge(s)</li>
+<li>Is eligible for Awesome Write-ups Award</li>
+<li>Prerequisite for Mastery Award - Web Warrior</li>
+</ul>
+<h2>Solution</h2>
+<h3>Inspecting</h3>
+<p>Inspecting the page reveals nothing much, other that the client webpage makes POST/GET requests to the server to request for the credentials</p>
+<p><img src="inspect_1.png" alt="" />
+<img src="inspect_2.png" alt="" /></p>
+<p>I coded a python program using the <code>requests</code> library to interface with the server.</p>
+<p>The way the thing works (through inspecting and experimentation) is that</p>
+<ol>
+<li>The jQuery will POST request <code>/login</code> endpoint with the username password
+<ol>
+<li>For a access token for the user (unique to each user)</li>
+</ol>
+</li>
+<li>Then jQuery will GET <code>/unlock</code> endpoint with access token in the header
+<ol>
+<li>That way it get the flag if it is authorised</li>
+</ol>
+</li>
+</ol>
+<p>I extracted out a sample token <code>eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1pbmlvbiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjA3MTQ2NTMyfQ.CBdshkHuUXlIf7OVE0kgVy-1AcaVzrKKw6Hmd25Q0ycO7hHYZpmz2jCyjckjPa7HSJCJb-9O0W74s1kYdCqMOKCDP2lBdqmcRLh5sFpG5sfti1evVWbms4xHqGtHYIOa7fPDXB1f0_r2meQSFS1C0jGnkVbz3J2_FAZs5j_ruNPalTUbik2ph2zv41phRyRKWB93867-Iqxf-xbAQ9RxEg1WpVX77FHJxEORplIHfNyTwu9Hwbn857yyiNW6Se9xVZMEgp0jCOzoL_FSk1PuKBkEml5NRiV6bytygqNGzyHLChoazMkNNiRWQcls40i1EIoDGEokUlDMfsyuzlU8fBIS5NekKuThEoQp4CkUYTr9Iu63hZoPA2I8Eq2MPcGRrdx8IvB00Rbj3LoncadaIu_bBPJfkPxXAH8kYENS5mDGzV_Wqesr8DkCf0fE-e-t4IZoHV8H8pt2B6Iur_EGN-YS3Tu3_fPJbs21CXJ28hBQTqV0MH6QksxX7aUk3NIExWD8GHnuynanTHS2ybGM8QcTC024g3rSQh-9ljah44r4PbV76VHUh8D3ENto4GcyQYgmx34yDHxjIOSLscwm-_yiJo0HYzeO_rxQYNybpsfE71W-oQwkV3v8ou_1RWqw0bCKFa7F3G4lQpXjUnaid9mQ6PDYYaX1jUBhJIYOTc</code>. Decoding it in base 64, I get <code>{&quot;alg&quot;:&quot;RS256&quot;,&quot;typ&quot;:&quot;JWT&quot;}{&quot;username&quot;:&quot;minion&quot;,&quot;role&quot;:&quot;user&quot;,&quot;iat&quot;:1607146532}</code> in readable text.</p>
+<p>Furthermore for the GET request, you had to put &quot;Bearer&quot;, and so I did research. Looking at here <a href="https://swagger.io/docs/specification/authentication/bearer-authentication/">https://swagger.io/docs/specification/authentication/bearer-authentication/</a>, you can infer that this data is JSON Web Tokens</p>
+<h3>JSON Web Tokens</h3>
+<p>I googled on similar CTF challenges, and found some writeups about JSON Web tokens</p>
+<ol>
+<li><a href="https://gist.github.com/bayotop/37bd7605148df096332ed0451db91051">https://gist.github.com/bayotop/37bd7605148df096332ed0451db91051</a></li>
+<li><a href="https://nandynarwhals.org/hitbgsec2017-pasty/">https://nandynarwhals.org/hitbgsec2017-pasty/</a></li>
+<li><a href="https://debricked.com/blog/2019/01/10/ctf-json-web-tokens-jwt/">https://debricked.com/blog/2019/01/10/ctf-json-web-tokens-jwt/</a></li>
+</ol>
+<p>I tried using my python program to downgrade the authentication from RS256 to none, but it didn't work.</p>
+<p>My friend undefined-func got out the <code>public.pem</code>. On redoing the challenge, I noticed the comment <code>// TODO: Add client-side verification using public.pem</code> on the main html page. You can infer to go to <a href="http://yhi8bpzolrog3yw17fe0wlwrnwllnhic.alttablabs.sg:41031/public.pem">http://yhi8bpzolrog3yw17fe0wlwrnwllnhic.alttablabs.sg:41031/public.pem</a> , which allows you to download the public key.</p>
+<p>My friend then suggested downgrading from RS256 to HS256 based on the information <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/JSON%20Web%20Token">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/JSON%20Web%20Token</a>. After doing it through my python program (which is in <code>solve.py</code>), I got the flag.</p>
+<ol>
+<li>⚠️ This behavior is fixed in the python library and will return this error jwt.exceptions.InvalidKeyError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.. You need to install the following version: pip install pyjwt==0.4.3.</li>
+</ol>
+<p><code>{&quot;flag&quot;:&quot;govtech-csg{5!gN_0F_+h3_T!m3S}&quot;}</code></p>
+<h4>Why it works</h4>
+<p>This works as (thanks to <a href="https://github.com/IRS-Cybersec/ctfdump/tree/stack-mitsuha/STACK%20the%20Flags%202020/Mitsuha/Web/1.%20Unlock%20Me">https://github.com/IRS-Cybersec/ctfdump/tree/stack-mitsuha/STACK%20the%20Flags%202020/Mitsuha/Web/1.%20Unlock%20Me</a>)</p>
+<ol>
+<li>RS256 is an asymmetric algorithm, which means that it uses a private key to sign the signature, and a public key to verify the signature (for authentication).
+HS256 is a symmetric algorithm, which means that it uses the same secret/key to sign and verify the signature</li>
+<li>If the backend accepts both HS256 AND RS256 as the algorithms accepted, when we change the algorithm from RS256 to HS256, the backend treats the known public key as the secret/key for HS256.</li>
+<li>Hence, we can modify the token and sign it using the public key for the backend to accept the token using the HS256 algorithm.</li>
+</ol>
+<h2>Flag</h2>
+<p><code>govtech-csg{5!gN_0F_+h3_T!m3S}</code></p>
+</div>
+    </div>
+
+  </body>
+</html>

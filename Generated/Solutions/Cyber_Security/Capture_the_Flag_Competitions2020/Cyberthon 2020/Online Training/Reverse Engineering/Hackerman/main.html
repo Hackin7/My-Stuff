@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2020/Cyberthon 2020/Online Training/Reverse Engineering/Hackerman/README.md'>Original Github Link</a></div><h1>Hackerman</h1>
+<p>300, Reverse Engineering, 7 Solves as of Solving</p>
+<h2>Description</h2>
+<p>Time to learn how to read assembly! Your task is to figure out the correct input for the given assembly code.</p>
+<p>Note: The flag format is <code>CTFSG{&lt;input&gt;}</code></p>
+<p>X86 Assembly Tutorial</p>
+<h2>Given</h2>
+<p>disassembly.txt</p>
+<h1>Solution</h1>
+<p>Work your way and reverse engineer the code step by step. My disassembly efforts in in <code>disassembly annotated.asm</code>, and after that, I made a simple python program in <code>solve.py</code> which explains what the algorithm does in a nutshell, and produces the input string</p>
+<p>Some things to take note of</p>
+<ol>
+<li>Make sure your actual disassembly code is not modified. I wasted 2 hours of my life trying to notice an error (that I replaced a 0 with a 6)</li>
+<li>Little Endian formatting</li>
+</ol>
+<h1>Flag</h1>
+<p><code>CTFSG{8Fhr9Psmw}</code></p>
+</div>
+    </div>
+
+  </body>
+</html>
