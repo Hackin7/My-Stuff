@@ -1,0 +1,1 @@
+var taggingSystemData = [{"name": "Hello World", "date": "24/04/2021 15:42:02", "filepath": "Hello_World.md", "tags": {"Category": ["Introduction"]}, "htmlpath": "Hello_World.md.html", "fullpath": "../../Generated/Blog/Hello_World.md.html"}];

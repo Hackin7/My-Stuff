@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2021/ångstromCTF/Misc/Float On/README.md'>Original Github Link</a></div><h1>Float On</h1>
+<h3>Description</h3>
+<p><img src="Description.png" alt="" /></p>
+<h2>Solution</h2>
+<h3>How did I solve this?</h3>
+<p>Reading the code, I can understand that it</p>
+<ol>
+<li>Reads in an unsigned integer</li>
+<li>Converts it to a double type based on its byte representation</li>
+<li>Does checks on it. If it passes the checks, it goes back to step 1</li>
+<li>This is repeated for 5 times for 5 different checks</li>
+</ol>
+<p>Initially I just gave up on the challenge. However, My teammate undefined_func suggested that I read up on Infinity and NaN, which I didn't even know existed. After that I just experimented with the Values</p>
+<p>Some resources I referred to</p>
+<ol>
+<li><a href="http://steve.hollasch.net/cgindex/coding/ieeefloat.html">http://steve.hollasch.net/cgindex/coding/ieeefloat.html</a>
+2.<a href="https://stackoverflow.com/questions/6235847/how-to-generate-nan-infinity-and-infinity-in-ansi-c">https://stackoverflow.com/questions/6235847/how-to-generate-nan-infinity-and-infinity-in-ansi-c</a></li>
+</ol>
+<p>I made a python program <code>Generate.py</code> to generate the special numbers (Infinity, NaN, and a very large double) as a <code>uint64_t</code> to input into the progam. I also modified and compiled the program from the given source code (Modified codein <code>test.c</code>) for testing purposes</p>
+<h3>Stages</h3>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Condition</th>
+<th>Rationale</th>
+<th>Input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>x == -x</code></td>
+<td>0 and -0 is equal</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>x != x</code></td>
+<td>NaN is not equal to  itself. Initially I just experimented with negative numbers and lucked out. However, this answer makes sense, since for an <code>uint64_t</code>, -1 underflows such that the exponent bits are all set to 1, causing it to be set as NaN</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>x + 1 == x &amp;&amp; x * 2 == x</code></td>
+<td>Adding and multiplying anything to Infinity still results in infinity. So I just input infinity in, just in the form of <code>uint64_t</code></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>x + 1 == x &amp;&amp; x * 2 != x</code></td>
+<td>Most programming languages are not very precise in handling floating point numbers. By making the floating point number very large, adding 1 to it would not have a significant effect. However, by making it finite, a multiple of it would still be different</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>(1 + x) - 1 != 1 + (x - 1)</code></td>
+<td>Same rationale as Stage 2</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>Same rationale as stage 1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Solve on the Remote Server</h3>
+<pre><code>(base) [hacker@hackerbook ~]$ nc shell.actf.co 21399
+Stage 1: 0
+Stage 1 passed!
+Stage 2: -1
+Stage 2 passed!
+Stage 3: 9218868437227405312
+Stage 3 passed!
+Stage 4: 9218868437227405311
+Stage 4 passed!
+Stage 5: -1
+Stage 5 passed!
+actf{well_we'll_float_on,_big_points_are_on_the_way}
+</code></pre>
+<h2>Flag</h2>
+<p><code>actf{well_we'll_float_on,_big_points_are_on_the_way}</code></p>
+</div>
+    </div>
+
+  </body>
+</html>

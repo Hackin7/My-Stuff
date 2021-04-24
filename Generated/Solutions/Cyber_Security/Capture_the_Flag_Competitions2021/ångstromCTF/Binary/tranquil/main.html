@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2021/ångstromCTF/Binary/tranquil/README.md'>Original Github Link</a></div><h1>tranquil</h1>
+<h3>Description</h3>
+<p><img src="Description.png" alt="" /></p>
+<h2>Solution</h2>
+<p>In short this is a very basic Buffer Overflow exercise to overwrite the stack pointer. I can tell because when I opened the binary in Cutter (Reverse Engineering Program), it has <code>gets</code>, which allows for input data to overwrite onto the stack.</p>
+<p>A similar exercise would be <a href="https://medium.com/@coturnix97/exploit-exercises-protostar-stack-4-163bf54d1e77">https://medium.com/@coturnix97/exploit-exercises-protostar-stack-4-163bf54d1e77</a>.
+If you lack knowledge on how any of this works, I advice you to check LiveOverflow's binary exploitation video series.</p>
+<p>Through manual labour, I tried to find the length of input to crash the code</p>
+<pre><code>(base) [hacker@hackerbook tranquil]$ python -c 'print(&quot;A&quot;*72)'| ./tranquil
+Enter the secret word:
+Login failed!
+Segmentation fault (core dumped)
+(base) [hacker@hackerbook tranquil]$ python -c 'print(&quot;A&quot;*71)'| ./tranquil
+Enter the secret word:
+Login failed!
+</code></pre>
+<p>I found the address of the <code>win</code> function using <code>objdump</code>.</p>
+<pre><code>(base) [hacker@hackerbook tranquil]$ objdump -d tranquil | grep win
+0000000000401196 &lt;win&gt;:
+  4011bd:	75 1b                	jne    4011da &lt;win+0x44&gt;
+</code></pre>
+<p>After that, I just send the payload using python in <code>solve.py</code></p>
+<p>Fun fact: This took me 12:07 min, about 4min wasted trying to automate the fuzzing of the overflow length.</p>
+<h2>Flag</h2>
+<p><code>actf{time_has_gone_so_fast_watching_the_leaves_fall_from_our_instruction_pointer_864f647975d259d7a5bee6e1}</code></p>
+</div>
+    </div>
+
+  </body>
+</html>

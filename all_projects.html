@@ -25,6 +25,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/about.html">About</a></li>
            <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
             <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
             <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
         </ul>
@@ -91,8 +92,10 @@
 
     	return `<li class="list-group-item">
   		<input type='checkbox'"+isHidden+" id="+checkboxid+">
-        <b>`+item.name+`</b><br>`+linking+`
-  		</li>`;
+        <b>`
+            +item.name+`</b><br>`+
+            linking+`</li>`;
+
         /*`+item.description+`<br>*/
     };
 </script>

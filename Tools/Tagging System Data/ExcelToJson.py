@@ -2,7 +2,6 @@ import pandas as pd
 import json
 
 ### Excel Processing ##############################################################
-
 def readSheet(xlsx, sheet_name, conversion_func):
     df = pd.read_excel(xlsx,  sheet_name)
 

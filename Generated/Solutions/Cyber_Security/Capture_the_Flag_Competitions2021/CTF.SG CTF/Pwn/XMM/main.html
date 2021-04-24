@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <link href='/github-markdown-css/github-css.css' rel='stylesheet' type='text/css'><div class='github_markdown' style='width:80wh;'><div><a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master//2021/CTF.SG CTF/Pwn/XMM/README.md'>Original Github Link</a></div><h1>XMM</h1>
+<p>This is a challenge from the CTF.SG CTF. I didn't actually solve this challenge in the competition, but I wanted to try to understand it now.</p>
+<h2>Initial Knowledge needed</h2>
+<p>You need</p>
+<ol>
+<li>Basic Understanding of Binary Exploitation (more specifically, google Buffer Overflows)</li>
+</ol>
+<ul>
+<li>Google on LiveOverflow's Videos on Binary Exploitation</li>
+</ul>
+<ol start="2">
+<li>x86 Assembly (because you write x86 assembly)</li>
+</ol>
+<h2>Explanation of Solution</h2>
+<h3>Basic Analysis</h3>
+<p>1st thing first, decompile the binary. I used cutter (ghidra decompiler). I don't advice using worse decompilers like snowman because they suck. You can't even find the <code>main</code> function with snowman. Some observations I noted</p>
+<ol>
+<li>There's this <code>answer()</code> function, which looking at it, just checks if the input matches <code>XXXXXXXXXXXXX</code> (Of course the input is fake). If it matches, it shows the flag <code>CTFSG{YYYYYYYYYYYYYYY} </code>(which is of course fake, we have to check the server to get the actual one)</li>
+<li>If not it just reads input I guess and then does nothing</li>
+</ol>
+<ul>
+<li><code>mmap</code>? On googling, I realised that It basically gets the address of the memory location? and saves it to <code>arg2</code>? as a code data type</li>
+<li>The <code>read</code> function immediately catches my attention. It does not check if you write too much characters and affect the rest of the stack.</li>
+<li><code>(*arg2)();</code> Woah this is code execution. So basically you run the code that you input in.</li>
+</ul>
+<p><img src="Screenshots/ghidra_decompilation.png" alt="main" />
+<img src="Screenshots/ghidra_decompilation_2.png" alt="ans" />
+<img src="Screenshots/snowman_decompilation.png" alt="Screenshots/snowman_decompilation.png" /></p>
+<p>Next, run the Binary. I get a segmenation fault which is interesting. The most interesting thing is that there is illegal instruction if you put something (for the next blank), which suggests that you can put shellcode.</p>
+<pre><code>(base) [hacker@hackerbook XMM]$ ./xmm_dist
+╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+┃ ┏━━━━━━━━━━━━━━━━━━━━━━━━━┓ ┃
+┃ ┃ &lt;Msgs    xmm    Details ┃ ┃
+┃ ┃------------------------ ┃ ┃
+┃ ┃                  hey ;) ┃ ┃
+┃ ┃ hey?                    ┃ ┃
+┃ ┃            wanna go out ┃ ┃
+┃ ┃ sure let's              ┃ ┃
+┃ ┃ go eat my               ┃ ┃
+┃ ┃ favourite               ┃ ┃
+┃ ┃             erm... what ┃ ┃
+┃ ┃             was your    ┃ ┃
+┃ ┃             fav again?  ┃ ┃
+┃ ┃ you can't               ┃ ┃
+┃ ┃ even rmb?               ┃ ┃
+┃ ┃             of course I ┃ ┃
+┃ ┃             rmb, it's   ┃ ┃
+┃ ┃             lolcat
+┃ ┃ I'm done                ┃ ┃
+┃ ┃                         ┃ ┃
+┃ ┗━━━━━━━━━━━━━━━━━━━━━━━━━┛ ┃
+┃             ◯               ┃
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+Don't let him mess up again.
+Find the answer he needs!
+Dig in his brain:      
+Segmentation fault (core dumped)
+(base) [hacker@hackerbook XMM]$ ./xmm_dist
+╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+┃ ┏━━━━━━━━━━━━━━━━━━━━━━━━━┓ ┃
+┃ ┃ &lt;Msgs    xmm    Details ┃ ┃
+┃ ┃------------------------ ┃ ┃
+┃ ┃                  hey ;) ┃ ┃
+┃ ┃ hey?                    ┃ ┃
+┃ ┃            wanna go out ┃ ┃
+┃ ┃ sure let's              ┃ ┃
+┃ ┃ go eat my               ┃ ┃
+┃ ┃ favourite               ┃ ┃
+┃ ┃             erm... what ┃ ┃
+┃ ┃             was your    ┃ ┃
+┃ ┃             fav again?  ┃ ┃
+┃ ┃ you can't               ┃ ┃
+┃ ┃ even rmb?               ┃ ┃
+┃ ┃             of course I ┃ ┃
+┃ ┃             rmb, it's   ┃ ┃
+┃ ┃             a
+┃ ┃ I'm done                ┃ ┃
+┃ ┃                         ┃ ┃
+┃ ┗━━━━━━━━━━━━━━━━━━━━━━━━━┛ ┃
+┃             ◯               ┃
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+Don't let him mess up again.
+Find the answer he needs!
+Dig in his brain: a
+Illegal instruction (core dumped)
+(base) [hacker@hackerbook XMM]$ ./xmm_dist
+╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+┃ ┏━━━━━━━━━━━━━━━━━━━━━━━━━┓ ┃
+┃ ┃ &lt;Msgs    xmm    Details ┃ ┃
+┃ ┃------------------------ ┃ ┃
+┃ ┃                  hey ;) ┃ ┃
+┃ ┃ hey?                    ┃ ┃
+┃ ┃            wanna go out ┃ ┃
+┃ ┃ sure let's              ┃ ┃
+┃ ┃ go eat my               ┃ ┃
+┃ ┃ favourite               ┃ ┃
+┃ ┃             erm... what ┃ ┃
+┃ ┃             was your    ┃ ┃
+┃ ┃             fav again?  ┃ ┃
+┃ ┃ you can't               ┃ ┃
+┃ ┃ even rmb?               ┃ ┃
+┃ ┃             of course I ┃ ┃
+┃ ┃             rmb, it's   ┃ ┃
+┃ ┃             XXXXXXXXXXXXX
+┃ ┃ &lt;3                      ┃ ┃
+┃ ┃ CTFSG{YYYYYYYYYYYYYYY}  ┃ ┃
+┃ ┃                         ┃ ┃
+┃ ┗━━━━━━━━━━━━━━━━━━━━━━━━━┛ ┃
+┃             ◯               ┃
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯(base) [hacker@hackerbook XMM]$
+</code></pre>
+<h3>Trying to script out something</h3>
+<p>I copied/ wrote some code in <code>exploit.py</code>. Since can run shellcode, try to get out a shell?</p>
+<pre><code>base) [hacker@hackerbook XMM]$ python2 exploit.py
+[*] '/run/media/hacker/Windows/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions/2021/CTF.SG CTF/Pwn/XMM/xmm_dist'
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+[+] Starting local process './xmm_dist': pid 56213
+[*] Switching to interactive mode
+$ ls
+README.md  Screenshots    exploit.py  objdump_disassembly.txt  xmm_dist
+$
+</code></pre>
+<p>However, the challenge description said NOT to get a shell. So the idea is to leak the key(The <code>XXXXXXXXXXXXX</code>) from the shell. But how can we do that? One Possible way is to just print the value of the key? I checked the disassembly of the <code>answer</code> function</p>
+<p><img src="Screenshots/ans_disassembly.png" alt="" /></p>
+<p>From here we know the location of the key is <code>0x49501d</code>. It shouldn't change on the server because its part of the binary.Now my idea is to pass it into the write statement. For that we just use pwntools</p>
+<p>You can do the same thing with the flag. Just write</p>
+<h3>Reference</h3>
+<p>I just straight away looked at these writeups</p>
+<p>I referred to these writeups</p>
+<ol>
+<li><a href="https://gist.github.com/lordidiot/05692aa8e2661e9b93b7d5226d48240c">https://gist.github.com/lordidiot/05692aa8e2661e9b93b7d5226d48240c</a></li>
+<li><a href="https://github.com/IRS-Cybersec/ctfdump/blob/master/CTFSG%202021/pwn/xmm_dist.md">https://github.com/IRS-Cybersec/ctfdump/blob/master/CTFSG%202021/pwn/xmm_dist.md</a></li>
+<li><a href="https://ariana1729.github.io/writeups/CTFSG/XMM/2021-03-14-XMM.html">https://ariana1729.github.io/writeups/CTFSG/XMM/2021-03-14-XMM.html</a></li>
+</ol>
+<h2>Reflections</h2>
+<p>Well this seemed so easy and I should have tried harder for this challenge. But then again everything is easier on hindsight.</p>
+<p>Learning Points</p>
+<ol>
+<li>Injecting Shellcode doesn't mean just getting a shell? Also Pwntools is Lit!</li>
+<li>I should really do a proper analysis of the binary and take my time to read through</li>
+</ol>
+</div>
+    </div>
+
+  </body>
+</html>
