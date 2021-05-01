@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content'><br><p>2021-01-05 23:59:00</p>
+<h1>Weekly Adventures: Verilog 1</h1>
+<p>In the past week I have had some free time to do some experimentation.
+I may as well do some reflection on what I did</p>
+<h2>Verilog</h2>
+<p>In short as I am interested in getting into digital electronics, computer architecture and FPGAs, I decided to learn some verilog</p>
+<h3>Useful links</h3>
+<ol>
+<li><a href="https://www.chipverify.com/verilog/verilog-simulation">https://www.chipverify.com/verilog/verilog-simulation</a></li>
+<li>An Introduction to Verilog: <a href="https://www.youtube.com/watch?v=q1QwC3YlHG0">https://www.youtube.com/watch?v=q1QwC3YlHG0</a></li>
+<li>Verilog on EDA Playground Starting Tutorial: <a href="https://www.youtube.com/watch?v=odjQVpN4aF0">https://www.youtube.com/watch?v=odjQVpN4aF0</a></li>
+</ol>
+<h3>Tools Used</h3>
+<ol>
+<li>EDA Playground: <a href="https://www.edaplayground.com/">https://www.edaplayground.com/</a></li>
+<li>Icarus Verilog: Just use your package manager to install and follow this <a href="https://iverilog.fandom.com/wiki/Getting_Started">https://iverilog.fandom.com/wiki/Getting_Started</a></li>
+</ol>
+<h3>Basic concepts</h3>
+<p>I have made some reference code in <a href="https://github.com/Hackin7/Programming-Crappy-Boilerplates/tree/master/Basic%20Programming%20Languages/Verilog">here</a>. The main concepts I remembered are</p>
+<ol>
+<li>Verilog is a Hardware Description Language
+<ul>
+<li>You describe how a digital electronic logic component (a module) functions/ what the schematic is</li>
+<li>You describe a testbench, which connects to the module, runs tests and displays values</li>
+</ul>
+</li>
+<li>Behavioural Modelling <strong>vs</strong> Gate Level Modelling
+<ul>
+<li>Behavioural Modelling : Similar to normal programming, describing how a module functions</li>
+<li>Gate Level Modelling : Describing wires and how gates connect to one another</li>
+</ul>
+</li>
+<li>Data Types
+<ul>
+<li>Basic Data Types
+<ul>
+<li>Wires: To connect Electrical components</li>
+<li>Registers: Controllable bits (0, 1, x(unknown state), z(high impedence))</li>
+<li>Integers, Real and Time (To store simulation time values)</li>
+</ul>
+</li>
+<li>Arrays and Vectors
+<ul>
+<li>Arrays: Just like arrays in normal programming languages</li>
+<li>Vectors: A groups of bits (like how 8 bits = 1 byte). You can modify the entire vector at once unlike an array</li>
+</ul>
+<pre><code>reg [7:0] reg_vector;    
+reg_vector = 11;          // Integer
+reg_vector = 8'b10001010; // Binary
+reg_vector = 8'h41;       // Hexdata
+reg_vector [7:4] = 4'h5;  // Slicing
+reg_vector[0] = 0;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>Control Structures
+<ul>
+<li>Building blocks
+<ul>
+<li><code>initial begin {statements} end</code></li>
+<li>`always @ event begin {statements end}``</li>
+<li><code>posedge _</code> or <code>negedge _</code>: runs only when the value becomes positive or negative</li>
+</ul>
+</li>
+<li>Behavioural Modelling
+<ul>
+<li>if-else, case statements</li>
+<li>Loops: For loops, while loops</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Input Output
+<ul>
+<li><code>$display</code> to output something to the screen. Can format with variable values.</li>
+</ul>
+</li>
+</ol>
+<p>I may want to revisit this topic to provide a more comprehensive tutorial on verilog, but for now, I'm satisfied with this. I'll probably use it to experiment with my FPGA and stuff</p>
+<h2>Personal Website Updates</h2>
+<p>I have made a better CTF Writeup generator, which converts the CTF writeups in my github repository <code>Programming Crappy Solutions</code> into proper webpages.
+The idea is to make them more accessible from my website, since I'm churning out many writeups.
+In short I:</p>
+<ol>
+<li>Used a python program to better tag and extract the writeups from my repository</li>
+<li>Converted them from a Markdown site to HTML webpage</li>
+<li>Put proper formatting, similar to the one on the Github page</li>
+</ol>
+<p>I am planning to add more functionality such as</p>
+<ol>
+<li>Maybe add tagging on the related concepts?</li>
+<li>Clean up my repository such that some writeups (for instance, challenges with half done/ incomplete writeups) do not show up</li>
+<li>Make a better search system (Similar to the current blog search system)</li>
+<li>Link the challenges with the CTF</li>
+</ol>
+<h2>Others</h2>
+<ol>
+<li>I'm planning to experiment with Blender Motion Graphics. However, I have no idea what free resources to start with, so maybe I'll look at After Effects Motion Graphics tutorials and then use them in blender</li>
+</ol>
+<p>That's it from me today, see you next post!</p>
+</div>
+    </div>
+
+  </body>
+</html>

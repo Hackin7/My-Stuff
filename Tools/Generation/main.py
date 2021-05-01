@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../')
 from tools import *
-
+import os
 
 #import GenerateWriteups
 
@@ -26,6 +26,11 @@ generateDirectory(newdir)
 for i in range(len(posts)):
     with open(olddir+posts[i]['htmlpath'], 'r') as f:
         data = f.read()
+
+
+    paths = os.path.split(posts[i]['htmlpath'])
+    if len(paths) > 1:
+        generateDirectory(os.path.join(newdir, *paths[:-1]))
 
     posts[i]['fullpath'] = newdir+posts[i]['htmlpath']
     with open(posts[i]['fullpath'], 'w') as f:

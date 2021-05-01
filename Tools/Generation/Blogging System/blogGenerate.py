@@ -53,7 +53,7 @@ def generate(dir='./', contentdir='Content', newdir='/tmp/stuff'):
 
     #os.system(f"rm -rf {newdir}/*")
     generateDirectory(newdir)
-    os.system(f"cp {formatDir(contentdir)}* {formatDir(newdir)}")
+    os.system(f"cp -r {formatDir(contentdir)}* {formatDir(newdir)}")
 
     posts = Excel.readSheet(dir+'Blogging.xlsx', 'Posts', conversion_func)
     posts = htmlConversion(newdir, posts)
