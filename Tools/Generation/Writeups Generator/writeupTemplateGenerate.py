@@ -8,7 +8,9 @@ except:
 
 def generateTemplate(link, given_data):
 
-    data = f"""<div class='content' style='width:60%;'>
+    data = f"""
+    <div class='content'>
+    <link href='/css/github-css.css' rel='stylesheet' type='text/css'>
         <br>
         <a href='{link}'>Original Github Link</a><br>
         {given_data}

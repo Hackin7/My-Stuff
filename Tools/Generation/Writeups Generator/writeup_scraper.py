@@ -108,7 +108,7 @@ def findChal(year, ctf, path, prev_folders):
 
         relative_path = getRelativePath(prev_folders + [category])
 
-        copy_dir( (year, ctf, categoryMapping(category), "category", relative_path) , cat_path, cat_files, os.path.join(NEW_PATH_ROOT, relative_path), chall_writeups )
+        copy_dir( (year, ctf, categoryMapping(category), category, relative_path) , cat_path, cat_files, os.path.join(NEW_PATH_ROOT, relative_path), chall_writeups )
 
         for chal in cat_folders:
             relative_path = getRelativePath(prev_folders + [category, chal])
@@ -120,10 +120,10 @@ def findChal(year, ctf, path, prev_folders):
                      os.path.join(NEW_PATH_ROOT, relative_path),
                      chall_writeups )
 
-#findCTF("CTF Writeups","/run/media/hacker/Windows/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions")
-
-#print(ctf_writeups)
-
+if __name__ == "__main__":
+    findCTF("CTF Writeups","/run/media/hacker/Windows/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions")
+    print(ctf_writeups)
+    print(chall_writeups)
 ################################################################################
 def writeToExcel():
     import pandas as pd

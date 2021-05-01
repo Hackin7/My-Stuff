@@ -54,7 +54,9 @@ with open("content/links.html", "w", encoding='utf-8') as f:
     for i in writeup_scraper.chall_writeups:
         year, ctf, category, chal, relative_path = i
         new_path = os.path.join("/Generated/CTF_Writeups", relative_path, "index.html")
-        links += f"<li><a href='{new_path}'>({year}) {ctf}: [{category}] {chal}</a></li>\n"
+        if category != "":
+            category = f"[{category}]"
+        links += f"<li><a href='{new_path}'>({year}) {ctf}: {category} {chal}</a></li>\n"
     links += "</ol>"
 
     f.write("""
