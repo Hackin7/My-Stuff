@@ -6,10 +6,6 @@ def textToMarkdown(text):
 import os
 def generateDirectory(path):
     os.makedirs(path, exist_ok=True)
-    #try:
-    #    os.makedirs(path, exist_ok=False)
-    #except FileExistsError:
-    #    pass
 
 ### Excel Functions ########################################################################
 

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CTF Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content' style='width:60%;'>
+        <br>
+        <a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2021/ångstromCTF/Rev/FREE FLAGS!!1!!'>Original Github Link</a><br>
+        <h1>FREE FLAGS!!1!!</h1>
+<h3>Description</h3>
+<p><img src="Description.png" alt="" /></p>
+<h2>Solution</h2>
+<h3>Basic Analysis</h3>
+<p>Firstly I open the binary in Cutter and decompiled it. This tells us that</p>
+<ol>
+<li>It scanf (ask for an input) the first number, and checks if it is <code>0x7a69</code>(<code>31337</code> in denary)</li>
+<li>Scans next 2 numbers, checks if their sum is <code>0x476</code> and their product is <code>0x49f59</code>
+<ul>
+<li>The variable names don't 100% match up but close enough</li>
+</ul>
+</li>
+<li>Scans a string, see if it is equal to <code>banana</code></li>
+<li>If passes all checks, calls the <code>print_flag</code> function.</li>
+</ol>
+<pre><code>uint64_t main(void)
+{
+    int32_t iVar1;
+    uint64_t uVar2;
+    undefined8 extraout_RDX;
+    int64_t iVar3;
+    char *pcVar4;
+    undefined4 uVar5;
+    int64_t in_FS_OFFSET;
+    int64_t var_140h;
+    int64_t var_120h;
+    uint32_t var_118h;
+    uint32_t var_114h;
+    char *s1;
+    int64_t var_8h;
+
+    var_8h = *(int64_t *)(in_FS_OFFSET + 0x28);
+    var_120h._0_4_ = 0;
+    puts(&quot;Congratulations! You are the 1000th CTFer!!! Fill out this short survey to get FREE FLAGS!!!&quot;);
+    puts(&quot;What number am I thinking of???&quot;);
+    pcVar4 = (char *)&amp;var_114h;
+    __isoc99_scanf(&quot;%d&quot;, pcVar4);
+    if (var_114h == 0x7a69) {
+        puts(&quot;What two numbers am I thinking of???&quot;);
+        pcVar4 = (char *)&amp;var_118h;
+        __isoc99_scanf(&quot;%d %d&quot;, pcVar4, (int64_t)&amp;var_120h + 4);
+        if ((var_118h + var_120h._4_4_ == 0x476) &amp;&amp; (var_118h * var_120h._4_4_ == 0x49f59)) {
+            puts(&quot;What animal am I thinking of???&quot;);
+            __isoc99_scanf(&quot; %256s&quot;, &amp;s1);
+            iVar3 = strcspn(&amp;s1, 0x202d);
+            *(undefined *)((int64_t)&amp;s1 + iVar3) = 0;
+            pcVar4 = &quot;banana&quot;;
+            iVar1 = strcmp(&amp;s1, &quot;banana&quot;);
+            if (iVar1 == 0) {
+                puts(&quot;Wow!!! Now I can sell your information to the Russian government!!!&quot;);
+                uVar5 = 0x2156;
+                puts(&quot;Oh yeah, here\'s the FREE FLAG:&quot;);
+                print_flag();
+                var_120h._0_4_ = 0;
+            } else {
+                uVar5 = 0x20ac;
+                puts(&quot;Wrong &gt;:((((&quot;);
+                var_120h._0_4_ = 1;
+            }
+        } else {
+            uVar5 = 0x20ac;
+            puts(&quot;Wrong &gt;:((((&quot;);
+            var_120h._0_4_ = 1;
+        }
+    } else {
+        uVar5 = 0x20ac;
+        puts(&quot;Wrong &gt;:((((&quot;);
+        var_120h._0_4_ = 1;
+    }
+    if (*(int64_t *)(in_FS_OFFSET + 0x28) != var_8h) {
+        __stack_chk_fail();
+        segment.LOAD1();
+        iVar3 = 0;
+        do {
+            uVar2 = (**(code **)(segment.LOAD3 + iVar3 * 8))(uVar5, pcVar4, extraout_RDX);
+            iVar3 = iVar3 + 1;
+        } while (iVar3 != 1);
+        return uVar2;
+    }
+    return (uint64_t)(uint32_t)var_120h;
+}
+</code></pre>
+<p>The first and last condition is easy to solve. But how about the 2nd one? In many CTF writeups I see many others use some form of equation solver and I wanted to try that.</p>
+<h3>z3 solver time</h3>
+<p>On googling, I learnt about the popular z3 solver.</p>
+<ol>
+<li><a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">https://ericpony.github.io/z3py-tutorial/guide-examples.htm</a></li>
+</ol>
+<p>Just <code>pip install z3-solver</code>, and run the code below and you will get some values</p>
+<pre><code>from z3 import *
+x = Int('x')
+y = Int('y')
+solve(x+y == 0x476, x*y == 0x49f59)
+</code></pre>
+<pre><code>[x = 419, y = 723]
+</code></pre>
+<p>After that, just put in the corrects inputs to meet the check and get the flag. I wrote <code>solve.py</code> to automatically connect to the server. Alternatively, you can use netcat and connect</p>
+<pre><code>31337
+419 723
+banana
+</code></pre>
+<h2>Flag</h2>
+<p><code>actf{what_do_you_mean_bananas_arent_animals}</code></p>
+
+    </div>
+    
+    </div>
+
+  </body>
+</html>

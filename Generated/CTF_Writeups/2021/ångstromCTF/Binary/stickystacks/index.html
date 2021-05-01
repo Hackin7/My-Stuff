@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CTF Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content' style='width:60%;'>
+        <br>
+        <a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2021/ångstromCTF/Binary/stickystacks'>Original Github Link</a><br>
+        <h1>stickystacks</h1>
+<h3>Description</h3>
+<p><img src="Description.png" alt="" /></p>
+<h2>Solution</h2>
+<p>I didn't actually solve it in the CTF.</p>
+<h3>What i did</h3>
+<p>I decompiled it in Cutter and looked at the <code>vuln</code> function</p>
+<pre><code>var_8h = fopen(&quot;flag.txt&quot;, 0x402008);
+  if (var_8h == 0) {
+      printf(&quot;Missing flag.txt. Contact an admin if you see this on remote.&quot;);
+      exit(1);
+  }
+  fgets((int64_t)&amp;var_9ah + 2, 0x80, var_8h, (int64_t)&amp;var_9ah + 2);
+  puts(&quot;Name: &quot;);
+  fgets(format, 6, _reloc.stdin);
+  printf(&quot;Welcome, &quot;);
+  printf(format);
+  .plt.sec(10);
+</code></pre>
+<p>When I saw <code>printf(format);</code> I knew it was a format string vulnerability.
+If we are lucky we could somehow leak the value of <code>var_8h</code> which stores the flag's contents</p>
+<p>To find the location of the value, let's disassemble this. I used <code>objdump -M intel -d stickystacks</code></p>
+<pre><code>401369:	48 8d 35 98 0c 00 00 	lea    rsi,[rip+0xc98]        # 402008 &lt;_IO_stdin_used+0x8&gt;
+401370:	48 8d 3d 93 0c 00 00 	lea    rdi,[rip+0xc93]        # 40200a &lt;_IO_stdin_used+0xa&gt;
+401377:	e8 74 fd ff ff       	call   4010f0 &lt;fopen@plt&gt;
+40137c:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+</code></pre>
+<p>The variable is <code>rbp-0x8</code>. We could access this in gdb</p>
+<p>Next step is to test the vulnerability. This includes printing whatever is on the stack, and finding out what parts of the stack we can control</p>
+<p>With <code>dump.py</code>, I connected to the server and printed out everything on the stack. Then I got stuck</p>
+<h3>After the CTF</h3>
+<p>After the CTF, I referenced the writeup <a href="https://ctftime.org/writeup/27044">here</a>, and realised that I was so close.
+With the hex data I gathered in <code>dump.py</code>, I extracted a large section out and just converted it into a text form, using the program <code>solve.py</code></p>
+<p>Some Notes</p>
+<ol>
+<li>Get the data using <code>%p</code>. Why <code>%p</code>? I'm not sure, maybe trial and error? (you can test <code>%x</code> and <code>%p</code>). My guess is that <code>%p</code> just prints it in a better format</li>
+<li>Remember to conver using little endian, else get wrecked.</li>
+</ol>
+<pre><code>;;;;;;;era sFTC!nuf ;;;;owssap321dr;;;;/1/10791;;;;2187-654-309;;;;lew{ftcaab_m'i_llb_ni_kc_sey_kcakcab_m'i_eht_ni_eb_kcats49215b9c48677dae;;;;;;;@ ;;;@;;U0Q&amp; ;;;@ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;!;;;
+</code></pre>
+<p>Running the final program</p>
+<pre><code>;;;		;CTFs are fun!;;;;password123;;;;1/1/1970;;;;123-456-7890;;;;actf{well_i'm_back_in_black_yes_i'm_back_in_the_stack_bec9b51294ead77684a1f593}
+;;;;;; @;;;@;; &amp;Q0U;; @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;!;;
+</code></pre>
+<p>What I learnt</p>
+<ol>
+<li>I learnt about the <code>%{pos}${padd}{format}</code> notation</li>
+<li>Just because you print it out as a hex format does not mean that it is intended to be a number. Sometimes, you can just convert it. to be characters</li>
+<li>The %c is useless to me lmao</li>
+</ol>
+<h2>Flag</h2>
+<p><code>actf{well_i'm_back_in_black_yes_i'm_back_in_the_stack_bec9b51294ead77684a1f593}</code></p>
+
+    </div>
+    
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CTF Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content' style='width:60%;'>
+        <br>
+        <a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2021/TAMUctf 2021/Reversing/Acrylic'>Original Github Link</a><br>
+        <h1>Acrylic</h1>
+<h3>Description</h3>
+<p><img src="Description1.png" alt="" /></p>
+<p><img src="Description2.png" alt="" /></p>
+<h2>Solution</h2>
+<ol>
+<li>Using cutter to decompile and disassemble, the <code>main()</code> function only <code>puts</code> something to the screen</li>
+<li>Modify the binary to run the <code>get_flag</code> function instead of <code>puts</code> (I used cutter)</li>
+</ol>
+<ul>
+<li>You can use <code>objdump</code> to disassemble the binary and get the address of <code>get_flag</code>, which is <code>0x000000000000063a</code></li>
+<li>Replace the address of <code>puts</code> in the <code>main</code> function with that of <code>get_flag</code></li>
+</ul>
+<ol start="3">
+<li>Use GDB and step through the entire function, just before it returns. Read the value of the flag in <code>rax</code> (the location of the return value)</li>
+</ol>
+<p>GDB log</p>
+<pre><code>(gdb) run
+Starting program: /tmp/a
+
+Breakpoint 1, 0x00005555554006b1 in main ()
+(gdb) break *0x00005555554006a8
+Breakpoint 2 at 0x5555554006a8
+(gdb) continue
+Continuing.
+
+Breakpoint 2, 0x00005555554006a8 in get_flag ()
+(gdb) info reg
+rax            0x555555601020      93824992940064
+rbx            0x5555554006d0      93824990840528
+rcx            0x58                88
+rdx            0x1600              5632
+rsi            0x7fffffffe6f8      140737488348920
+rdi            0x555555400754      93824990840660
+rbp            0x7fffffffe5f0      0x7fffffffe5f0
+rsp            0x7fffffffe5f0      0x7fffffffe5f0
+r8             0x0                 0
+r9             0x7ffff7fdc070      140737353990256
+r10            0x69682ac           110527148
+r11            0x202               514
+r12            0x555555400530      93824990840112
+r13            0x0                 0
+r14            0x0                 0
+r15            0x0                 0
+rip            0x5555554006a8      0x5555554006a8 &lt;get_flag+110&gt;
+eflags         0x206               [ PF IF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+(gdb) x/32wx $rsp
+0x7fffffffe5f0:	0xffffe600	0x00007fff	0x554006bd	0x00005555
+0x7fffffffe600:	0x00000000	0x00000000	0xf7dfeb25	0x00007fff
+0x7fffffffe610:	0xffffe6f8	0x00007fff	0xf7fca000	0x00000001
+0x7fffffffe620:	0x554006ad	0x00005555	0xffffe9c9	0x00007fff
+0x7fffffffe630:	0x554006d0	0x00005555	0xdcd1536c	0xe6c680c1
+0x7fffffffe640:	0x55400530	0x00005555	0x00000000	0x00000000
+0x7fffffffe650:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7fffffffe660:	0x10f1536c	0x19397f3e	0x0965536c	0x19396f7e
+(gdb) x/32wx $rbp
+0x7fffffffe5f0:	0xffffe600	0x00007fff	0x554006bd	0x00005555
+0x7fffffffe600:	0x00000000	0x00000000	0xf7dfeb25	0x00007fff
+0x7fffffffe610:	0xffffe6f8	0x00007fff	0xf7fca000	0x00000001
+0x7fffffffe620:	0x554006ad	0x00005555	0xffffe9c9	0x00007fff
+0x7fffffffe630:	0x554006d0	0x00005555	0xdcd1536c	0xe6c680c1
+0x7fffffffe640:	0x55400530	0x00005555	0x00000000	0x00000000
+0x7fffffffe650:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7fffffffe660:	0x10f1536c	0x19397f3e	0x0965536c	0x19396f7e
+(gdb) x/s $rax
+0x555555601020 &lt;flags&gt;:	&quot;gigem{cant_use_strings}&quot;
+(gdb) ni
+0x00005555554006ab in get_flag ()
+(gdb) x/s $rax
+0x555555602620 &lt;flags+5632&gt;:	&quot;gigem{counteradvise_orbitoides}&quot;
+(gdb)
+</code></pre>
+<h2>Flag</h2>
+<p><code>gigem{counteradvise_orbitoides}</code></p>
+
+    </div>
+    
+    </div>
+
+  </body>
+</html>

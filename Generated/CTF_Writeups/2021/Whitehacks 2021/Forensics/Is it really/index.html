@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CTF Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content' style='width:60%;'>
+        <br>
+        <a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2021/Whitehacks 2021/Forensics/Is it really'>Original Github Link</a><br>
+        <p>$ file signup.pdf
+signup.pdf: PDF document, version 1.3
+hacker@HackerBook:/mnt/c/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions/2021/Whitehacks 2021/Forensics/Is it really?$ binwalk signup.pdf</p>
+<h2>DECIMAL       HEXADECIMAL     DESCRIPTION</h2>
+<p>0             0x0             PDF document, version: &quot;1.3&quot;
+69            0x45            Zip archive data, at least v2.0 to extract, uncompressed size: 68, name: eicar.txt
+226           0xE2            Zip archive data, at least v2.0 to extract, uncompressed size: 332, name: __MACOSX/._eicar.txt
+687           0x2AF           End of Zip archive, footer length: 22
+443555        0x6C4A3         End of Zip archive, footer length: 22</p>
+<p>hacker@HackerBook:/mnt/c/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions/2021/Whitehacks 2021/Forensics/Is it really?$ binwalk signup.pdf -e</p>
+<h2>DECIMAL       HEXADECIMAL     DESCRIPTION</h2>
+<p>0             0x0             PDF document, version: &quot;1.3&quot;</p>
+<p>WARNING: Extractor.execute failed to run external extractor 'jar xvf '%e'': [Errno 2] No such file or directory: 'jar', 'jar xvf '%e'' might not be installed correctly
+69            0x45            Zip archive data, at least v2.0 to extract, uncompressed size: 68, name: eicar.txt
+226           0xE2            Zip archive data, at least v2.0 to extract, uncompressed size: 332, name: __MACOSX/._eicar.txt
+687           0x2AF           End of Zip archive, footer length: 22
+443555        0x6C4A3         End of Zip archive, footer length: 22</p>
+<p>hacker@HackerBook:/mnt/c/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions/2021/Whitehacks 2021/Forensics/Is it really?$ ls
+signup.pdf  _signup.pdf.extracted
+hacker@HackerBook:/mnt/c/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions/2021/Whitehacks 2021/Forensics/Is it really?$ cd signup.pdf
+-bash: cd: signup.pdf: Not a directory
+hacker@HackerBook:/mnt/c/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions/2021/Whitehacks 2021/Forensics/Is it really?$ cd signup.e
+-bash: cd: signup.e: No such file or directory
+hacker@HackerBook:/mnt/c/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions/2021/Whitehacks 2021/Forensics/Is it really?$ binwalk signup.pdf -e</p>
+<h2>DECIMAL       HEXADECIMAL     DESCRIPTION</h2>
+<p>0             0x0             PDF document, version: &quot;1.3&quot;</p>
+<p>WARNING: Extractor.execute failed to run external extractor 'jar xvf '%e'': [Errno 2] No such file or directory: 'jar', 'jar xvf '%e'' might not be installed correctly
+69            0x45            Zip archive data, at least v2.0 to extract, uncompressed size: 68, name: eicar.txt
+226           0xE2            Zip archive data, at least v2.0 to extract, uncompressed size: 332, name: __MACOSX/._eicar.txt
+687           0x2AF           End of Zip archive, footer length: 22
+443555        0x6C4A3         End of Zip archive, footer length: 22</p>
+<p>$ cat eicar.txt
+X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*hacker@HackerBook:/mnt/c/Users/zunmu/Documents/Stuff/Github/Solutions/Cyber Security/Capture the Flag Competitions/2021/Whitehacks 2021/Forensics/Is it really?/_signup.pdf.extracted$ unzip 45.zip
+Archive:  45.zip
+warning [45.zip]:  138 extra bytes at beginning or within zipfile
+(attempting to process anyway)
+file #1:  bad zipfile offset (local header sig):  207
+(attempting to re-compensate)
+file #1:  bad zipfile offset (local header sig):  207
+file #2:  bad zipfile offset (local header sig):  226
+(attempting to re-compensate)
+file #2:  bad zipfile offset (local header sig):  226</p>
+<p>$ exiftool -a -u -g2 signup.pdf
+---- ExifTool ----
+ExifTool Version Number         : 11.99
+---- Other ----
+File Name                       : signup.pdf
+Directory                       : .
+File Size                       : 434 kB
+File Permissions                : rwxrwxrwx
+File Type                       : PDF
+File Type Extension             : pdf
+MIME Type                       : application/pdf
+---- Time ----
+File Modification Date/Time     : 2021:03:07 11:31:17+08:00
+File Access Date/Time           : 2021:03:07 11:31:17+08:00
+File Inode Change Date/Time     : 2021:03:07 11:31:47+08:00
+---- Document ----
+PDF Version                     : 1.3
+Linearized                      : No
+Page Count                      : 1
+Producer                        : macOS Version 11.2.1 (Build 20D74) Quartz PDFContext
+Creator                         : Preview</p>
+
+    </div>
+    
+    </div>
+
+  </body>
+</html>

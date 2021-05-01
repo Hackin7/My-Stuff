@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CTF Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content' style='width:60%;'>
+        <br>
+        <a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2020/DSTA CDDC 2020/Warp Gate 5/[RE (Windows)-1] Decompile Me'>Original Github Link</a><br>
+        <h1>[RE (Windows)-1] Decompile Me</h1>
+<p>668 points, GATE 5, 29 SOLVES as of solving</p>
+<h2>Description</h2>
+<p>Hello py2exe, nice to meet you!</p>
+<p>MD5(&quot;DecompileMe.zip&quot;): 3805ccecd327d3cfcfdcc12c1ce7891b</p>
+<h2>Attached files</h2>
+<p><a href="https://junior-api.cddc2020.nshc.sg/file?id=ckc4usaw103rw07566epu5x36&amp;name=DecompileMe.zip">DecompileMe.zip</a></p>
+<h1>Solution</h1>
+<p>You can basically use a python exe decompiler. The one I used is <a href="https://github.com/countercept/python-exe-unpacker">python-exe-unpacker</a>. Just run it on the executable (after installing) like this: <code>python python_exe_unpack.py -i [malware.exe]</code></p>
+<p>It's a Python 2 Executable by the way, not Python 3. If you run the decompiler with Python 3 you will get an error message saying it's Python 2 code.</p>
+<p>Aftter decompiling it, the code in <code>unpacked/DecompileMe.exe/DecompileMe.py.py</code> has a <code>FLAG</code> variable which has the flag (it's obvious because of the first few characters). Just modify the code to remove the Win32 API lines (to be similar to <code>solve.py</code>), and print out the <code>FLAG</code> variable.</p>
+<p>A similar challenge would be <a href="https://github.com/cyberyouthsg/cysc19-ctf/tree/master/RE/wow-thats-fancy">Wow That's Fancy from the CYS-CTF 2019</a></p>
+<h1>Flag</h1>
+<p><code>CDDC20{NiCe-2-MeeT-py2exe~:D}</code></p>
+
+    </div>
+    
+    </div>
+
+  </body>
+</html>

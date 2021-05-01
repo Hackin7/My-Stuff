@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CTF Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content' style='width:60%;'>
+        <br>
+        <a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2020/Cyberthon 2020/Livestream Training/Data Science/Substitution Ciphers'>Original Github Link</a><br>
+        <h1>Substitution Ciphers</h1>
+<p>100 Points, Data Science</p>
+<h2>Description</h2>
+<p>There are patterns in most things we create, these patterns can be used to study and recover data. In this challenge we will be using the naturally observed frequencies of English words and letters to decode a cipher text made by a simple substitution cipher.</p>
+<p>English like most other languages has letter frequencies associated with it:</p>
+<ul>
+<li>See <a href="https://commons.wikimedia.org/wiki/File:English_letter_frequency_(alphabetic).svg">https://commons.wikimedia.org/wiki/File:English_letter_frequency_(alphabetic).svg</a></li>
+<li>See <a href="https://en.wikipedia.org/wiki/Frequency_analysis">https://en.wikipedia.org/wiki/Frequency_analysis</a></li>
+</ul>
+<p>You may find this tool useful: <a href="https://studio.code.org/s/frequency_analysis">https://studio.code.org/s/frequency_analysis</a>
+FLAG IS IN ALL CAPS WITH CTFSG{####} FORMAT</p>
+<h1>Solution</h1>
+<p>Using <a href="https://studio.code.org/s/frequency_analysis">this website</a>,
+match the letters by frequency, and you fill get this</p>
+<p><img src="MatchByFrequency.png" alt="Match by Frequency" /></p>
+<p>However, you notice there are some letters off, like <code>FOJ</code>, instead of <code>FOX</code>. Just do a few substitutions (switch J and X substitutions) and you get something resembling English.</p>
+<p><img src="Substitution.png" alt="Substitution" /></p>
+<p>After that just use Ctrl-F &quot;CTFSG{&quot; to find the Flag in the Text</p>
+<pre><code>IT MADE AN INSTANT CHANGE IN HIM, FOR THE FURY PASSED SO QUICKLY THAT I COULD HARDLY BELIEVE THAT IT WAS EVER THERE. &quot;TAKE CARE,&quot; HE SAID, &quot;TAKE CARE HOW YOU CUT YOURSELF. IT IS MORE CTFSG{GOT_FREQUENCIES_BUTWHEREARETHEWAVELENGTHS} DANGEROUS THAN YOU THINK IN THIS COUNTRY.&quot; THEN SEIZING THE SHAVING GLASS, HE WENT ON:
+</code></pre>
+<h1>Flag</h1>
+<p><code>CTFSG{GOT_FREQUENCIES_BUTWHEREARETHEWAVELENGTHS}</code></p>
+
+    </div>
+    
+    </div>
+
+  </body>
+</html>

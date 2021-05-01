@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CTF Writeup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content' style='width:60%;'>
+        <br>
+        <a href='https://github.com/Hackin7/Programming-Crappy-Solutions/blob/master/Cyber Security/Capture the Flag Competitions/2020/DSTA CDDC 2020/Warp Gate 4/Something's Going On'>Original Github Link</a><br>
+        <h1>Something's Going On</h1>
+<p>969, GATE 4, 21 SOLVES</p>
+<h2>Description</h2>
+<p>Looks like we found a hidden secret left behind by one of the Resistance Fighters while they were snooping around Unduplicitous Corp's network.</p>
+<p>All we have to go on is this pcap file. How about it? Can you discover its secret?</p>
+<p>MD5(&quot;analyse.pcap&quot;): 5f76953e753ffd56eae5532d63b7a391</p>
+<h2>Attached Files</h2>
+<p><a href="https://junior-api.cddc2020.nshc.sg/file?id=ckc4y8h6g05ey0786agwqf5ff&amp;name=analyse.pcap">analyse.pcap</a></p>
+<h1>Solution</h1>
+<p>First thing to do is to attempt to extract all the html objects and whatnot. Most of the HTML files are basically 404 or homepage messages. There are other files like <code>secret.bin</code>, <code>ImptRead.pdf</code>, <code>memo.log</code> and more, sent by FTP.</p>
+<p>One interesting thing noted in the <code>.pcap</code> is that the header includes this: <code>User-Agent: struts-pwn (https://github.com/mazen160/struts-pwn_CVE-2018-11776)</code>. On going to that github, its an exploit for Apache Struts CVE-2018-11776. This along with the other HTTP objects suggests that this is running Apache Struts.</p>
+<p>Another interesting thing is that there is actually a console log (saved in <code>console_log.txt</code>) which reads out:</p>
+<pre><code>root@internal-dev-app: ~/.ssh.root@internal-dev-app:~/.ssh# cat priv.pem
+cat priv.pem
+-----BEGIN RSA PRIVATE KEY-----
+MIICXAIBAAKBgQDSo1HHOcvenn8C52mtF/bUkWkmn4n/TNuNp8Anuhx1NmJni0gh
+QhTIk0G/uIYHDJJ/z66MJmS6NzysiLm5UjQKitL4HmGGn+i6RQehdrga7N0WZjVg
+5ThqCe5Dwue5BjxqtaYocOFVoz7N6uz4cxdHK37kmYxl1x7ztD75+ogv/QIDAQAB
+AoGABFyHW/WxZ/mmLZw3DvN5E+uy3q7c/6FKxoMbsnbjEfY/UV+L7cxde824xcx/
+UfQLsIPPXG2LFmQAaJ4oIlM2apvX4h3Tzlq/dxrY3HEYOKLg0TNNuKvQTmhOoTD6
+t5dyfFHvZoqTkIhLKhP3EQkedtLCerUlucQMg+O7CNSkBw0CQQDwnHJgTBJFQZZB
+Mi+QwbX5abPYqPGV5aZlzTRVstu4OKXU8764pzfEf0edXcbw1i2n/pcfU/BPRsv/
+DrvJScfvAkEA4Bweaoacbq8XgUsb4a/jtLufpzhNECEbb92eHu70qqDFXUJz6UGk
+Z8QrudFo7/SEoB5+OEypQ3/gunwp4Rf60wJBAKeYQW7j7eIBojg9TbZlx2w3/UaP
+vt7rPHEycx6yW6tBAfmH4jPafdTH10k8tcKxXNHkWr0+iWee5578Uz8Mvk8CQCVb
+CobfITwh210l0+PumZoKnDYXYGEL47Ll0fF+CzJV0hAVf5Sl6G2TeWZjzYYRz/mQ
+m6FuxdgGfMMY5zIp+RkCQDW752YJGEjUhMpXbnUrtQx8sMVX26kZMRyw/jBMa6ne
+EQ3ImmpYWT37c23+FkdBtz+/ErVR+eP83vfSFd4tiGY=
+-----END RSA PRIVATE KEY-----
+.]0;root@internal-dev-app: ~/.ssh.root@internal-dev-app:~/.ssh# cat pub.pem
+cat pub.pem
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDSo1HHOcvenn8C52mtF/bUkWkm
+n4n/TNuNp8Anuhx1NmJni0ghQhTIk0G/uIYHDJJ/z66MJmS6NzysiLm5UjQKitL4
+HmGGn+i6RQehdrga7N0WZjVg5ThqCe5Dwue5BjxqtaYocOFVoz7N6uz4cxdHK37k
+mYxl1x7ztD75+ogv/QIDAQAB
+-----END PUBLIC KEY-----
+</code></pre>
+<p>After extracting the key I was stuck though and didn't continue with the challenge. But then <a href="https://github.com/undefined-func">my friend</a> took over and extracted <code>secret.bin</code> with the key in the console log.</p>
+<h1>Flag</h1>
+<p><code>CDDC20{STOP_STRUTTING_AROUND}</code></p>
+
+    </div>
+    
+    </div>
+
+  </body>
+</html>
