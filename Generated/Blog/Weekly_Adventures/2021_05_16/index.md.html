@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css"/>
+
+  </head>
+
+  <body>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/index.html">Hackin7</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">About</a></li>
+           <li><a class="nav-link" href="/achievements.html">Achievements</a></li>
+           <li><a class="nav-link" href="/blog.html">Blog</a></li>
+            <li><a class="nav-link" href="/links.html">CTF Writeups</a></li>
+            <li><a class="nav-link" href="/all_projects.html">All Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+    <div class='content'><br><p>16/05/2021 23:59:00</p>
+<h1>Weekly Adventures: Doom Reinforcement Learning</h1>
+<p>Ah yes, I wanted to get back into Machine Learning <del>definitely not just because I want to add another thing to semi flex</del>. Using Machine Learning to identify handwritten digits, Image Recognition and more seems boring through. I want something more exciting, more fun, and what better way then to get started than through making my very own Game AI?</p>
+<h2><del>Tensorflow 2 rant</del> Why PyTorch</h2>
+<p>There are many Machine Learning courses online. I tried following some guides and testing much of the code locally and on Google Colab.</p>
+<p>Problem, they don't work half the time.
+I see things like this:</p>
+<pre><code>tf.reset_default_graph()
+AttributeError: module 'tensorflow' has no attribute 'reset_default_graph'
+</code></pre>
+<p>Because Tensorflow 2 exists, backwards compatability with old libraries is broken and stuff doesn't work as well. Also installing old tensorflow is a pain.  I'm thinking I need to code this from scratch and stuff but Tensorflow is also generally not as easy to read for me. I don't understand half the function names like what is this supposed to mean?</p>
+<pre><code>gradient_function = K.gradients(cost_function, model_input_layer)[0]
+grab_cost_and_gradients_from_model = K.function([model_input_layer], [cost_function, gradient_function])
+</code></pre>
+<p>I realised that PyTorch exists. Just a simple google search of <code>PyTorch Tutorial</code> gets me <a href="https://pytorch.org/tutorials/">this official guide</a> on the first entry. This guide is a wonderful entry into using the library. PyTorch offers some benefits like</p>
+<ol>
+<li>Being more Pythonic and object-oriented apparently. Basically code is easier to read.</li>
+</ol>
+<ul>
+<li><code>torch.nn.Module</code> gives you the ability to define reusable modules in an OOP and is generally awesome</li>
+</ul>
+<ol start="2">
+<li>The recipies on the official guide work almost all time time (meanwhile, the ones I find with Tensorflow work like 10% of the time)</li>
+<li>One of the biggest features that distinguish PyTorch from TensorFlow is declarative data parallelism: you can use torch.nn.DataParallel to wrap any module and it will be (almost magically) parallelized over batch dimension. This way you can leverage multiple GPUs with almost no effort.</li>
+</ol>
+<h2>Concept</h2>
+<p>Reinforcement Learning</p>
+<p>Very Brief and Oversimplified Explanation (I may come back and improve this if I feel like it):</p>
+<ol>
+<li>There is an environment (like a game).</li>
+</ol>
+<ul>
+<li>You are given it's current state (image, score, whatever)</li>
+<li>The Agent(Program) can take certain actions</li>
+<li>For a certain action and state, it will receive a reward (either positive or negative score)</li>
+</ul>
+<ol start="2">
+<li>The agent wants to maximise the reward. It uses a Deep Neural Network to predict the action which will give the best value. The Agent then takes that action (Value-Based Method)</li>
+</ol>
+<ul>
+<li>Some other implementations instead predict the action directly</li>
+</ul>
+<ol start="3">
+<li>Using the rewards it recieves in real time, the Agent trains itself to be better at predicting and interacting in the environment.</li>
+</ol>
+<p>Some other concepts</p>
+<ol>
+<li>Exploration/ Exploitation Trade off</li>
+</ol>
+<ul>
+<li>What is the probability the agent should exploit: Take the most optimal action <strong>vs</strong></li>
+<li>explore: Doing other actions to potentially discover even more optimal actions</li>
+</ul>
+<ol start="2">
+<li>The reward decreases over time for the same action</li>
+</ol>
+<ul>
+<li>Encourages the agent to take the most optimal reward from the very start</li>
+</ul>
+<ol start="3">
+<li>Time</li>
+</ol>
+<ul>
+<li>In some games, time is an important consideration (eg. is an enemy moving towards you).</li>
+<li>One way to solve this is by stacking frames (putting a few frames together and passing it into the machine learning model)</li>
+</ul>
+<ol start="4">
+<li>Memory</li>
+</ol>
+<ul>
+<li>The agent stores past experiences, and randomly picks some of them for training to avoid making the same mistakes again</li>
+</ul>
+<p>Useful resources to learn more</p>
+<ol>
+<li><a href="https://github.com/simoninithomas/Deep_reinforcement_learning_Course">https://github.com/simoninithomas/Deep_reinforcement_learning_Course</a></li>
+</ol>
+<ul>
+<li>Following V1 of the course should be fine</li>
+</ul>
+<h2>What I Did</h2>
+<p>Combine <a href="https://github.com/simoninithomas/Deep_reinforcement_learning_Course/blob/master/Deep%20Q%20Learning/Doom/Deep%20Q%20learning%20with%20Doom.ipynb">this</a> and <a href="https://pytorch.org/tutorials/intermediate/mario_rl_tutorial.html">this</a> to make my own Doom playing AI that works. Since I actually can't find a simple one that works.</p>
+<p>What it basically does</p>
+<ol>
+<li>Stack the frames</li>
+<li>Runs it through a DDQN network (I'm not qualified to write about this yet)</li>
+<li>???</li>
+<li>Profit</li>
+</ol>
+<p><a href="https://github.com/Hackin7/Programming-Crappy-Boilerplates/tree/master/Machine%20Learning/PyTorch/Simple%20Doom%20AI">My Code</a></p>
+<h2>Training</h2>
+<p><img src="reward_plot.jpg" alt="Reward Graph" /></p>
+<p>Err... wel... machine learning is a long process.</p>
+<p>Some estimates (on my 2017 Core i5 Laptop, AMD Radeon Graphics(Entry Level) )</p>
+<ol>
+<li>The reward score will fluctuate, but to see improvement, you have to wait for about 30 min to see significant improvement</li>
+<li>About 45min to see single digit negative reward?</li>
+<li>About 1h 10min to see positive rewards? 2h to see consistent positive rewards?</li>
+<li>The memory alone is like 2.3GB? Prepare your RAM for this</li>
+<li>2.5h for double digit positive rewards?</li>
+</ol>
+<p><a href="training.webm">Training Video</a></p>
+<h2>TLDR</h2>
+<ol>
+<li>Tensorflow 2 is something that exists. Try PyTorch for less compatability issues</li>
+<li>Bla Bla Deep Q Learning stuff</li>
+<li>I made a DDQN Doom AI that works ok enough I guess</li>
+</ol>
+</div>
+    </div>
+
+  </body>
+</html>
