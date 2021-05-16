@@ -23,6 +23,8 @@ posts = blogGenerate.generate(
 )
 
 generateDirectory(newdir)
+os.system(f"cp -r {blogGenerate.formatDir(olddir)}* {blogGenerate.formatDir(newdir)}")
+
 for i in range(len(posts)):
     with open(olddir+posts[i]['htmlpath'], 'r') as f:
         data = f.read()

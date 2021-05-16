@@ -81,6 +81,9 @@ Some estimates (on my 2017 Core i5 Laptop, AMD Radeon Graphics(Entry Level) )
 
 [Training Video](training.webm)
 
+DQN was a shock though. It trained to have double digit 70-80s rewards in like 45 min.
+Check my repo for more info
+
 ## TLDR
 1. Tensorflow 2 is something that exists. Try PyTorch for less compatability issues
 2. Bla Bla Deep Q Learning stuff
