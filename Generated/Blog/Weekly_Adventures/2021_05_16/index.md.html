@@ -49,12 +49,11 @@ grab_cost_and_gradients_from_model = K.function([model_input_layer], [cost_funct
 </code></pre>
 <p>I realised that PyTorch exists. Just a simple google search of <code>PyTorch Tutorial</code> gets me <a href="https://pytorch.org/tutorials/">this official guide</a> on the first entry. This guide is a wonderful entry into using the library. PyTorch offers some benefits like</p>
 <ol>
-<li>Being more Pythonic and object-oriented apparently. Basically code is easier to read.</li>
-</ol>
+<li>Being more Pythonic and object-oriented apparently. Basically code is easier to read.
 <ul>
 <li><code>torch.nn.Module</code> gives you the ability to define reusable modules in an OOP and is generally awesome</li>
 </ul>
-<ol start="2">
+</li>
 <li>The recipies on the official guide work almost all time time (meanwhile, the ones I find with Tensorflow work like 10% of the time)</li>
 <li>One of the biggest features that distinguish PyTorch from TensorFlow is declarative data parallelism: you can use torch.nn.DataParallel to wrap any module and it will be (almost magically) parallelized over batch dimension. This way you can leverage multiple GPUs with almost no effort.</li>
 </ol>
@@ -62,56 +61,53 @@ grab_cost_and_gradients_from_model = K.function([model_input_layer], [cost_funct
 <p>Reinforcement Learning</p>
 <p>Very Brief and Oversimplified Explanation (I may come back and improve this if I feel like it):</p>
 <ol>
-<li>There is an environment (like a game).</li>
-</ol>
+<li>There is an environment (like a game).
 <ul>
 <li>You are given it's current state (image, score, whatever)</li>
 <li>The Agent(Program) can take certain actions</li>
 <li>For a certain action and state, it will receive a reward (either positive or negative score)</li>
 </ul>
-<ol start="2">
-<li>The agent wants to maximise the reward. It uses a Deep Neural Network to predict the action which will give the best value. The Agent then takes that action (Value-Based Method)</li>
-</ol>
+</li>
+<li>The agent wants to maximise the reward. It uses a Deep Neural Network to predict the action which will give the best value. The Agent then takes that action (Value-Based Method)
 <ul>
 <li>Some other implementations instead predict the action directly</li>
 </ul>
-<ol start="3">
+</li>
 <li>Using the rewards it recieves in real time, the Agent trains itself to be better at predicting and interacting in the environment.</li>
 </ol>
 <p>Some other concepts</p>
 <ol>
-<li>Exploration/ Exploitation Trade off</li>
-</ol>
+<li>Exploration/ Exploitation Trade off
 <ul>
 <li>What is the probability the agent should exploit: Take the most optimal action <strong>vs</strong></li>
 <li>explore: Doing other actions to potentially discover even more optimal actions</li>
 </ul>
-<ol start="2">
-<li>The reward decreases over time for the same action</li>
-</ol>
+</li>
+<li>The reward decreases over time for the same action
 <ul>
 <li>Encourages the agent to take the most optimal reward from the very start</li>
 </ul>
-<ol start="3">
-<li>Time</li>
-</ol>
+</li>
+<li>Time
 <ul>
 <li>In some games, time is an important consideration (eg. is an enemy moving towards you).</li>
 <li>One way to solve this is by stacking frames (putting a few frames together and passing it into the machine learning model)</li>
 </ul>
-<ol start="4">
-<li>Memory</li>
-</ol>
+</li>
+<li>Memory
 <ul>
 <li>The agent stores past experiences, and randomly picks some of them for training to avoid making the same mistakes again</li>
 </ul>
+</li>
+</ol>
 <p>Useful resources to learn more</p>
 <ol>
-<li><a href="https://github.com/simoninithomas/Deep_reinforcement_learning_Course">https://github.com/simoninithomas/Deep_reinforcement_learning_Course</a></li>
-</ol>
+<li><a href="https://github.com/simoninithomas/Deep_reinforcement_learning_Course">https://github.com/simoninithomas/Deep_reinforcement_learning_Course</a>
 <ul>
 <li>Following V1 of the course should be fine</li>
 </ul>
+</li>
+</ol>
 <h2>What I Did</h2>
 <p>Combine <a href="https://github.com/simoninithomas/Deep_reinforcement_learning_Course/blob/master/Deep%20Q%20Learning/Doom/Deep%20Q%20learning%20with%20Doom.ipynb">this</a> and <a href="https://pytorch.org/tutorials/intermediate/mario_rl_tutorial.html">this</a> to make my own Doom playing AI that works. Since I actually can't find a simple one that works.</p>
 <p>What it basically does</p>
@@ -121,7 +117,7 @@ grab_cost_and_gradients_from_model = K.function([model_input_layer], [cost_funct
 <li>???</li>
 <li>Profit</li>
 </ol>
-<p><a href="https://github.com/Hackin7/Programming-Crappy-Boilerplates/tree/master/Machine%20Learning/PyTorch/Simple%20Doom%20AI">My Code</a></p>
+<p><a href="https://github.com/Hackin7/Programming-Crappy-Boilerplates/tree/master/Machine%20Learning/PyTorch/Reinforcement%20Learning/Doom%20AI">My Code</a></p>
 <h2>Training</h2>
 <p><img src="reward_plot.jpg" alt="Reward Graph" /></p>
 <p>Err... wel... machine learning is a long process.</p>
