@@ -10073,10 +10073,12 @@ A block editor to make mobile applications
 Check the Google Play Console
 </pre>
 </div>
-<div created="20210820120924872" modified="20210820121042499" title="Network Services">
+<div created="20210820120924872" modified="20210820122217980" title="Network Services">
 <pre>! FTP
 # Server: `python3 -m pyftpdlib -w`
-# Mount: https://wiki.archlinux.org/title/CurlFtpFS</pre>
+# Mount: `sudo curlftpfs 192.168.1.124:2121 /mnt/ -o allow_other`
+## https://wiki.archlinux.org/title/CurlFtpFS
+## Edit `/etc/fuse.conf`  and add `user_allow_other` ([[reference|https://unix.stackexchange.com/questions/17402/why-does-root-get-permission-denied-when-accessing-fuse-directory]])</pre>
 </div>
 <div created="20191105065551127" modified="20210808122214555" tags="Tech" title="Programming">
 <pre>! Programming Languages
