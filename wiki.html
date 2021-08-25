@@ -165,6 +165,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>$:/SiteTitle</li>
 
+<li>$:/state/edit/references-1551304317</li>
+
 <li>$:/state/image-picker/system--1373324699</li>
 
 <li>$:/state/Link/-1743395894/search</li>
@@ -237,6 +239,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Finance</li>
 
+<li>Fitness</li>
+
 <li>Game Development</li>
 
 <li>Ghost</li>
@@ -258,8 +262,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <li>React</li>
 
 <li>Robotics</li>
-
-<li>Sports</li>
 
 <li>Stocks</li>
 
@@ -9524,6 +9526,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191104231529510" modified="20191104231615661" title="$:/SiteTitle">
 <pre>CrappyMakerProgrammer Knowledge Base</pre>
 </div>
+<div created="20210825133651705" modified="20210825133651705" title="$:/state/edit/references-1551304317">
+<pre>show</pre>
+</div>
 <div created="20191105033855648" modified="20191105033856511" title="$:/state/image-picker/system--1373324699">
 <pre>hide</pre>
 </div>
@@ -9563,7 +9568,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210810022255127" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210825130646905" list="CrappyMakerProgrammer Tech [[App Development]] [[Mobile App Development]] [[Android NDK]]" modified="20210825131949383" title="$:/StoryList">
+<div created="20210825133636042" list="CrappyMakerProgrammer Fitness" modified="20210825133639203" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9810,7 +9815,7 @@ https://www.berryterminal.com/doku.php/berryboot_a10
 https://linux-sunxi.org/Bootable_OS_images
 </pre>
 </div>
-<div created="20210822234019649" modified="20210825133554835" title="Android NDK">
+<div created="20210822234019649" modified="20210822234604220" title="Android NDK">
 <pre>If I put the function outside extern C, the app compiles but crashes
 If I put it inside it works
 
@@ -9824,62 +9829,8 @@ https://stackoverflow.com/questions/28042285/calling-a-java-method-from-the-nati
 
 ! Using Java Native Interface
 
-!! Steps
-
-# Setup CMake
-# 
-# Call native functions in Java Classes
-
-!! C vs C++
-
-In C++, you can reference the object methods or the environment directly, but in C, you have to put the envirinment back in the method as a parameter
-
-!! Native to Java
-Create Native (C/C++) functions that can be called by Java Classes
-
-
-!! Java to Native
-
-# Get the env from the Java VM/ Function parameter
-# Get the class from the env
-# Get the Method ID, with the appropriate function signature
-# Call the Method using `Call&lt;Object&gt;Method` or  `CallStatic&lt;Object&gt;Method`
-
 https://www.baeldung.com/jni
-
-
-
-!!! Java Function Signatures
-
-Referenced from [[here|https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/types.html ]] 
-
-|Type Signature|Java Type|
-|Z|boolean|
-|B|byte|
-|C|char|
-|S|short|
-|I|int|
-|J|long|
-|F|float|
-|D|double|
-|L fully-qualified-class;|fully-qualified-class|
-|[ type|type[]|
-|( arg-types ) ret-type|method type|
-
-Sample
-
-`long f (int n, String s, int[] arr);` -&gt; `(ILjava/lang/String;[I)J`
-
-!!! Boilerplate
-`
-    jclass cls = env-&gt;FindClass(&quot;com/mycompany/myndkapp/HelloJni&quot;);
-   jmethodID getAnswerMethod = env-&gt;GetStaticMethodID(cls, &quot;getAnswer&quot;, &quot;(I)I&quot;);
-`
-
-!! Data Conversion between JNI and C
-
-List of data types is [[here|https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/types.html ]] 
-</pre>
+https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/types.html</pre>
 </div>
 <div created="20210810022416690" modified="20210821001513334" tags="Tech" title="App Development">
 <pre># [[Web Development]]
@@ -10086,6 +10037,16 @@ Check my other youtube channel, the one with the Kimetsu no Yaiba OP Electone Co
 # [[Insurance]]
 # [[Business]] </pre>
 </div>
+<div created="20191105031002481" modified="20210825133712595" tags="TableOfContents" title="Fitness">
+<pre>! Sports
+!! Volleyball
+Was in CCHY Volleyball team (2015-2018)
+Played as Middle Blocker (The shitty one)
+Suck at Passing (Keep your arms fixed, use your legs), Setting, Spiking, Serving &amp; Blocking. 
+
+!! Basketball
+Played with friends. Don't know much about positions</pre>
+</div>
 <div created="20191104231741471" modified="20210810022235487" tags="Tech" title="Game Development">
 <pre>There are many kinds of things you can learn about game development. 
 
@@ -10283,15 +10244,6 @@ Important Concepts
 ## Block Based Programming
 ## Learn as you go (Experience)
 ## Bluetooth between robots http://www.legoengineering.com/programming-bluetooth-on-ev3/</pre>
-</div>
-<div created="20191105031002481" modified="20210808122025995" tags="TableOfContents" title="Sports">
-<pre>! Volleyball
-Was in CCHY Volleyball team (2015-2018)
-Played as Middle Blocker (The shitty one)
-Suck at Passing (Keep your arms fixed, use your legs), Setting, Spiking, Serving &amp; Blocking. 
-
-! Basketball
-Played with friends. Don't know much about positions</pre>
 </div>
 <div created="20210810142453194" modified="20210810142954660" title="Stocks">
 <pre>! What are stocks
