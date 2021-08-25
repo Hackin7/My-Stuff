@@ -9563,7 +9563,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210810022255127" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210822233138539" list="CrappyMakerProgrammer Tech Linux [[Network Services]]" modified="20210822234849362" title="$:/StoryList">
+<div created="20210825130646905" list="$:/ControlPanel CrappyMakerProgrammer Tech [[App Development]] [[Mobile App Development]] [[Android NDK]]" modified="20210825131949383" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9611,11 +9611,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
         },
         &quot;$:/info/browser/screen/width&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/width&quot;,
-            &quot;text&quot;: &quot;1366&quot;
+            &quot;text&quot;: &quot;412&quot;
         },
         &quot;$:/info/browser/screen/height&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/height&quot;,
-            &quot;text&quot;: &quot;768&quot;
+            &quot;text&quot;: &quot;915&quot;
         },
         &quot;$:/info/browser/language&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/language&quot;,
@@ -9810,7 +9810,7 @@ https://www.berryterminal.com/doku.php/berryboot_a10
 https://linux-sunxi.org/Bootable_OS_images
 </pre>
 </div>
-<div created="20210822234019649" modified="20210822234604220" title="Android NDK">
+<div created="20210822234019649" modified="20210825131939208" title="Android NDK">
 <pre>If I put the function outside extern C, the app compiles but crashes
 If I put it inside it works
 
@@ -9824,7 +9824,38 @@ https://stackoverflow.com/questions/28042285/calling-a-java-method-from-the-nati
 
 ! Using Java Native Interface
 
+!! Steps
+
+# Setup CMake
+# 
+# Call native functions in Java Classes
+
+!! C vs C++
+
+In C++, you can reference the object methods or the environment directly, but in C, you have to put the envirinment back in the method as a parameter
+
+!! Native to Java
+Create Native (C/C++) functions that can be called by Java Classes
+
+# Get the env from the Java VM/ Function parameter
+# Get the class from the env
+# Get the Method ID, with the appropriate function signature
+# Call the Method using `Call&lt;Object&gt;Method` or  `CallStatic&lt;Object&gt;Method`
+
+Boilerplate code
+
+```    
+    jclass cls = env-&gt;FindClass(&quot;com/mycompany/myndkapp/HelloJni&quot;);
+   jmethodID getAnswerMethod = env-&gt;GetStaticMethodID(cls, &quot;getAnswer&quot;, &quot;(I)I&quot;);
+
+
+```
+
+
+!! Java to Native
+
 https://www.baeldung.com/jni
+
 https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/types.html</pre>
 </div>
 <div created="20210810022416690" modified="20210821001513334" tags="Tech" title="App Development">
