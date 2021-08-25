@@ -9582,7 +9582,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210810022255127" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210825220337980" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Web Hacking]]" modified="20210825220705715" title="$:/StoryList">
+<div created="20210825220337980" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Web Hacking]]" modified="20210825220908590" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10500,14 +10500,49 @@ Just check the website for components, layouts and scripting
 
 # Udacity (HTML and CSS Syntax): https://www.udacity.com/course/intro-to-html-and-css--ud001 </pre>
 </div>
-<div created="20210825220712054" modified="20210825220853580" title="Web Hacking">
+<div created="20210825220712054" modified="20210825221659840" title="Web Hacking">
 <pre>Steps to web hacking
 
-# Check the source file of all pages
+# Check the source code of all pages
 # `robots.txt`
+# Check cookies
 # Enumerate the directories
 # SQL Inject all possible forms
 # XSS all possible fields
+
+! Directory enumeration
+Basically use a word list to enumerate
+
+!! Tools
+
+!!! Dirb
+
+```
+dirb &lt;url&gt;
+```
+
+Add `-w` to list content in list able directories, `-u &lt;username&gt;:&lt;password&gt;` for authentication. You can add `-h` for more options, like changing the default word list
+
+It is automatically recursive
+
+
+!!! Gobuster
+
+Alternative to dirb. Not automatically recursive
+
+```
+gobuster dir -u &lt;url&gt; -w &lt;wordlist&gt; -x &lt;list of extensions eg. html,js,php&gt;
+```
+
+!!! Dirbuster:
+
+A GUI version of Gobuster. 
+
+! SQL Injection
+
+
+
+! XSS: Cross Site Scripting
 
 
 </pre>
