@@ -9582,7 +9582,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210826015748699" list="CrappyMakerProgrammer Tech [[App Development]] [[Web Development]] [[Content Management Software]] Ghost" modified="20210826015824894" title="$:/StoryList">
+<div created="20210826053916137" list="CrappyMakerProgrammer Tech [[App Development]] [[Web Development]] [[Content Management Software]] Ghost" modified="20210826053928956" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10198,7 +10198,7 @@ Most popular Game Engines
 
 </pre>
 </div>
-<div created="20210820234654216" modified="20210826020030836" title="Ghost">
+<div created="20210820234654216" modified="20210826055300293" title="Ghost">
 <pre>! Setup
 
 Official documentation is [[here|https://ghost.org/docs/install/local/]]
@@ -10216,7 +10216,20 @@ If the current ghost install fails, can try `ghost update --force`
 
 To import/export data, go to Settings - Labs - Import/Export content.
 To Import themes, go to Settings - Themes
-For Custom Integraation (API), go to Integrations</pre>
+For Custom Integraation (API), go to Integrations
+
+!! Forget Password
+
+Usually you can configure an email server and get it to send an email to reset
+
+However, if you haven't, you can modify the database in `content/data/ghost-local.db`, or so (can find the path of by running `ghost config get database.connection.filename`) or in the database server. Source is [[here|https://www.geekinsta.com/how-to-reset-ghost-password/]] 
+
+# The database username and password should be non existent for sqlite3, but if you configured it while setting up, can check [[here|https://forum.ghost.org/t/forgot-all-credentials/1957/5]] for more information how to access the database
+# The user credentials are in the `users` table, so just need to generate new bcrypt hash (can use an [[online tool|https://bcrypt-generator.com/]] ) , and run `UPDATE users SET password='PASTE_HASH_HERE' WHERE email = 'YOUR_EMAIL_ADDRESS'`
+# If the account is locked,
+## which means that when you enter an email (even with wrong password), it sends an email to change password
+## just set the `status` field to `active` instead of locked
+# Can get the schema of the table in sqlite using `.schema &lt;table&gt;`. Take note there's no semicolon. </pre>
 </div>
 <div created="20210810054149099" modified="20210810143951424" title="Investing">
 <pre>Things to Invest
