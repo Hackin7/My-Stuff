@@ -251,6 +251,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Desktop App Development</li>
 
+<li>Draft of 'Android NDK'</li>
+
 <li>Entertainment</li>
 
 <li>Finance</li>
@@ -9602,7 +9604,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210828074137697" list="CrappyMakerProgrammer Tech [[App Development]] [[Mobile App Development]] [[Publishing Apps on Google Play]] [[Android Studio]]" modified="20210828150117444" title="$:/StoryList">
+<div created="20210828074137697" list="CrappyMakerProgrammer Tech [[App Development]] [[Mobile App Development]] [[Draft of 'Android NDK']] [[Android Studio]]" modified="20210828173650339" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10183,6 +10185,225 @@ https://github.com/Hackin7/SuperBasicAppMenu
 Touch Friendly
 https://github.com/Hackin7/ReStation/tree/master/LockerHubCode
 </pre>
+</div>
+<div created="20210822234019649" draft.of="Android NDK" draft.title="Android NDK" modified="20210828175914839" title="Draft of 'Android NDK'">
+<pre>! Sample Tutorials/ Structuring of Project
+
+# https://code.tutsplus.com/tutorials/advanced-android-getting-started-with-the-ndk--mobile-2152
+# https://github.com/android/ndk-samples
+
+! Using Java Native Interface
+
+https://www.baeldung.com/jni
+
+!! Overall Setup
+
+# Configure the CMakeLists.txt
+# Add Java &amp; Native Code
+
+!! Native to Java
+
+!!! Steps
+
+
+!!! Boilerplate
+
+Java
+
+```
+static { System.loadLibrary(&quot;native-lib&quot;);}
+public native void nativeInit(byte[] rom);
+```
+
+Native C
+
+```
+JNIEXPORT void JNICALL Java_com_uselessness_sonnydroid_Emulator_nativeInit(JNIEnv *env, jobject thiz, jbyteArray array) {
+    ....
+}
+```
+
+C++ 
+
+If I put the function outside extern C, the app compiles but crashes
+If I put it inside it works
+
+!! Java to Native
+
+!!! Steps
+
+# Get env from Java VM or function parameter
+# Get Class from env
+# Get Static method or Object Method
+## Use the appropriate function signature
+# Call the Method
+
+!!! Function Signatures
+
+|Type Signature|Java Type|
+|Z|boolean|
+|B|byte|
+|C|char|
+|S|short|
+|I|int|
+|J|long|
+|F|float|
+|D|double|
+|L fully-qualified-class;|fully-qualified-class|
+|[type|type[]|
+|( arg-types ) ret-type|method type|
+
+Example:
+`long f (int n, String s, int[] arr);` -&gt; `(ILjava/lang/String;[I)J `
+
+!!! Boilerplate
+
+Preparation steps in a Java exported function
+
+```
+JavaVM* g_jvm;
+jobject emulatorObj;
+...
+{
+    g_jvm = 0;
+    (*env)-&gt;GetJavaVM(env, &amp;g_jvm);
+    emulatorObj = (*env)-&gt;NewGlobalRef(env, thiz);
+}
+```
+
+Getting the env outside of a Java exported function
+
+```
+{
+    JNIEnv* env;
+    (*g_jvm)-&gt;AttachCurrentThread(g_jvm, &amp;env, NULL); 
+    ...
+}
+```
+
+Calling the Function example
+
+```
+{
+    ....
+
+    jclass clazz = (*env)-&gt;FindClass(env, &quot;com/uselessness/sonnydroid/Emulator&quot;);
+    jmethodID mid = (*env)-&gt;GetMethodID(env,clazz, &quot;updateScreenView&quot;, &quot;([I)V&quot;);
+
+    // Replace this with the appropriate method
+    (*env)-&gt;CallVoidMethod(env, obj, mid, intJavaArray);
+
+    ...
+}
+
+```
+
+Others examples are here
+
+# https://stackoverflow.com/questions/28042285/calling-a-java-method-from-the-native-code-using-jni
+
+!! Data Types
+
+Can refer to 
+https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/types.html
+
+!!! Java to C
+
+Array
+
+```
+int* array = (*env)-&gt;GetByteArrayElements(env, j_byte_array, NULL);
+jsize size = (*env)-&gt;GetArrayLength(env, j_byte_array);
+(*env)-&gt;ReleaseByteArrayElements(env, j_byte_array, array, JNI_ABORT);
+```
+
+!!! C to Java
+Converting from C to Java Int Array
+
+```
+intArray intJavaArray = (*env)-&gt;NewIntArray(env,ARRAY_SIZE);
+(*env)-&gt;SetIntArrayRegion(env, intJavaArray, 0, ARRAY_SIZE, c_array);
+```
+
+! Build System
+
+!! NDK-build
+`build.gradle`
+
+```
+android{
+    ....
+    externalNativeBuild {
+        ndkBuild {
+             path &quot;src/main/cpp/Android.mk&quot;
+        }
+    }
+    ....
+```
+ 
+`Android.mk`
+
+```
+# A simple test for the minimal standard C++ library
+#
+
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := native-lib
+LOCAL_SRC_FILES := native-lib.cpp
+LOCAL_LDLIBS    := -llog -landroid
+
+include $(BUILD_SHARED_LIBRARY)
+```
+
+`Application.mk`
+
+```
+# Application.mk
+
+APP_ABI := armeabi-v7a arm64-v8a x86
+APP_PLATFORM := android-21
+APP_OPTIM := release
+
+APP_STL := c++_static
+```
+
+!! CMake
+`build.gradle`
+
+```
+android{
+    ....
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.10.2'
+        }
+    }
+    ....
+```
+ 
+`CMakeLists.txt`
+
+```
+cmake_minimum_required(VERSION 3.10.2)
+project(&quot;sonnydroid&quot;)
+include_directories(src/main/cpp/unununium/)
+
+add_library (
+    native-lib
+    SHARED
+    ....
+)
+
+find_library(
+              log-lib
+              log )
+target_link_libraries( 
+                       native-lib
+                       ${log-lib} )
+```</pre>
 </div>
 <div created="20191105030432236" modified="20191105034127657" title="Entertainment">
 <pre>! Anime &amp; Manga
