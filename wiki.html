@@ -259,6 +259,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Game Development</li>
 
+<li>Getting Shells</li>
+
 <li>Ghost</li>
 
 <li>GooglePlayConsoleDashboard.png</li>
@@ -9604,7 +9606,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210901151930476" list="CrappyMakerProgrammer Tech [[Cyber Security]]" modified="20210901152344213" title="$:/StoryList">
+<div created="20210901151930476" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Getting Shells]]" modified="20210901154700862" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10374,6 +10376,35 @@ Most popular Game Engines
 
 </pre>
 </div>
+<div created="20210901154708454" modified="20210901155332671" title="Getting Shells">
+<pre>! Reverse Shell
+
+!! Payloads 
+
+Some payloads are available [[here|https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md]]
+
+!! Connecting
+
+```
+nc -nlvp &lt;port&gt;
+```
+
+For Metasploit, Use and set up the `exploit/multi/handler` module
+
+! Upgrading Shells
+
+Netcat Shells usually have limitations (eg. cannot run `su` since it is not a proper tty). One way around this is to run
+
+```
+python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
+```
+
+To upgrade a bash shell to a meterpreter shell, can 
+
+# First connect to the shell with metasploit
+# Background the Session by Ctrl Z
+# Run `sessions -u &lt;session_id&gt;` to upgrade it to a meterpreter shell</pre>
+</div>
 <div created="20210820234654216" modified="20210827061258698" title="Ghost">
 <pre>! Setup
 
@@ -10584,7 +10615,7 @@ Providers
  
 </pre>
 </div>
-<div created="20210901152347409" modified="20210901153258255" title="Pivoting" type="">
+<div created="20210901152347409" modified="20210901154645911" title="Pivoting" type="">
 <pre>Pivoting is basically gaining access to other networks (that were initially inaccessible)
 
 !! Metasploit
@@ -10598,6 +10629,8 @@ portfwd add -l &lt;out_port&gt; -p &lt;target_port&gt; -r &lt;target_ip&gt;
 ```
 
 !!! Autoroute
+
+Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-routing-and-proxychains-for-pivoting/]]
 
 # Autoroute network from target to metasploit
 ## meterpreter&gt; `run autoroute -s &lt;subnet&gt;`
