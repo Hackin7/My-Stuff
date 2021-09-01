@@ -277,6 +277,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Operations/IT</li>
 
+<li>Pivoting</li>
+
 <li>Programming</li>
 
 <li>Publishing Apps on Google Play</li>
@@ -9602,7 +9604,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210901151930476" list="CrappyMakerProgrammer Tech [[Cyber Security]]" modified="20210901152331885" title="$:/StoryList">
+<div created="20210901151930476" list="CrappyMakerProgrammer Tech [[Cyber Security]] Pivoting" modified="20210901152344213" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10580,6 +10582,31 @@ Providers
 ### https://www.professormesser.com/free-a-plus-training/220-901/comptia-220-900-course/ 
  
 </pre>
+</div>
+<div created="20210901152347409" modified="20210901153258255" title="Pivoting" type="">
+<pre>Pivoting is basically gaining access to other networks (that were initially inaccessible)
+
+!! Metasploit
+
+!!! Port Forwarding
+
+Meterpreter console
+
+```
+portfwd add -l &lt;out_port&gt; -p &lt;target_port&gt; -r &lt;target_ip&gt;
+```
+
+!!! Autoroute
+
+# Autoroute network from target to metasploit
+## meterpreter&gt; `run autoroute -s &lt;subnet&gt;`
+# Set up proxy
+## msf&gt; `use servers/socks_proxy`, `set VERSION 4a`, set up and run
+# Connect to proxy 
+## Set up proxychains4 by editing `/etc/proxychains.conf`
+### If the file is initially empty, copy the template [[here|https://github.com/haad/proxychains/blob/master/src/proxychains.conf]]
+### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
+## `proxychains4 &lt;command&gt;`</pre>
 </div>
 <div created="20191105065551127" modified="20210828135851585" tags="Tech" title="Programming">
 <pre>! Programming Languages
