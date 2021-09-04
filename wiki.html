@@ -285,6 +285,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Pivoting</li>
 
+<li>Privilege Escalation</li>
+
 <li>Programming</li>
 
 <li>Publishing Apps on Google Play</li>
@@ -9612,7 +9614,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210904161111836" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Network Services]]" modified="20210904163943876" title="$:/StoryList">
+<div created="20210904161111836" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Privilege Escalation]]" modified="20210904164113668" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10770,6 +10772,27 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### If the file is initially empty, copy the template [[here|https://github.com/haad/proxychains/blob/master/src/proxychains.conf]]
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
+</div>
+<div created="20210904164116778" modified="20210904164411237" title="Privilege Escalation">
+<pre>! Linux
+
+(To Improve)
+
+# Docker / LXD: mount root file system and modify in container(login to container as root)
+# Sudo into gtfo bin (eg. If you sudo into vim, vim allows you to access root shell)
+# Set UID: if enabled, you can run binary as the privilege user (owner of file)
+# NFS no root squash server: upload files as root, then it is also owned by root even on the server
+## can upload binary, execute in
+## set suid bit on client
+# Using kernal exploits: just Google, compile and run
+# Cracking hashes: shadow &amp; passwd file, use a tool called unshadow, crack with John, then John - - show
+# Writable root path : modify binary that root runs as a Ron job or something (replace with custom bin)
+# LinEnum
+# Object Injection
+## eg. Python Library Injection
+## C Library Injection
+
+! Windows</pre>
 </div>
 <div created="20191105065551127" modified="20210828135851585" tags="Tech" title="Programming">
 <pre>! Programming Languages
