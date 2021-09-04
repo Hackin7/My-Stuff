@@ -253,6 +253,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Desktop App Development</li>
 
+<li>Draft of 'Web Hacking'</li>
+
 <li>Entertainment</li>
 
 <li>Exploitation</li>
@@ -9612,7 +9614,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210904161111836" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Network Services]]" modified="20210904163639132" title="$:/StoryList">
+<div created="20210904161111836" list="CrappyMakerProgrammer Tech [[Cyber Security]] Exploitation [[Draft of 'Web Hacking']]" modified="20210904163821244" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10352,6 +10354,56 @@ Touch Friendly
 https://github.com/Hackin7/ReStation/tree/master/LockerHubCode
 </pre>
 </div>
+<div created="20210825220712054" draft.of="Web Hacking" draft.title="Web Hacking" modified="20210904163918026" title="Draft of 'Web Hacking'">
+<pre>Steps to web hacking
+
+# Check the source code of all pages
+# `robots.txt`
+# Check cookies
+# Enumerate the directories
+# SQL Inject all possible forms
+# XSS all possible fields
+
+! Directory enumeration
+Basically use a word list to enumerate
+
+!! Tools
+
+!!! Dirb
+
+```
+dirb &lt;url&gt;
+```
+
+Add `-w` to list content in list able directories, `-u &lt;username&gt;:&lt;password&gt;` for authentication. You can add `-h` for more options, like changing the default word list
+
+It is automatically recursive
+
+
+!!! Gobuster
+
+Alternative to dirb. Not automatically recursive
+
+```
+gobuster dir -u &lt;url&gt; -w &lt;wordlist&gt; -x &lt;list of extensions eg. html,js,php&gt;
+```
+
+!!! Dirbuster:
+
+A GUI version of Gobuster. 
+
+! SQL Injection
+
+```
+sqlmap -u &lt;url&gt; (-p &lt;injection_parameter&gt;) (--tables /--dump)
+eg. sqlmap -u http://site.com?para=$1 -p para --dump
+```
+
+! XSS: Cross Site Scripting
+
+Try putting `&lt;script&gt;alert(1);&lt;/script&gt;` into text boxes. If an alert shows up, an XSS attack works
+</pre>
+</div>
 <div created="20191105030432236" modified="20191105034127657" title="Entertainment">
 <pre>! Anime &amp; Manga
 Check [[MyAnimeList|https://myanimelist.net/profile/Hackin7]]
@@ -10370,7 +10422,7 @@ Check my [[Youtube Channel|https://www.youtube.com/channel/UChDzBIt2yj4aGUKpPnjj
 
 Check my other youtube channel, the one with the Kimetsu no Yaiba OP Electone Cover</pre>
 </div>
-<div created="20210904163141554" modified="20210904163519145" title="Exploitation">
+<div created="20210904163141554" modified="20210904163819980" title="Exploitation">
 <pre>! Other ways of Exploitation
 
 # [[Web Hacking]]
