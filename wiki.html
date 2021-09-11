@@ -249,6 +249,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>CrappyMakerProgrammer</li>
 
+<li>Cyber Forensics</li>
+
 <li>Cyber Security</li>
 
 <li>Desktop App Development</li>
@@ -9616,7 +9618,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210911081102390" list="CrappyMakerProgrammer Tech [[Cyber Security]]" modified="20210911081104949" title="$:/StoryList">
+<div created="20210911081102390" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Cyber Forensics]]" modified="20210911081130897" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10290,6 +10292,34 @@ Other parts:
 If you are/were me, check the [[TODO]] for what to do
 
 [[TableOfContents]]</pre>
+</div>
+<div created="20210911081139434" modified="20210911081350052" title="Cyber Forensics">
+<pre>! Binary / Hexadecimal Data
+
+To convert hex dump to a binary file, run this[[*|https://stackoverflow.com/questions/7826526/transform-hexadecimal-information-to-binary-using-a-linux-command]]
+
+```
+xxd -r -p input.txt output.bin
+```
+
+If the data is in the format below [[*|https://stackoverflow.com/questions/51378482/hex-dump-to-binary-data-conversion]]
+
+```
+807e0000: 4562 537f  e0b1 6477  84bb 6bae  1cfe 81a0 | EbS...dw..k.....
+807e0010: 94f9 082b  5870 4868  198f 45fd  8794 de6c | ...+XpHh..E....l
+807e0020: b752 7bf8  23ab 73d3  e272 4b02  57e3 1f8f | .R{.#.s..rK.W...
+807e0030: 2a66 55ab  07b2 eb28  032f b5c2  9a86 c57b | *fU....(./.....{
+807e0040: a5d3 3708  f230 2887  b223 bfa5  ba02 036a | ..7..0(..#.....j
+807e0050: 5ced 1682  2b8a cf1c  92a7 79b4  f0f3 07f2 | \...+.....y.....
+807e0060: a14e 69e2  cd65 daf4  d506 05be  1fd1 3462 | .Ni..e........4b
+```
+You should run this first before converting
+
+```
+$ sed -i 's/^\(.\)\{9\}//g' binary.txt
+$ sed -i 's/\(.\)\{16\}$//g' binary.txt
+```
+</pre>
 </div>
 <div created="20191219104819416" modified="20210911081128744" title="Cyber Security">
 <pre>A good &amp; easy way to get started in Cyber Security is to just participate in Capture the Flag Competitions, ans google for writeups, understanding &amp; solutions along the way
