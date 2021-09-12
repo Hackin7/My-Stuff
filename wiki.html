@@ -11196,17 +11196,31 @@ Important Concepts
 |React Bootstrap|Bootstrap but for react|https://react-bootstrap.github.io/getting-started/introduction|
 </pre>
 </div>
-<div created="20210912130521468" modified="20210912130658565" title="Reverse Engineering">
+<div created="20210912130521468" modified="20210912131700283" title="Reverse Engineering">
 <pre>!! Decompilation
 Basically just reading code and figuring out what it does. Knowledge of Assembly programming language is very helpful.
 
 # https://www.codementor.io/@packt/reverse-engineering-a-linux-executable-hello-world-rjceryk5d
 
+Sample Decompilation steps: https://github.com/Hackin7/Programming-Crappy-Boilerplates/tree/master/Cyber%20Security/Reverse%20Engineering/Decompilation
+
+Type of Programs
+
+
+|Type|Programs|
+|Python Bytecode `.pyc`||
+|Java `.class`|Online Java Decompiler|
+|Android `.apk`|Online Android Decompiler |
+|Linux Binaries, Windows `exe`|&lt;ol&gt;''Sample Decompilers''&lt;li&gt;IDA Pro &amp; Hex Rays Decompiler&lt;/li&gt;&lt;li&gt;Ghidra&lt;/li&gt;&lt;li&gt;[[Cutter|https://cutter.re/]]&lt;/li&gt;&lt;/ol&gt;|
+|Windows Python Programs|uncompyle6|
+
 !! Reversing Steps
 
-|Process|Inverse|
-|XOR|Just XOR the other 2 products [[*|https://stackoverflow.com/questions/14279866/what-is-inverse-function-to-xor]]|
-|Rotate Left(rol) / Rotate Right(ror) / Byteshift|Shift in the opposite direction|</pre>
+|Process|Inverse|Sample|
+|XOR|Just XOR the other 2 products [[*|https://stackoverflow.com/questions/14279866/what-is-inverse-function-to-xor]]|[[reverse_xor.py|https://github.com/Hackin7/Programming-Crappy-Boilerplates/blob/master/Cyber%20Security/Reverse%20Engineering/reverse_xor.py]]|
+|Rotate Left(rol) / Rotate Right(ror) / Byteshift|Shift in the opposite direction|
+
+For more complicated formulas, you can use the z3 equation solver. Refer to the code [[here|https://github.com/Hackin7/Programming-Crappy-Boilerplates/tree/master/Cyber%20Security/Reverse%20Engineering/z3]]</pre>
 </div>
 <div created="20191105030843317" modified="20200216112554729" title="Robotics">
 <pre>I have mainly done these kinds of robotics
