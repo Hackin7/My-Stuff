@@ -263,6 +263,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Docker</li>
 
+<li>Draft of 'LinEnum'</li>
+
+<li>Draft of 'Privilege Escalation'</li>
+
 <li>Entertainment</li>
 
 <li>Exploitation</li>
@@ -280,6 +284,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <li>GooglePlayConsoleDashboard.png</li>
 
 <li>Investing</li>
+
+<li>LinEnum</li>
 
 <li>Linux</li>
 
@@ -9632,7 +9638,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210912130449205" list="CrappyMakerProgrammer Tech Operations/IT Linux [[Network Services]]" modified="20210912172553570" title="$:/StoryList">
+<div created="20210913120352501" list="$:/ControlPanel CrappyMakerProgrammer Tech [[Cyber Security]] [[Draft of 'Privilege Escalation']] LinEnum" modified="20210913120413496" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9680,11 +9686,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
         },
         &quot;$:/info/browser/screen/width&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/width&quot;,
-            &quot;text&quot;: &quot;1366&quot;
+            &quot;text&quot;: &quot;412&quot;
         },
         &quot;$:/info/browser/screen/height&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/height&quot;,
-            &quot;text&quot;: &quot;768&quot;
+            &quot;text&quot;: &quot;915&quot;
         },
         &quot;$:/info/browser/language&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/language&quot;,
@@ -10479,6 +10485,30 @@ https://github.com/Hackin7/ReStation/tree/master/LockerHubCode
 Put `docker-compose.yaml` in current directory, then run `docker-compose up`
 </pre>
 </div>
+<div modified="20210913120411045" title="Draft of 'LinEnum'">
+<pre></pre>
+</div>
+<div created="20210904164116778" draft.of="Privilege Escalation" draft.title="Privilege Escalation" modified="20210913120400779" title="Draft of 'Privilege Escalation'">
+<pre>! Linux
+
+(To Improve)
+
+# Docker / LXD: mount root file system and modify in container(login to container as root)
+# Sudo into gtfo bin (eg. If you sudo into vim, vim allows you to access root shell)
+# Set UID: if enabled, you can run binary as the privilege user (owner of file)
+# NFS no root squash server: upload files as root, then it is also owned by root even on the server
+## can upload binary, execute in
+## set suid bit on client
+# Using kernal exploits: just Google, compile and run
+# Cracking hashes: shadow &amp; passwd file, use a tool called unshadow, crack with John, then John - - show
+# Writable root path : modify binary that root runs as a Ron job or something (replace with custom bin)
+# LinEnum
+# Object Injection
+## eg. Python Library Injection
+## C Library Injection
+
+! Windows</pre>
+</div>
 <div created="20191105030432236" modified="20191105034127657" title="Entertainment">
 <pre>! Anime &amp; Manga
 Check [[MyAnimeList|https://myanimelist.net/profile/Hackin7]]
@@ -10720,6 +10750,9 @@ Resources
 # SGX
 ## [[Beginners Guide|https://www.sgx.com/beginners-guide-investing ]] 
 ## SGX Academy: [[Site|https://www.sgxacademy.com/e-learning/#1597766262281-bfd989bb-df32 ]] [[YouTube Playlist|https://youtube.com/playlist?list=PLNKnhKVK1TqSA6V-khyAWuLvlNhvsMObC]] </pre>
+</div>
+<div created="20210913120409136" modified="20210913120410342" title="LinEnum">
+<pre>https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh</pre>
 </div>
 <div created="20191116153954894" modified="20210905084504320" title="Linux">
 <pre>! Install
