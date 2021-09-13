@@ -265,8 +265,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Draft of 'LinEnum'</li>
 
-<li>Draft of 'Privilege Escalation'</li>
-
 <li>Entertainment</li>
 
 <li>Exploitation</li>
@@ -9638,7 +9636,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210913120352501" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Getting Shells]] [[Draft of 'Privilege Escalation']] LinEnum" modified="20210913120448416" title="$:/StoryList">
+<div created="20210913120352501" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Getting Shells]] [[Privilege Escalation]] LinEnum" modified="20210913120448416" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10488,27 +10486,6 @@ Put `docker-compose.yaml` in current directory, then run `docker-compose up`
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
 </div>
-<div created="20210904164116778" draft.of="Privilege Escalation" draft.title="Privilege Escalation" modified="20210913120400779" title="Draft of 'Privilege Escalation'">
-<pre>! Linux
-
-(To Improve)
-
-# Docker / LXD: mount root file system and modify in container(login to container as root)
-# Sudo into gtfo bin (eg. If you sudo into vim, vim allows you to access root shell)
-# Set UID: if enabled, you can run binary as the privilege user (owner of file)
-# NFS no root squash server: upload files as root, then it is also owned by root even on the server
-## can upload binary, execute in
-## set suid bit on client
-# Using kernal exploits: just Google, compile and run
-# Cracking hashes: shadow &amp; passwd file, use a tool called unshadow, crack with John, then John - - show
-# Writable root path : modify binary that root runs as a Ron job or something (replace with custom bin)
-# LinEnum
-# Object Injection
-## eg. Python Library Injection
-## C Library Injection
-
-! Windows</pre>
-</div>
 <div created="20191105030432236" modified="20191105034127657" title="Entertainment">
 <pre>! Anime &amp; Manga
 Check [[MyAnimeList|https://myanimelist.net/profile/Hackin7]]
@@ -11128,7 +11105,7 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
 </div>
-<div created="20210904164116778" modified="20210904164411237" title="Privilege Escalation">
+<div created="20210904164116778" modified="20210913120939841" title="Privilege Escalation">
 <pre>! Linux
 
 (To Improve)
@@ -11136,6 +11113,8 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 # Docker / LXD: mount root file system and modify in container(login to container as root)
 # Sudo into gtfo bin (eg. If you sudo into vim, vim allows you to access root shell)
 # Set UID: if enabled, you can run binary as the privilege user (owner of file)
+## [[GTFOBins|https://gtfobins.github.io/]] : List of Binaries and how to exploit
+## Nmap [[*|https://vk9-sec.com/nmap-privilege-escalation/]] 
 # NFS no root squash server: upload files as root, then it is also owned by root even on the server
 ## can upload binary, execute in
 ## set suid bit on client
