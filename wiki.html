@@ -9644,7 +9644,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210925092644755" list="CrappyMakerProgrammer Tech [[Game Development]] Unity Input" modified="20210925100735278" title="$:/StoryList">
+<div created="20210925092644755" list="CrappyMakerProgrammer Tech [[Game Development]] Unity [[Core Ideas]]" modified="20210925101601864" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10291,7 +10291,7 @@ There are many good wiki software online. Some of the few are:
 # MediaWiki: used in Wikipedia https://www.mediawiki.org/wiki/MediaWiki
 # TiddyWiki: used here</pre>
 </div>
-<div created="20210925100056593" modified="20210925100729896" title="Core Ideas">
+<div created="20210925100056593" modified="20210925101633956" title="Core Ideas">
 <pre>! GameObjects
 
 Everything in a Scene is a GameObject
@@ -10310,6 +10310,16 @@ Basic Template
 ```
 ___ component = gameObject.GetComponent&lt;___&gt;();
 eg. RigidBody rb = gameObject.GetComponent&lt;RigidBody&gt;();
+```
+
+! Transform
+
+```
+transform.position; // Variable that gives the position of the GameObject
+transform.rotation; // Variable that gives the rotation of the GameObject in quaternions
+
+// Moves the GameObject by x,y,z ////////
+transform.translate(new Vector3(x,y,z)); 
 ```</pre>
 </div>
 <div created="20210825163412756" modified="20210825163643440" title="CoSpace">
