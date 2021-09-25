@@ -307,6 +307,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>PDF Forensics</li>
 
+<li>Physics</li>
+
 <li>Pivoting</li>
 
 <li>Privilege Escalation</li>
@@ -9644,7 +9646,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210925092644755" list="CrappyMakerProgrammer Tech [[Game Development]] Unity [[Core Ideas]]" modified="20210925101601864" title="$:/StoryList">
+<div created="20210925092644755" list="CrappyMakerProgrammer Tech [[Game Development]] Unity Physics" modified="20210925102951801" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11165,6 +11167,44 @@ Resources
 <pre>Extract Data from FlatDecode in PDF [[*|https://stackoverflow.com/questions/11731425/data-extraction-from-filter-flatedecode-pdf-stream-in-php]]: `qpdf --qdf --object-streams=disable in.pdf out.pdf `
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
+</div>
+<div created="20210925102955449" modified="20210925104109284" title="Physics">
+<pre>https://hackin7.itch.io/playableunitedreference 
+
+Colliders: Exerts force
+//https://answers.unity.com/questions/597269/how-to-use-oncollisionenter.html
+```
+void OnCollisionEnter(Collision collision)
+{
+    Debug.Log(&quot;OnCollisionEnter: &quot; + collision.gameObject.name);
+}
+void OnCollisionStay(Collision collision)
+{
+    Debug.Log(&quot;OnCollisionStay: &quot; + collision.gameObject.name);
+}
+void OnCollisionExit(Collision collision)
+{
+    Debug.Log(&quot;OnCollisionExit: &quot; + collision.gameObject.name);
+}
+```
+
+For Triggers: A trigger is just a collider set only to report overlaps rather than apply a force.
+When a Box Collider is detected: If this has problems, use the above one with a kinematic rigidbody
+
+```
+void OnTriggerEnter(Collider coll)
+{
+    Debug.Log(&quot;OnTriggerEnter: &quot; + coll.gameObject.name);
+}
+void OnTriggerStay(Collider coll)
+{
+    Debug.Log(&quot;OnTriggerStay: &quot; + coll.gameObject.name);
+}
+void OnTriggerExit(Collider coll)
+{
+    Debug.Log(&quot;OnTriggerExit: &quot; + coll.gameObject.name);
+}
+```</pre>
 </div>
 <div created="20210901152347409" modified="20210903192202108" title="Pivoting" type="">
 <pre>Pivoting is basically gaining access to other networks (that were initially inaccessible)
