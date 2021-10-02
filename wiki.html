@@ -11093,7 +11093,7 @@ Providers
  
 </pre>
 </div>
-<div created="20210911161500439" modified="20211002165039224" title="OSCP Style Windows Buffer Overflow">
+<div created="20210911161500439" modified="20211002170828744" title="OSCP Style Windows Buffer Overflow">
 <pre>Tools
 
 # Immunity Debugger
@@ -11175,6 +11175,7 @@ except:
 ## Copy this payload into the `payload` variable, and run exploit
 ## `!mona findmsp -distance &lt;length&gt;` should give an output with a line `EIP contains normal pattern : ... (offset XXXX)`
 ## Update your exploit.py script and set the offset variable to this value (was previously set to 0). 
+## Add `retn='BBBB'` and test
 # Finding Bad Characters
 ## Generate array of bad characters with `!mona bytearray -b &quot;\x00&quot;`
 ## Generate a string of bad chars that is identical to the bytearray&lt;div&gt;
@@ -11186,7 +11187,7 @@ for x in range(1, 256):
 ```
 
 &lt;/div&gt;
-## Put the string in the `payload`, keeping everything else the same
+## Put the string in the `payload`, keeping everything else the same (leave the return pointer filled with `BBBB` or something)
 ## Run the exploit, and get addess of ESP
 ## Run `!mona compare -f C:\mona\appname\bytearray.bin -a &lt;address&gt;`
 ## Find bad characters [img[badchar.png]]
