@@ -9654,7 +9654,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211001182040855" list="CrappyMakerProgrammer Tech [[Cyber Security]]" modified="20211001182042639" title="$:/StoryList">
+<div created="20211002042151200" list="CrappyMakerProgrammer Tech Operations/IT Linux [[Network Services]]" modified="20211002042159633" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10934,7 +10934,7 @@ Check the Google Play Console
 [[Publishing Apps on Google Play]]
 </pre>
 </div>
-<div created="20210820120924872" modified="20210913121048870" title="Network Services">
+<div created="20210820120924872" modified="20211002042341567" title="Network Services">
 <pre>! Web Server
 
 [[Web Development]]
@@ -10956,7 +10956,11 @@ Sample Services
 
 ! SSH
 
-[[*|https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/]] `scp &lt;local_file&gt; &lt;user&gt;@&lt;ip&gt;:&lt;result_file&gt;`
+Connect to shell
+`ssh &lt;user&gt;@&lt;ip&gt; -p &lt;port, usually 22&gt;`
+
+# Add `-oKexAlgorithms=+diffie-hellman-group1-sha1` if `no matching key exchange found` [[*|https://unix.stackexchange.com/questions/340844/how-to-enable-diffie-hellman-group1-sha1-key-exchange-on-debian-8-0/340853]]
+# Transfer Files: `scp &lt;local_file&gt; &lt;user&gt;@&lt;ip&gt;:&lt;result_file&gt;` [[*|https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/]]
 
 ! VPN
 Wireguard works
