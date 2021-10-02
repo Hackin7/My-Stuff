@@ -9624,8 +9624,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191104233104238" modified="20210925104140085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div created="20191104232243165" modified="20210808121112798" title="$:/state/tab--1963855381">
-<pre>$:/core/ui/ControlPanel/Toolbars</pre>
+<div created="20191104232243165" modified="20211002045528558" title="$:/state/tab--1963855381">
+<pre>$:/core/ui/ControlPanel/StoryView</pre>
 </div>
 <div created="20191104232411526" modified="20191105065516583" title="$:/state/tab--86143343">
 <pre>$:/core/ui/ControlPanel/Plugins/Installed/Themes</pre>
@@ -9633,8 +9633,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210808122020091" modified="20210808122021084" title="$:/state/tab-1609953762">
 <pre>$:/core/ui/TiddlerInfo/Advanced</pre>
 </div>
-<div created="20191104232241757" modified="20210808173646453" title="$:/state/tab-1749438307">
-<pre>$:/core/ui/ControlPanel/Saving</pre>
+<div created="20191104232241757" modified="20211002045526705" title="$:/state/tab-1749438307">
+<pre>$:/core/ui/ControlPanel/Appearance</pre>
 </div>
 <div created="20191104232336651" modified="20210808133959259" title="$:/state/tab-2065006209">
 <pre>$:/core/ui/ControlPanel/Saving/GitHub</pre>
@@ -9642,8 +9642,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191104231946357" modified="20210808134423222" title="$:/state/tab/moresidebar-1850697562">
 <pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
-<div created="20191104231909850" modified="20210919101940838" title="$:/state/tab/sidebar--595412856">
-<pre>TableOfContents</pre>
+<div created="20191104231909850" modified="20211002045534637" title="$:/state/tab/sidebar--595412856">
+<pre>$:/core/ui/SideBar/Open</pre>
 </div>
 <div created="20210808122159283" modified="20210808122159827" title="$:/state/toc/TableOfContents-Programming--118161433">
 <pre>close</pre>
@@ -9654,7 +9654,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211002042151200" list="CrappyMakerProgrammer Tech Operations/IT Linux [[Network Services]]" modified="20211002042159633" title="$:/StoryList">
+<div created="20211002042151200" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Network Services]] Operations/IT" modified="20211002072642203" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9833,7 +9833,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191104232300229" modified="20210808121042891" title="$:/themes/tiddlywiki/vanilla/options/sidebarlayout">
 <pre>fluid-fixed</pre>
 </div>
-<div created="20191105070225862" modified="20210808121030580" title="$:/view">
+<div created="20191105070225862" modified="20211002045548074" title="$:/view">
 <pre>zoomin</pre>
 </div>
 <div created="20200105044051491" modified="20210825231216078" title="3D Printing">
@@ -10934,7 +10934,7 @@ Check the Google Play Console
 [[Publishing Apps on Google Play]]
 </pre>
 </div>
-<div created="20210820120924872" modified="20211002042341567" title="Network Services">
+<div created="20210820120924872" modified="20211002074427205" title="Network Services">
 <pre>! Web Server
 
 [[Web Development]]
@@ -10943,6 +10943,23 @@ Sample Services
 
 # [[NextCloud]]
 # [[Wordpress]] 
+
+! DNS Enumeration
+
+DNS Zone Transfer
+
+# `dig axfr @10.10.10.13 cronos.htb`
+# `host &lt;ip or hostname&gt; &lt;IP of server&gt;`
+## Can automate this using bash eg. `for ip in $(seq 50 100); do host 38.100.193.$ip; done | grep -v &quot;not found&quot;`
+## Add `-t &lt;record&gt;` to find out more
+### NS - Nameserver records contain the name of the authoritative servers hosting the DNS records for a domain.
+### A - Also known as a host record, the “a record” contains the IP address of a hostname (such as www.megacorpone.com).
+### MX - Mail Exchange records contain the names of the servers responsible for handling email for the domain. A domain can contain multiple MX records.
+### PTR - Pointer Records are used in reverse lookup zones and are used to find the records associated with an IP address.
+### CNAME - Canonical Name Records are used to create aliases for other host records.
+### TXT - Text records can contain any arbitrary data and can be used for various purposes, such as domain ownership verification.
+
+
 
 
 ! FTP
