@@ -10934,7 +10934,7 @@ Check the Google Play Console
 [[Publishing Apps on Google Play]]
 </pre>
 </div>
-<div created="20210820120924872" modified="20211002074427205" title="Network Services">
+<div created="20210820120924872" modified="20211002074735526" title="Network Services">
 <pre>! Web Server
 
 [[Web Development]]
@@ -10951,6 +10951,7 @@ DNS Zone Transfer
 # `dig axfr @10.10.10.13 cronos.htb`
 # `host &lt;ip or hostname&gt; &lt;IP of server&gt;`
 ## Can automate this using bash eg. `for ip in $(seq 50 100); do host 38.100.193.$ip; done | grep -v &quot;not found&quot;`
+## Add `-l` to list all hosts in a domain, using AXFR
 ## Add `-t &lt;record&gt;` to find out more
 ### NS - Nameserver records contain the name of the authoritative servers hosting the DNS records for a domain.
 ### A - Also known as a host record, the “a record” contains the IP address of a hostname (such as www.megacorpone.com).
