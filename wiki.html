@@ -271,6 +271,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Draft of 'LinEnum'</li>
 
+<li>Draft of 'Penetration Testing Framework'</li>
+
 <li>Entertainment</li>
 
 <li>Exploitation</li>
@@ -9656,7 +9658,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Penetration Testing Framework]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211007145858283" title="$:/StoryList">
+<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Draft of 'Penetration Testing Framework']] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211007150854725" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10580,6 +10582,139 @@ Put `docker-compose.yaml` in current directory, then run `docker-compose up`
 </div>
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
+</div>
+<div created="20210927160738058" draft.of="Penetration Testing Framework" draft.title="Penetration Testing Framework" modified="20211007155849207" title="Draft of 'Penetration Testing Framework'">
+<pre>! Overview
+
+This is a basic Penetration Testing Outline I made
+
+! General Enumeration
+
+!! Port Scanning
+
+Run these commands
+
+```
+nmap -sV -Pn -v &lt;IP Address&gt; # Fast Scanning
+nmap -sV -Pn -v &lt;IP Address&gt; -p- -A -T4 
+```
+
+!! Vulnerability Scanning
+
+```
+nikto -h &lt;Website URL&gt;
+nmap -sV -Pn -v --script vuln &lt;IP Address&gt;
+```
+
+For each service, google the version number and find exploits. also
+
+```
+searchsploit &lt;keyword1&gt; &lt;keyword2&gt; ...
+```
+
+If you find an exploit, add the words &quot;github&quot;, &quot;without metasploit&quot;, &quot;poc&quot; to find code without the need for meterpreter (OSCP)
+
+! Service Enumeration
+
+# For each service
+## Access, Read &amp; Write if possible
+## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
+
+!! DNS Server
+
+Enumerate the host. Use domain names such as those
+
+# Involving the box name, platform and other clues
+## `cronos.htb` : HackTheBox name is `cronos`,
+# Email Address: 
+## `involve@friendzoneportal.red` -&gt; `friendzoneportal.red`
+
+```
+dig axfr @10.10.10.13 cronos.htb
+```
+
+!! FTP, SMB
+
+[[Network Services]]
+
+For FTP try anonymous login (or credentials if any)
+
+```
+ftp &lt;ip&gt; &lt;port&gt;
+```
+
+For SMB, try Null Shares
+
+```
+enum4linux -a &lt;ip&gt;
+smbclient //&lt;ip&gt;/&lt;share&gt; -N
+smbclient //&lt;ip&gt;/&lt;share&gt;
+```
+
+
+!! Web Hacking
+
+!!! Directory Enumeration
+
+```
+dirb &lt;url&gt;
+gobuster dir -k -x html,js,php,txt -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u &lt;URL&gt;
+```
+
+Look through at log down everything on everypage. Find all clues.
+
+!!! SQL Injection
+
+# Whenever you find a user page, bruteforce SQL injection payloads.
+## https://github.com/payloadbox/sql-injection-payload-list
+# If it is something like ?id=1, you can try enumerating all the ids by doing id=2, id=3
+## Can move on to SQL Injection (eg. UNION)
+
+!!! Local File Inclusion
+
+If there is a POST/GET parameter with a path, you can try Directory inclusion by `../../../../../etc/passwd` or something
+
+!!! Content Management Systems
+
+# Vulnerability Scanning
+
+! Exploitation
+
+!! Password Cracking
+
+[[Password Cracking]]
+
+Whenever you have any hint of credentials (eg. username, password), can start cracking using `rockyou.txt`
+
+```
+hydra -l &lt;username&gt; -P &lt;password_list&gt; &lt;ip&gt; &lt;protocol, eg. ssh&gt;
+```
+
+!! Others
+
+# [[OSCP Style Windows Buffer Overflow]]
+# [[Getting Shells]]
+
+! Privilege Escalation
+
+[[Privilege Escalation]]
+
+!! Linux
+
+# Download and run Privilege Escalation scripts
+## [[lse.sh|https://github.com/diego-treitos/linux-smart-enumeration]]: `./lse.sh`, `lse.sh -l1`
+## [[linPEAS.sh|https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS]]
+## [[linEnum.sh||https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh]]
+# If find any binaries exploitable by `sudo -l`, SetUID
+## Go to https://gtfobins.github.io/, or google on how to exploit 
+# 
+
+! Post Exploitation
+
+# Look through the file system
+## Home &amp; Root directories for suspicious files/ directories
+## `find / -name &lt;name of file&gt; 2&gt;/dev/null`
+# Upload privilege esclation scripts to run</pre>
 </div>
 <div created="20191105030432236" modified="20191105034127657" title="Entertainment">
 <pre>! Anime &amp; Manga
