@@ -9656,7 +9656,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211007075548568" list="CrappyMakerProgrammer Tech [[Game Development]] Unity [[Unity Animation]]" modified="20211007141741866" title="$:/StoryList">
+<div created="20211007075548568" list="CrappyMakerProgrammer Tech [[Game Development]] Unity [[Core Ideas]]" modified="20211007141945322" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10317,7 +10317,7 @@ There are many good wiki software online. Some of the few are:
 
 [[CMS Exploitation]]</pre>
 </div>
-<div created="20210925100056593" modified="20210925101633956" title="Core Ideas">
+<div created="20210925100056593" modified="20211007142214199" title="Core Ideas">
 <pre>! GameObjects
 
 Everything in a Scene is a GameObject
@@ -10343,9 +10343,27 @@ eg. RigidBody rb = gameObject.GetComponent&lt;RigidBody&gt;();
 ```
 transform.position; // Variable that gives the position of the GameObject
 transform.rotation; // Variable that gives the rotation of the GameObject in quaternions
+transform.localScale // Variable that gives scale relative to parent object 
 
 // Moves the GameObject by x,y,z ////////
 transform.translate(new Vector3(x,y,z)); 
+```
+
+! Scene Management
+
+https://stackoverflow.com/questions/35374684/how-to-move-to-next-scene-using-scene-manager-in-unity-5 
+
+```
+using UnityEngine.SceneManagement;
+
+int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; 
+if(currentSceneIndex&lt;SceneManager.sceneCount-1)
+{
+    SceneManager.LoadScene(currentSceneIndex + 1);
+}
+
+// OR
+SceneManager.LoadScene(&quot;SceneName&quot;);
 ```</pre>
 </div>
 <div created="20210825163412756" modified="20210825163643440" title="CoSpace">
