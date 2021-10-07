@@ -11284,7 +11284,7 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211007145229163" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211007145852083" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
@@ -11320,7 +11320,24 @@ If you find an exploit, add the words &quot;github&quot;, &quot;without metasplo
 # For each service
 ## Access, Read &amp; Write if possible
 ## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
-## Web Hacking
+
+
+!! FTP, SMB
+
+For FTP try anonymous login (or credentials if any)
+
+```
+ftp &lt;ip&gt; &lt;port&gt;
+```
+
+For SMB, try Null Shares
+
+```
+enum4linux -a &lt;ip&gt;
+smbclient //&lt;ip&gt;/&lt;share&gt; -N
+smbclient //&lt;ip&gt;/&lt;share&gt;
+```
+
 
 !! Web Hacking
 
@@ -11331,7 +11348,7 @@ dirb &lt;url&gt;
 gobuster dir -k -x html,js,php,txt -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u &lt;URL&gt;
 ```
 
-Look through at log down everything on everypage
+Look through at log down everything on everypage. Find all clues.
 
 !!! SQL Injection
 
@@ -11350,7 +11367,17 @@ If there is a POST/GET parameter with a path, you can try Directory inclusion by
 
 ! Exploitation
 
-If you have credentials, you could try [[Password Cracking]]
+!! Password Cracking
+
+[[Password Cracking]]
+
+Whenever you have any hint of credentials (eg. username, password), can start cracking using `rockyou.txt`
+
+```
+hydra -l &lt;username&gt; -P &lt;password_list&gt; &lt;ip&gt; &lt;protocol, eg. ssh&gt;
+```
+
+!! Others
 
 # [[OSCP Style Windows Buffer Overflow]]
 # [[Getting Shells]]
