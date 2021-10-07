@@ -9656,7 +9656,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211007075548568" list="CrappyMakerProgrammer Tech [[Game Development]] Unity [[Core Ideas]]" modified="20211007141945322" title="$:/StoryList">
+<div created="20211007075548568" list="[[Cyber Security]] [[Penetration Testing Framework]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211007142423026" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11284,14 +11284,37 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20210928143810797" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211007144821979" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
 
-! Enumeration
+! General Enumeration
 
-# Port Scanning
+!! Port Scanning
+
+Run these commands
+
+```
+nmap -sV -Pn -v &lt;IP Address&gt; # Fast Scanning
+nmap -sV -Pn -v &lt;IP Address&gt; -p- -A -T4 
+```
+
+!! Vulnerability Scanning
+
+```
+nikto -h &lt;Website URL&gt;
+nmap -sV -Pn -v --script vuln &lt;IP Address&gt;
+```
+
+For each service, google the version number and find exploits. also
+
+```
+searchsploit &lt;keyword1&gt; &lt;keyword2&gt; ...
+```
+
+! Service Enumeration
+
 # For each service
 ## Access, Read &amp; Write if possible
 ## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
@@ -11299,16 +11322,39 @@ This is a basic Penetration Testing Outline I made
 
 !! Web Hacking
 
-[[Web Hacking]]
+!!! Directory Enumeration
 
-# Directory enumeration with dirb/ gobuster
-# Read Through Source code
+```
+dirb &lt;url&gt;
+gobuster dir -k -x html,js,php,txt -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u &lt;URL&gt;
+```
 
-[[]]
+Look through at log down everything on everypage
+
+!!! SQL Injection
+
+# Whenever you find a user page, bruteforce SQL injection payloads.
+## https://github.com/payloadbox/sql-injection-payload-list
+# If it is something like ?id=1, you can try enumerating all the ids by doing id=2, id=3
+## Can move on to SQL Injection (eg. UNION)
+
+!!! Local File Inclusion
+
+If there is a POST/GET parameter with a path, you can try Directory inclusion by `../../../../../etc/passwd` or something
+
+!!! Content Management Systems
+
+# Vulnerability Scanning
 
 ! Exploitation
 
 If you have credentials, you could try [[Password Cracking]]
+
+!! Buffer Overflow
+
+!! Reverse Shell
+
+[[Getting Shells]]
 
 ! Privilege Escalation
 
