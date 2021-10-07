@@ -9656,7 +9656,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Penetration Testing Framework]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211007145140427" title="$:/StoryList">
+<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Penetration Testing Framework]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211007145858283" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11284,7 +11284,7 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211007145852083" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211007150531796" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
@@ -11321,8 +11321,22 @@ If you find an exploit, add the words &quot;github&quot;, &quot;without metasplo
 ## Access, Read &amp; Write if possible
 ## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
 
+!! DNS Server
+
+Enumerate the host. Use domain names such as those
+
+# Involving the box name, platform and other clues
+## `cronos.htb` : HackTheBox name is `cronos`,
+# Email Address: 
+## `involve@friendzoneportal.red` -&gt; `friendzoneportal.red`
+
+```
+dig axfr @10.10.10.13 cronos.htb
+```
 
 !! FTP, SMB
+
+[[Network Services]]
 
 For FTP try anonymous login (or credentials if any)
 
