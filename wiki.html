@@ -9644,8 +9644,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191104231946357" modified="20210808134423222" title="$:/state/tab/moresidebar-1850697562">
 <pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
-<div created="20191104231909850" modified="20211003060551713" title="$:/state/tab/sidebar--595412856">
-<pre>TableOfContents</pre>
+<div created="20191104231909850" modified="20211007145145539" title="$:/state/tab/sidebar--595412856">
+<pre>$:/core/ui/SideBar/Open</pre>
 </div>
 <div created="20210808122159283" modified="20210808122159827" title="$:/state/toc/TableOfContents-Programming--118161433">
 <pre>close</pre>
@@ -9656,7 +9656,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211007075548568" list="[[Cyber Security]] [[Penetration Testing Framework]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211007142423026" title="$:/StoryList">
+<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Penetration Testing Framework]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211007145140427" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11284,7 +11284,7 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211007144821979" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211007145229163" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
@@ -11312,6 +11312,8 @@ For each service, google the version number and find exploits. also
 ```
 searchsploit &lt;keyword1&gt; &lt;keyword2&gt; ...
 ```
+
+If you find an exploit, add the words &quot;github&quot;, &quot;without metasploit&quot;, &quot;poc&quot; to find code without the need for meterpreter (OSCP)
 
 ! Service Enumeration
 
@@ -11350,16 +11352,19 @@ If there is a POST/GET parameter with a path, you can try Directory inclusion by
 
 If you have credentials, you could try [[Password Cracking]]
 
-!! Buffer Overflow
-
-!! Reverse Shell
-
-[[Getting Shells]]
+# [[OSCP Style Windows Buffer Overflow]]
+# [[Getting Shells]]
 
 ! Privilege Escalation
 
-# Enumerate
-[[]]</pre>
+[[Privilege Escalation]]
+
+! Post Exploitation
+
+# Look through the file system
+## Home &amp; Root directories for suspicious files/ directories
+## `find / -name &lt;name of file&gt; 2&gt;/dev/null`
+# Upload privilege esclation scripts to run</pre>
 </div>
 <div created="20210925102955449" modified="20210925104210602" title="Physics">
 <pre>https://hackin7.itch.io/playableunitedreference 
