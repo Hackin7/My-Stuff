@@ -9656,7 +9656,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Penetration Testing Framework]] [[Getting Shells]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211008082138071" title="$:/StoryList">
+<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Penetration Testing Framework]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211008092230237" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11301,7 +11301,7 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211008082043312" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211008121138087" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
@@ -11423,6 +11423,24 @@ hydra -l &lt;username&gt; -P &lt;password_list&gt; &lt;ip&gt; &lt;protocol, eg. 
 # [[OSCP Style Windows Buffer Overflow]]
 # [[Getting Shells]]
 
+!! Upgrading Shells
+
+```
+# In reverse shell
+$ python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
+Ctrl-Z
+
+# In Kali
+$ stty raw -echo
+$ fg
+
+# In reverse shell
+$ reset
+$ export SHELL=bash
+$ export TERM=xterm-256color
+$ stty rows &lt;num&gt; columns &lt;cols&gt;
+```
+
 ! Privilege Escalation
 
 [[Privilege Escalation]]
@@ -11441,7 +11459,10 @@ hydra -l &lt;username&gt; -P &lt;password_list&gt; &lt;ip&gt; &lt;protocol, eg. 
 ### `/etc/` (Config Files?), `/opt` (System Scripts?) 
 ### `/var/www` (Other website things)
 ## `find / -name &lt;name of file&gt; 2&gt;/dev/null`
-## ''Object Injection''
+# For any custom binaries/ scripts, either try
+## Replacing the Script entirely
+## ''Object Injection'', eg. [[Command Injection]]
+
 
 ! Post Exploitation
 
