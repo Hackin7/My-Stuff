@@ -9656,7 +9656,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211008055959239" list="[[Penetration Testing Framework]] CrappyMakerProgrammer" modified="20211008055959239" title="$:/StoryList">
+<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Penetration Testing Framework]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211008062044528" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11284,7 +11284,7 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211008060002850" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211008070427400" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
@@ -11347,9 +11347,12 @@ ftp &lt;ip&gt; &lt;port&gt;
 For SMB, try Null Shares
 
 ```
-enum4linux -a &lt;ip&gt;
+IP=10.10.10.123
+smbmap -H $IP # List shares &amp; their permissions
+smbclient -N -L //$IP # List permissions of shares (Null Session)
+nmap --script smb-enum-shares.nse -p445 $IP
 smbclient //&lt;ip&gt;/&lt;share&gt; -N
-smbclient //&lt;ip&gt;/&lt;share&gt;
+enum4linux -a $IP
 ```
 
 
@@ -11370,6 +11373,11 @@ Look through at log down everything on everypage. Find all clues.
 ## https://github.com/payloadbox/sql-injection-payload-list
 # If it is something like ?id=1, you can try enumerating all the ids by doing id=2, id=3
 ## Can move on to SQL Injection (eg. UNION)
+
+!! File Upload Vulnerability
+
+# Upload a file through website/ FTP if possible
+# Access the payload through the web browser to run the php code
 
 !!! Local File Inclusion
 
@@ -11413,7 +11421,10 @@ hydra -l &lt;username&gt; -P &lt;password_list&gt; &lt;ip&gt; &lt;protocol, eg. 
 ! Post Exploitation
 
 # Look through the file system
-## Home &amp; Root directories for suspicious files/ directories
+## For suspicious files/ directories
+### `/home`
+### `/`
+### `/var/www` (Other website things)
 ## `find / -name &lt;name of file&gt; 2&gt;/dev/null`
 # Upload privilege esclation scripts to run</pre>
 </div>
