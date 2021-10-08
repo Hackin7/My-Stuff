@@ -11284,7 +11284,7 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211008070427400" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211008070931818" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
@@ -11422,8 +11422,8 @@ hydra -l &lt;username&gt; -P &lt;password_list&gt; &lt;ip&gt; &lt;protocol, eg. 
 
 # Look through the file system
 ## For suspicious files/ directories
-### `/home`
-### `/`
+### `/home`, `/`
+### `/etc/` (Config Files?), `/opt` (System Scripts?) 
 ### `/var/www` (Other website things)
 ## `find / -name &lt;name of file&gt; 2&gt;/dev/null`
 # Upload privilege esclation scripts to run</pre>
