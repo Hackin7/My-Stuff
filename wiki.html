@@ -9660,7 +9660,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211010071146845" list="[[Cyber Security]] [[Penetration Testing Framework]] [[Common Vulnerabilities and Exposures]] CrappyMakerProgrammer" modified="20211010080825252" title="$:/StoryList">
+<div created="20211010071146845" list="[[Cyber Security]] [[Penetration Testing Framework]] CrappyMakerProgrammer" modified="20211010080825252" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11362,7 +11362,7 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211010080014776" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211010082708423" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
@@ -11524,6 +11524,14 @@ $ stty rows &lt;num&gt; columns &lt;cols&gt;
 ## Replacing the Script entirely
 ## ''Object Injection'', eg. [[Command Injection]], [[Python Injection]]
 
+!! Windows (WIP)
+
+# systeminfo
+# `whoami /priv`
+## If got `SeImpersonatePrivilege        Impersonate a client after authentication Enabled `, can try running the Potato Exploit/ [[Churrasco|https://github.com/jivoi/pentest/blob/master/exploit_win/churrasco]] (For Windows  XP/VISTA/2003/2008)
+# Run winPEAS
+# windows-exploit-suggester
+## `python windows-exploit-suggester.py --database 2020-04-04-mssb.xls --systeminfo ~/hackthebox/07-Grandpa/systeminfo.txt`
 
 ! Post Exploitation
 
