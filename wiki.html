@@ -9664,7 +9664,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211011161248669" list="CrappyMakerProgrammer Tech [[App Development]] [[Web Development]]" modified="20211011161345468" title="$:/StoryList">
+<div created="20211012144213120" list="[[Cyber Security]] Exploitation [[Password Cracking]] CrappyMakerProgrammer" modified="20211012144218920" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11363,13 +11363,22 @@ Resources
 # https://github.com/Tib3rius/Pentest-Cheatsheets/blob/master/exploits/buffer-overflows.rst
 </pre>
 </div>
-<div created="20210927151908009" modified="20210927152223248" title="Password Cracking">
+<div created="20210927151908009" modified="20211012153117850" title="Password Cracking">
 <pre>```
 hydra -L &lt;users&gt; -P &lt;passwords.txt&gt; &lt;ip&gt; &lt;service eg. ssh&gt;
 eg. hydra -L /usr/share/wordlists/metasploit/unix_users.txt -P /usr/share/wordlists/metasploit/unix_passwords.txt
 ```
 
 Example services: `ssh`, `mssql`
+
+!! SSH Hash Cracking
+
+`id_rsa` is a public ssh key (likely from , [[ssh2john|https://github.com/openwall/john/blob/bleeding-jumbo/run/ssh2john.py]]
+
+```
+python ssh2john.py id_rsa &gt; id_rsa.hash
+john id_rsa.hash -wordlist=rockyou.txt
+```
 
 !! Linux Passwords
 Get password file from `/etc/passwd`, shadow file from `/etc/shadow`
