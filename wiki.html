@@ -329,6 +329,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Pivoting</li>
 
+<li>Privesc - Linux Binaries</li>
+
 <li>Privilege Escalation</li>
 
 <li>Programming</li>
@@ -9666,7 +9668,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211014093039800" list="[[Cyber Security]] [[Privilege Escalation]] CrappyMakerProgrammer" modified="20211014102721585" title="$:/StoryList">
+<div created="20211014093039800" list="[[Cyber Security]] [[Penetration Testing Framework]] [[Network Services]] CrappyMakerProgrammer" modified="20211014165219096" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11115,7 +11117,7 @@ Check the Google Play Console
 [[Publishing Apps on Google Play]]
 </pre>
 </div>
-<div created="20210820120924872" modified="20211011155843068" title="Network Services">
+<div created="20210820120924872" modified="20211014171232647" title="Network Services">
 <pre>! Web Server
 
 [[Web Development]]
@@ -11181,6 +11183,8 @@ Usually at port 3306
 ! Samba File Share
 
 `enum4linux -A &lt;IP&gt;`
+
+Instant File Share : `sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py  files ~/Documents/payloads -smb2support`
 
 Setting up file share [[*|https://pimylifeup.com/raspberry-pi-samba/]] : Install `samba`, start `smbd.service` using `systemctl`
 
@@ -11720,10 +11724,13 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
 </div>
-<div created="20210904164116778" modified="20211014102739368" title="Privilege Escalation">
+<div created="20211014102800712" modified="20211014102802344" title="Privesc - Linux Binaries">
+<pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/</pre>
+</div>
+<div created="20210904164116778" modified="20211014102749648" title="Privilege Escalation">
 <pre>! Linux
 
-[[Linux Binaries for Privesc]]
+[[Privesc - Linux Binaries]]
 
 (To Improve)
 
