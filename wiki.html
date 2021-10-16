@@ -9668,7 +9668,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211016035212981" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Penetration Testing Framework]]" modified="20211016035218265" title="$:/StoryList">
+<div created="20211016035212981" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Penetration Testing Framework]] [[Network Services]]" modified="20211016074533869" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11117,7 +11117,7 @@ Check the Google Play Console
 [[Publishing Apps on Google Play]]
 </pre>
 </div>
-<div created="20210820120924872" modified="20211014171232647" title="Network Services">
+<div created="20210820120924872" modified="20211016080008170" title="Network Services">
 <pre>! Web Server
 
 [[Web Development]]
@@ -11179,6 +11179,24 @@ Usually at port 3306
 
 |Action | Command|
 |Connect | `mysql -u&lt;username&gt; -p&lt;password&gt; -h &lt;ip_address&gt;`|
+
+https://book.hacktricks.xyz/pentesting/pentesting-mysql 
+
+```
+show databases;
+use &lt;database&gt;;
+show tables;
+describe &lt;table_name&gt;;
+select grantee, table_schema, privilege_type FROM schema_privileges; #Exact privileges
+select user,file_priv from mysql.user where user='root'; #File privileges
+select version(); #version
+select @@version(); #version
+select user(); #User
+select database(); #database name
+
+#Try to execute code
+select do_system('id');
+```
 
 ! Samba File Share
 
