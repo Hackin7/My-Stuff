@@ -9676,7 +9676,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211025131349392" list="[[Cyber Security]] Exploitation [[Password Cracking]] CrappyMakerProgrammer" modified="20211025132958857" title="$:/StoryList">
+<div created="20211025131349392" list="[[Cyber Security]] [[Privilege Escalation]] CrappyMakerProgrammer" modified="20211025133941407" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11786,7 +11786,7 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 <div created="20211014102800712" modified="20211014102802344" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/</pre>
 </div>
-<div created="20210904164116778" modified="20211022023644873" title="Privilege Escalation">
+<div created="20210904164116778" modified="20211025134710185" title="Privilege Escalation">
 <pre>! Linux
 
 [[Privesc - Linux Binaries]]
@@ -11829,6 +11829,18 @@ lxc init bobImage bobVM -c security.privileged=true
 lxc config device add bobVM realRoot disk source=/ path=r
 lxc start bobVM
 lxc exec bobVM -- /bin/sh
+```
+
+!! Hidden Credentials
+
+Common directories
+# `/opt`, `/home`, `/etc`
+
+Hidden Networked Services
+
+```
+ps aux
+netstat -an -p tcp
 ```
 
 ! Windows
