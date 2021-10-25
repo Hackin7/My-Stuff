@@ -9676,7 +9676,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211025131349392" list="[[Cyber Security]] [[Penetration Testing Framework]] [[Network Services]] Tomcat CrappyMakerProgrammer" modified="20211025131556083" title="$:/StoryList">
+<div created="20211025131349392" list="[[Cyber Security]] Exploitation [[Password Cracking]] CrappyMakerProgrammer" modified="20211025132958857" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11441,7 +11441,7 @@ Resources
 # https://github.com/Tib3rius/Pentest-Cheatsheets/blob/master/exploits/buffer-overflows.rst
 </pre>
 </div>
-<div created="20210927151908009" modified="20211012153117850" title="Password Cracking">
+<div created="20210927151908009" modified="20211025133133619" title="Password Cracking">
 <pre>```
 hydra -L &lt;users&gt; -P &lt;passwords.txt&gt; &lt;ip&gt; &lt;service eg. ssh&gt;
 eg. hydra -L /usr/share/wordlists/metasploit/unix_users.txt -P /usr/share/wordlists/metasploit/unix_passwords.txt
@@ -11467,8 +11467,15 @@ john &lt;password_hash/hash_list&gt;
 john -wordlist /path/to/wordlist -users=users.txt hashfile
 ```
 
+!! Zip 
 
-! GPG Hashes
+```
+zip2john secret.zip &gt; hash
+john -wordlist /path/to/wordlist hash
+```
+
+
+!! GPG Hashes
 
 Cracking GPG Key File
 
