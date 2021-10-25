@@ -9676,7 +9676,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211025140115230" list="[[Cyber Security]] Pivoting CrappyMakerProgrammer" modified="20211025140120156" title="$:/StoryList">
+<div created="20211025140115230" list="[[Cyber Security]] [[Privilege Escalation]] CrappyMakerProgrammer" modified="20211025161622575" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11441,7 +11441,7 @@ Resources
 # https://github.com/Tib3rius/Pentest-Cheatsheets/blob/master/exploits/buffer-overflows.rst
 </pre>
 </div>
-<div created="20210927151908009" modified="20211012153117850" title="Password Cracking">
+<div created="20210927151908009" modified="20211025140214126" title="Password Cracking">
 <pre>```
 hydra -L &lt;users&gt; -P &lt;passwords.txt&gt; &lt;ip&gt; &lt;service eg. ssh&gt;
 eg. hydra -L /usr/share/wordlists/metasploit/unix_users.txt -P /usr/share/wordlists/metasploit/unix_passwords.txt
@@ -11467,8 +11467,14 @@ john &lt;password_hash/hash_list&gt;
 john -wordlist /path/to/wordlist -users=users.txt hashfile
 ```
 
+!! Zip files
 
-! GPG Hashes
+```
+zip2john secret.zip &gt; hash
+john hash
+```
+
+!! GPG Hashes
 
 Cracking GPG Key File
 
@@ -11787,7 +11793,7 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 <div created="20211014102800712" modified="20211014102802344" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/</pre>
 </div>
-<div created="20210904164116778" modified="20211022023644873" title="Privilege Escalation">
+<div created="20210904164116778" modified="20211025161735263" title="Privilege Escalation">
 <pre>! Linux
 
 [[Privesc - Linux Binaries]]
@@ -11830,6 +11836,13 @@ lxc init bobImage bobVM -c security.privileged=true
 lxc config device add bobVM realRoot disk source=/ path=r
 lxc start bobVM
 lxc exec bobVM -- /bin/sh
+```
+
+!! Hidden Files/ Services
+
+```
+ps aux
+netstat -ano
 ```
 
 ! Windows
