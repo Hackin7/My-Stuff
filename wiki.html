@@ -281,6 +281,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Draft of 'LinEnum'</li>
 
+<li>Draft of 'Network Services'</li>
+
 <li>Draft of 'Penetration Testing Framework'</li>
 
 <li>Entertainment</li>
@@ -352,6 +354,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <li>Robotics</li>
 
 <li>Scanning</li>
+
+<li>SMB File Sharing</li>
 
 <li>Stocks</li>
 
@@ -9678,7 +9682,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027101744341" list="[[Cyber Security]] [[Draft of 'Penetration Testing Framework']] [[Network Services]] Scanning CrappyMakerProgrammer" modified="20211027130732927" title="$:/StoryList">
+<div created="20211027101744341" list="[[Cyber Security]] [[Draft of 'Penetration Testing Framework']] [[Draft of 'Network Services']] [[SMB File Sharing]] Scanning CrappyMakerProgrammer" modified="20211027131141159" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10701,7 +10705,125 @@ Put `docker-compose.yaml` in current directory, then run `docker-compose up`
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
 </div>
-<div created="20210927160738058" draft.of="Penetration Testing Framework" draft.title="Penetration Testing Framework" modified="20211027130728578" title="Draft of 'Penetration Testing Framework'">
+<div created="20210820120924872" draft.of="Network Services" draft.title="Network Services" modified="20211027131140017" title="Draft of 'Network Services'">
+<pre>! Web Server
+
+[[Web Development]]
+
+Sample Services
+
+# [[NextCloud]]
+# [[Wordpress]] 
+# [[Tomcat]]
+# [[Git]]
+
+
+! DNS Enumeration
+
+DNS Zone Transfer
+
+Some other scripts can be found [[here|https://securitytrails.com/blog/dns-enumeration]]
+
+# `dig axfr @10.10.10.13 cronos.htb`
+# `host &lt;ip or hostname&gt; &lt;IP of server&gt;`
+## Can automate this using bash eg. `for ip in $(seq 50 100); do host 38.100.193.$ip; done | grep -v &quot;not found&quot;`
+## Add `-l` to list all hosts in a domain, using AXFR
+## Add `-t &lt;record&gt;` to find out more
+### NS - Nameserver records contain the name of the authoritative servers hosting the DNS records for a domain.
+### A - Also known as a host record, the “a record” contains the IP address of a hostname (such as www.megacorpone.com).
+### MX - Mail Exchange records contain the names of the servers responsible for handling email for the domain. A domain can contain multiple MX records.
+### PTR - Pointer Records are used in reverse lookup zones and are used to find the records associated with an IP address.
+### CNAME - Canonical Name Records are used to create aliases for other host records.
+### TXT - Text records can contain any arbitrary data and can be used for various purposes, such as domain ownership verification.
+# dnsrecon
+## for more check https://hackersonlineclub.com/dnsrecon-to-use-dns-information-gathering/
+
+
+Pentesting
+
+Enumerate the host. Use domain names such as those
+
+# Involving the box name, platform and other clues
+## `cronos.htb` : HackTheBox name is `cronos`,
+# Email Address: 
+## `involve@friendzoneportal.red` -&gt; `friendzoneportal.red`
+## Cutting the words, eg. `friendzoneportal.red` -&gt; `friendzone.red`
+
+```
+dig axfr @10.10.10.13 cronos.htb
+```
+
+
+! FTP
+# Server: `python3 -m pyftpdlib -w`
+# Mount: `sudo curlftpfs 192.168.1.124:2121 /mnt/ -o allow_other`
+## https://wiki.archlinux.org/title/CurlFtpFS
+## Edit `/etc/fuse.conf`  and add `user_allow_other` ([[reference|https://unix.stackexchange.com/questions/17402/why-does-root-get-permission-denied-when-accessing-fuse-directory]])
+# Connect: `ftp &lt;IP&gt;`
+# Download `wget -r ftp://172.16.37.234:40121 --user=ftpuser --password=ftpassword`
+
+For FTP try anonymous login (or credentials if any)
+
+```
+ftp &lt;ip&gt; &lt;port&gt;
+```
+
+
+
+! SSH
+
+Connect to shell
+`ssh &lt;user&gt;@&lt;ip&gt; -p &lt;port, usually 22&gt;`
+
+# Add `-oKexAlgorithms=+diffie-hellman-group1-sha1` if `no matching key exchange found` [[*|https://unix.stackexchange.com/questions/340844/how-to-enable-diffie-hellman-group1-sha1-key-exchange-on-debian-8-0/340853]]
+# Transfer Files: `scp &lt;local_file&gt; &lt;user&gt;@&lt;ip&gt;:&lt;result_file&gt;` [[*|https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/]]
+
+! VPN
+Wireguard works
+https://www.pivpn.io/
+
+! MySQL
+
+Usually at port 3306
+
+|Action | Command|
+|Connect | `mysql -u&lt;username&gt; -p&lt;password&gt; -h &lt;ip_address&gt;`|
+
+https://book.hacktricks.xyz/pentesting/pentesting-mysql 
+
+```
+show databases;
+use &lt;database&gt;;
+show tables;
+describe &lt;table_name&gt;;
+select grantee, table_schema, privilege_type FROM schema_privileges; #Exact privileges
+select user,file_priv from mysql.user where user='root'; #File privileges
+select version(); #version
+select @@version(); #version
+select user(); #User
+select database(); #database name
+
+#Try to execute code
+select do_system('id');
+```
+
+! Samba File Share
+
+[[SMB File Sharing]]
+
+! SOCKS Proxy Server
+
+Referenced from [[here|https://howto.lintel.in/setup-socks-proxy-linux/]]
+
+Just need to clone [[this repo|https://github.com/rofl0r/microsocks]], `make` and run `./microsocks` to have a server start on port 1080
+
+To connect to it, you can do the following
+
+|Program|Steps|
+|`proxychains4` for Linux|&lt;ol&gt;&lt;li&gt;Edit `/etc/proxychains.conf` under `[ProxyList]`, adding `socks5 &lt;ip&gt; &lt;port&gt;` right below the line. &lt;/li&gt;&lt;li&gt;The IP address must be numeric (if you have a domain name, just ping to get it's IP address)&lt;/li&gt;&lt;li&gt;Run `proxychains4 &lt;command&gt;`&lt;/li&gt;&lt;/ol&gt;|
+|Android|Install [[TunProxy|https://github.com/raise-isayan/TunProxy]], [[SocksDroid|https://play.google.com/store/apps/details?id=net.typeblog.socks]] or other Proxy Tunnelling VPN|</pre>
+</div>
+<div created="20210927160738058" draft.of="Penetration Testing Framework" draft.title="Penetration Testing Framework" modified="20211027131005589" title="Draft of 'Penetration Testing Framework'">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
@@ -10722,22 +10844,6 @@ This is a basic Penetration Testing Outline I made
 
 [[Network Services]]
 
-For FTP try anonymous login (or credentials if any)
-
-```
-ftp &lt;ip&gt; &lt;port&gt;
-```
-
-For SMB, try Null Shares
-
-```
-IP=10.10.10.123
-smbmap -H $IP # List shares &amp; their permissions
-smbclient -N -L //$IP # List permissions of shares (Null Session)
-nmap --script smb-enum-shares.nse -p445 $IP
-smbclient //&lt;ip&gt;/&lt;share&gt; -N
-enum4linux -a $IP
-```
 
 
 !! Web Hacking
@@ -12156,6 +12262,52 @@ searchsploit &lt;keyword1&gt; &lt;keyword2&gt; ...
 ```
 
 If you find an exploit, add the words &quot;github&quot;, &quot;without metasploit&quot;, &quot;poc&quot; to find code without the need for meterpreter (OSCP)</pre>
+</div>
+<div created="20211027131143898" modified="20211027131145937" title="SMB File Sharing">
+<pre>
+`enum4linux -A &lt;IP&gt;`
+
+Instant File Share : `sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py  files ~/Documents/payloads -smb2support`
+
+Setting up file share [[*|https://pimylifeup.com/raspberry-pi-samba/]] : Install `samba`, start `smbd.service` using `systemctl`
+
+To add a file share, edit `/etc/samba/smb.conf`. Add the following to the bottom
+
+```
+[share_name]
+path = /home/pi/shared
+writeable=Yes
+create mask=0777
+directory mask=0777
+public=no
+```
+
+Run `sudo smbpasswd -a &lt;user&gt;` to set password. 
+
+To allow symbolic links[[*|https://unix.stackexchange.com/questions/5120/how-do-you-make-samba-follow-symlink-outside-the-shared-path]], add the respective files under the respective sections
+
+```
+[global]
+unix extensions = yes
+allow insecure wide links = yes
+
+[share]
+follow symlinks = yes
+wide links = yes
+```
+
+For SMB, try Null Shares
+
+```
+IP=10.10.10.123
+smbmap -H $IP # List shares &amp; their permissions
+smbclient -N -L //$IP # List permissions of shares (Null Session)
+nmap --script smb-enum-shares.nse -p445 $IP
+smbclient //&lt;ip&gt;/&lt;share&gt; -N
+enum4linux -a $IP
+```
+
+</pre>
 </div>
 <div created="20210810142453194" modified="20210810142954660" title="Stocks">
 <pre>! What are stocks
