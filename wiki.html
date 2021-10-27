@@ -283,8 +283,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Draft of 'LinEnum'</li>
 
-<li>Draft of 'Penetration Testing Framework'</li>
-
 <li>Entertainment</li>
 
 <li>Exploitation</li>
@@ -9682,7 +9680,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027132533945" list="[[Cyber Security]] [[Draft of 'Penetration Testing Framework']] [[Web Hacking]] Tech CrappyMakerProgrammer" modified="20211027140809360" title="$:/StoryList">
+<div created="20211027132533945" list="[[Cyber Security]] [[Penetration Testing Framework]] [[Web Hacking]] Tech CrappyMakerProgrammer" modified="20211027141057904" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10732,66 +10730,6 @@ dig axfr @10.10.10.13 cronos.htb
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
 </div>
-<div created="20210927160738058" draft.of="Penetration Testing Framework" draft.title="Penetration Testing Framework" modified="20211027140802068" title="Draft of 'Penetration Testing Framework'">
-<pre>! Overview
-
-This is a basic Penetration Testing Outline I made
-
-
-
-[[Scanning]]
-
-# For each service
-## Access, Read &amp; Write if possible
-## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
-## If You don't know the service (or nmap also doesn't), try web browser
-[[Network Services]]
-
-
-
-!! Web Hacking
-
-[[Web Hacking]]
-
-!!! Directory Enumeration
-
-```
-dirb &lt;url&gt;
-gobuster dir -k -x html,js,php,txt -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u &lt;URL&gt;
-```
-
-Look through at log down everything on everypage. Find all clues.
-
-!! File Upload Vulnerability
-
-# Upload a file through website/ FTP if possible
-# Access the payload through the web browser to run the php code
-
-To bypass mandate of extension, can try name.php.jpg for example. It will run as a php file [[*|https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload]]
-
-!!! Local File Inclusion
-
-If there is a POST/GET parameter with a path, you can try Directory inclusion by `../../../../../etc/passwd` or something
-
-# PHP Filters
-# You can try reading from the log file (and inject php code inside)
-
-!!! Content Management Systems
-
-# Vulnerability Scanning
-
-! Exploitation
-
-# [[Password Cracking]]
-# [[OSCP Style Windows Buffer Overflow]]
-# [[Getting Shells]]
-
-! Privilege Escalation
-
-# [[File Transfers]]
-# [[Privilege Escalation]]
-</pre>
-</div>
 <div created="20191105030432236" modified="20191105034127657" title="Entertainment">
 <pre>! Anime &amp; Manga
 Check [[MyAnimeList|https://myanimelist.net/profile/Hackin7]]
@@ -11562,45 +11500,26 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211027140122010" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211027141056250" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
 
-! General Enumeration
+
 
 [[Scanning]]
-
-! Service Enumeration
 
 # For each service
 ## Access, Read &amp; Write if possible
 ## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
 ## If You don't know the service (or nmap also doesn't), try web browser
-
-
-
 [[Network Services]]
 
 
 
 !! Web Hacking
 
-!!! Directory Enumeration
-
-```
-dirb &lt;url&gt;
-gobuster dir -k -x html,js,php,txt -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u &lt;URL&gt;
-```
-
-Look through at log down everything on everypage. Find all clues.
-
-!!! SQL Injection
-
-# Whenever you find a user page, bruteforce SQL injection payloads.
-## https://github.com/payloadbox/sql-injection-payload-list
-# If it is something like ?id=1, you can try enumerating all the ids by doing id=2, id=3
-## Can move on to SQL Injection (eg. UNION)
+[[Web Hacking]]
 
 !! File Upload Vulnerability
 
@@ -11609,12 +11528,6 @@ Look through at log down everything on everypage. Find all clues.
 
 To bypass mandate of extension, can try name.php.jpg for example. It will run as a php file [[*|https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload]]
 
-!!! Local File Inclusion
-
-If there is a POST/GET parameter with a path, you can try Directory inclusion by `../../../../../etc/passwd` or something
-
-# PHP Filters
-# You can try reading from the log file (and inject php code inside)
 
 !!! Content Management Systems
 
@@ -11628,11 +11541,8 @@ If there is a POST/GET parameter with a path, you can try Directory inclusion by
 
 ! Privilege Escalation
 
-[[Privilege Escalation]]
-
-! Post Exploitation
-
-[[File Transfers]]
+# [[File Transfers]]
+# [[Privilege Escalation]]
 </pre>
 </div>
 <div created="20210925102955449" modified="20210925104210602" title="Physics">
@@ -12234,7 +12144,7 @@ Just check the website for components, layouts and scripting
 
 # Udacity (HTML and CSS Syntax): https://www.udacity.com/course/intro-to-html-and-css--ud001 </pre>
 </div>
-<div created="20210825220712054" modified="20211027141008266" title="Web Hacking">
+<div created="20210825220712054" modified="20211027141116033" title="Web Hacking">
 <pre>Steps to web hacking
 
 # Check the source code of all pages
@@ -12246,6 +12156,14 @@ Just check the website for components, layouts and scripting
 
 ! Directory enumeration
 Basically use a word list to enumerate
+
+```
+dirb &lt;url&gt;
+gobuster dir -k -x html,js,php,txt -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u &lt;URL&gt;
+```
+
+Look through at log down everything on everypage. Find all clues.
+
 
 !! Tools
 
@@ -12300,6 +12218,12 @@ https://tryhackme.com/room/lfibasics
 https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion
 
 https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion
+
+If there is a POST/GET parameter with a path, you can try Directory inclusion by `../../../../../etc/passwd` or something
+
+# PHP Filters
+# You can try reading from the log file (and inject php code inside)
+
 
 ! ShellShock
 
