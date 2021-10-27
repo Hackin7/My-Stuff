@@ -9680,7 +9680,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027132533945" list="[[Cyber Security]] CrappyMakerProgrammer" modified="20211027133625656" title="$:/StoryList">
+<div created="20211027132533945" list="[[Cyber Security]] [[Privilege Escalation]] CrappyMakerProgrammer" modified="20211027134538160" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11713,20 +11713,27 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 <div created="20211014102800712" modified="20211014102802344" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/</pre>
 </div>
-<div created="20210904164116778" modified="20211027130438865" title="Privilege Escalation">
+<div created="20210904164116778" modified="20211027134627426" title="Privilege Escalation">
 <pre>! Linux
+
+!! Enumeration
+
 # Download and run Privilege Escalation scripts
 ## [[lse.sh|https://github.com/diego-treitos/linux-smart-enumeration]]: `./lse.sh`, `lse.sh -l1`
 ## [[linPEAS.sh|https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS]]
 ## [[linEnum.sh||https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh]]
-# If find any binaries exploitable by `sudo -l`, SetUID
-## Go to https://gtfobins.github.io/, or google on how to exploit 
 # Look through the file system
 ## For suspicious files/ directories
 ### `/home`, `/`
 ### `/etc/` (Config Files?), `/opt` (System Scripts?) 
 ### `/var/www` (Other website things, for CMS, look through ALL the config files)
 ## `find / -name &lt;name of file&gt; 2&gt;/dev/null`
+
+!! Techniques
+
+
+# If find any binaries exploitable by `sudo -l`, SetUID
+## Go to https://gtfobins.github.io/, or google on how to exploit 
 # For any custom binaries/ scripts, either try
 ## Replacing the Script entirely
 ## ''Object Injection'', eg. [[Command Injection]], [[Python Injection]]
