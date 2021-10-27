@@ -9676,7 +9676,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027101744341" list="[[Cyber Security]] [[Getting Shells]] CrappyMakerProgrammer" modified="20211027101934939" title="$:/StoryList">
+<div created="20211027101744341" list="[[Cyber Security]] Pivoting CrappyMakerProgrammer" modified="20211027124130823" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11766,7 +11766,7 @@ void OnTriggerExit(Collider coll)
 }
 ```</pre>
 </div>
-<div created="20210901152347409" modified="20211025140142078" title="Pivoting" type="">
+<div created="20210901152347409" modified="20211027124248589" title="Pivoting" type="">
 <pre>Pivoting is basically gaining access to other networks (that were initially inaccessible)
 
 !! SSH
@@ -11775,6 +11775,15 @@ Access remote port from local device
 
 ```
 ssh -L5901:127.0.0.1:5901 charix@10.10.10.84  
+```
+
+!! Chisel
+
+https://github.com/jpillora/chisel 
+
+```
+ ./chisel_1.6.0_linux_amd64 server -p 8000 --reverse
+.\chisel.exe client 10.10.14.20:8000 R:8888:localhost:8888
 ```
 
 !! Metasploit
