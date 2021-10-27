@@ -281,8 +281,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Domain Name System</li>
 
-<li>Draft of 'Cyber Security'</li>
-
 <li>Draft of 'LinEnum'</li>
 
 <li>Entertainment</li>
@@ -9682,7 +9680,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027132533945" list="[[Draft of 'Cyber Security']] [[Web Hacking]] Tech CrappyMakerProgrammer" modified="20211027135504728" title="$:/StoryList">
+<div created="20211027132533945" list="[[Cyber Security]] [[Privilege Escalation]] Tech CrappyMakerProgrammer" modified="20211027135903927" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10589,7 +10587,7 @@ Saleae Logic Analyser
 
 Example CTF Challenge: https://jloh02.github.io/ctf/stack-the-flags-2020#internet-of-things</pre>
 </div>
-<div created="20191219104819416" modified="20211027135335592" tags="Tech" title="Cyber Security">
+<div created="20191219104819416" modified="20211027135658801" tags="Tech" title="Cyber Security">
 <pre>A good &amp; easy way to get started in Cyber Security is to just participate in Capture the Flag Competitions, ans google for writeups, understanding &amp; solutions along the way
 
 ! Penetration Testing Framework
@@ -10728,37 +10726,6 @@ Enumerate the host. Use domain names such as those
 ```
 dig axfr @10.10.10.13 cronos.htb
 ```</pre>
-</div>
-<div created="20191219104819416" draft.of="Cyber Security" draft.title="Cyber Security" modified="20211027135337418" tags="Tech" title="Draft of 'Cyber Security'">
-<pre>A good &amp; easy way to get started in Cyber Security is to just participate in Capture the Flag Competitions, ans google for writeups, understanding &amp; solutions along the way
-
-! Penetration Testing Framework
-
-[[Penetration Testing Framework]]
-
-# [[Scanning]]
-# Enumeration: [[Network Services]]
-# [[Exploitation]]
-# [[Privilege Escalation]]
-# [[Getting Shells]]
-# [[File Transfers]]
-# [[Pivoting]]
-
-! Exercises
-
-[[Cyber Security Exercises]]
-
-
-! Categories
-
-!! Main
-
-# [[Reverse Engineering]]
-# [[Binary Exploitation / Pwn]]
-# [[OSINT]]
-# [[Web Hacking]]
-## https://book.hacktricks.xyz/pentesting/pentesting-web/nginx
-# [[Cyber Forensics]]</pre>
 </div>
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
@@ -11732,8 +11699,10 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 <div created="20211014102800712" modified="20211014102802344" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/</pre>
 </div>
-<div created="20210904164116778" modified="20211027134627426" title="Privilege Escalation">
+<div created="20210904164116778" modified="20211027135909065" title="Privilege Escalation">
 <pre>! Linux
+
+[[Linux]]
 
 !! Enumeration
 
@@ -11751,16 +11720,18 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 !! Techniques
 
 
+
 # If find any binaries exploitable by `sudo -l`, SetUID
 ## Go to https://gtfobins.github.io/, or google on how to exploit 
 # For any custom binaries/ scripts, either try
 ## Replacing the Script entirely
 ## ''Object Injection'', eg. [[Command Injection]], [[Python Injection]]
 
-[[Privesc - Linux Binaries]]
+
 
 (To Improve)
 
+# [[Privesc - Linux Binaries]]
 # Docker / LXD: mount root file system and modify in container(login to container as root)
 # Sudo into gtfo bin (eg. If you sudo into vim, vim allows you to access root shell)
 # Set UID: if enabled, you can run binary as the privilege user (owner of file)
@@ -11807,6 +11778,8 @@ netstat -ano
 ```
 
 ! Windows
+
+[[Windows]]
 
 # Registry Escalation
 # Service Escalation
