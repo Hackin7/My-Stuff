@@ -9680,7 +9680,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027132533945" list="[[Cyber Security]] [[Penetration Testing Framework]] [[Common Vulnerabilities and Exposures]] [[Privilege Escalation]] Tech CrappyMakerProgrammer" modified="20211027144111241" title="$:/StoryList">
+<div created="20211027154655731" list="[[Cyber Security]] [[Network Services]] Wordpress CrappyMakerProgrammer" modified="20211027154658666" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -12268,7 +12268,7 @@ cd &lt;directory&gt;
 E:\ # Change drive
 ```</pre>
 </div>
-<div created="20210913121056916" modified="20211027132831729" title="Wordpress">
+<div created="20210913121056916" modified="20211027154742324" title="Wordpress">
 <pre>! Exploitation
 
 !! Plugins
@@ -12277,6 +12277,7 @@ The plugins may have CVEs which we can exploit to get RCE
 
 ```
 wpscan --url &lt;url&gt;
+wpscan -u http://10.10.10.88/webservices/wp/ --enumerate p,t,u | tee wpscan.log
 ```
 
 !! Upload a Reverse Shell
