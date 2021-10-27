@@ -9680,7 +9680,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027132533945" list="[[Cyber Security]] [[Penetration Testing Framework]] [[Web Hacking]] Tech CrappyMakerProgrammer" modified="20211027141057904" title="$:/StoryList">
+<div created="20211027132533945" list="[[Cyber Security]] [[Penetration Testing Framework]] Tech CrappyMakerProgrammer" modified="20211027141235081" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11500,12 +11500,13 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211027141056250" title="Penetration Testing Framework">
+<div created="20210927160738058" modified="20211027141338642" title="Penetration Testing Framework">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
 
 
+!! General Enumeration
 
 [[Scanning]]
 
@@ -11513,33 +11514,17 @@ This is a basic Penetration Testing Outline I made
 ## Access, Read &amp; Write if possible
 ## Using the Version number from scans, find [[Common Vulnerabilities and Exposures]]
 ## If You don't know the service (or nmap also doesn't), try web browser
+
 [[Network Services]]
 
 
-
-!! Web Hacking
-
-[[Web Hacking]]
-
-!! File Upload Vulnerability
-
-# Upload a file through website/ FTP if possible
-# Access the payload through the web browser to run the php code
-
-To bypass mandate of extension, can try name.php.jpg for example. It will run as a php file [[*|https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload]]
-
-
-!!! Content Management Systems
-
-# Vulnerability Scanning
-
-! Exploitation
-
+!! Exploitation
+# [[Web Hacking]]
 # [[Password Cracking]]
 # [[OSCP Style Windows Buffer Overflow]]
 # [[Getting Shells]]
 
-! Privilege Escalation
+!! Privilege Escalation
 
 # [[File Transfers]]
 # [[Privilege Escalation]]
@@ -12144,7 +12129,7 @@ Just check the website for components, layouts and scripting
 
 # Udacity (HTML and CSS Syntax): https://www.udacity.com/course/intro-to-html-and-css--ud001 </pre>
 </div>
-<div created="20210825220712054" modified="20211027141116033" title="Web Hacking">
+<div created="20210825220712054" modified="20211027141205977" title="Web Hacking">
 <pre>Steps to web hacking
 
 # Check the source code of all pages
@@ -12224,11 +12209,18 @@ If there is a POST/GET parameter with a path, you can try Directory inclusion by
 # PHP Filters
 # You can try reading from the log file (and inject php code inside)
 
+! File Upload Vulnerability
+
+# Upload a file through website/ FTP if possible
+# Access the payload through the web browser to run the php code
+
+To bypass mandate of extension, can try name.php.jpg for example. It will run as a php file [[*|https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload]]
 
 ! ShellShock
 
 ! CMS Exploits
 
+[[Network Services]]
 Find more at [[CMS Exploitation]]</pre>
 </div>
 <div created="20210827022424043" modified="20211027134922618" title="Windows">
