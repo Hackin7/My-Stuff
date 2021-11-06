@@ -9670,8 +9670,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191104231946357" modified="20210808134423222" title="$:/state/tab/moresidebar-1850697562">
 <pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
-<div created="20191104231909850" modified="20211029121111721" title="$:/state/tab/sidebar--595412856">
-<pre>$:/core/ui/SideBar/Recent</pre>
+<div created="20191104231909850" modified="20211106024730311" title="$:/state/tab/sidebar--595412856">
+<pre>TableOfContents</pre>
 </div>
 <div created="20210808122159283" modified="20210808122159827" title="$:/state/toc/TableOfContents-Programming--118161433">
 <pre>close</pre>
@@ -9682,7 +9682,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211102140937485" list="CrappyMakerProgrammer Tech [[Cyber Security]] Exploitation [[Web Hacking]] [[SQL Injection]]" modified="20211102140948295" title="$:/StoryList">
+<div created="20211106024731813" list="[[Cyber Security]] [[Getting Shells]] CrappyMakerProgrammer" modified="20211106024742453" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9738,7 +9738,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
         },
         &quot;$:/info/browser/language&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/language&quot;,
-            &quot;text&quot;: &quot;en-US&quot;
+            &quot;text&quot;: &quot;en-GB&quot;
         }
     }
 }</pre>
@@ -10947,8 +10947,26 @@ Most popular Game Engines
 
 </pre>
 </div>
-<div created="20210901154708454" modified="20211027102158557" title="Getting Shells">
-<pre>! Reverse Shell
+<div created="20210901154708454" modified="20211106024912704" title="Getting Shells">
+<pre>! SSH Keys
+
+From https://mqt.gitbook.io/oscp-notes/ssh-keys
+
+Local host
+
+```
+ssh-keygen
+```
+
+Copy  `~/.ssh/id_rsa.pub` into ~/.ssh/authorized_keys on the remote host
+
+After that, just use `~/.ssh/id_rsa` on the localhost to ssh into the machine
+
+```
+ssh -i id_rsa user@ip
+```
+
+! Reverse Shell
 
 !! Payloads 
 
