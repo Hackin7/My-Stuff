@@ -10069,7 +10069,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211112134643838" list="[[Cyber Security]] [[Network Services]] Tomcat [[File Transfers]] [[Cyber Security Certifications]] CrappyMakerProgrammer Mind" modified="20211113132904574" title="$:/StoryList">
+<div created="20211114085819639" list="[[Cyber Security]] [[Binary Exploitation / Pwn]] [[OSCP Style Windows Buffer Overflow]] CrappyMakerProgrammer" modified="20211114085829214" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -12617,7 +12617,7 @@ Providers
  
 </pre>
 </div>
-<div created="20210911161500439" modified="20211002170828744" title="OSCP Style Windows Buffer Overflow">
+<div created="20210911161500439" modified="20211114090445424" title="OSCP Style Windows Buffer Overflow">
 <pre>Tools
 
 # Immunity Debugger
@@ -12713,7 +12713,7 @@ for x in range(1, 256):
 &lt;/div&gt;
 ## Put the string in the `payload`, keeping everything else the same (leave the return pointer filled with `BBBB` or something)
 ## Run the exploit, and get addess of ESP
-## Run `!mona compare -f C:\mona\appname\bytearray.bin -a &lt;address&gt;`
+## Run `!mona compare -f C:\mona\appname\bytearray.bin -a &lt;address&gt;` (or we can right-click on ESP and select Follow in Dump to show the input buffer hex characters in memory)
 ## Find bad characters [img[badchar.png]]
 ### In this image, bad character is `0x07`
 ## Repeat from 3.1 till no bad characters left (Bad characters can affect other characters)
