@@ -535,8 +535,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Pivoting</li>
 
-<li>Post-Exploitation</li>
-
 <li>Privesc - Linux Binaries</li>
 
 <li>Privilege Escalation</li>
@@ -10071,7 +10069,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211116132839212" list="[[Cyber Security]] Post-Exploitation CrappyMakerProgrammer" modified="20211116144413003" title="$:/StoryList">
+<div created="20211116113205948" list="[[Cyber Security]] Pivoting CrappyMakerProgrammer" modified="20211116150049311" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11750,7 +11748,7 @@ Saleae Logic Analyser
 
 Example CTF Challenge: https://jloh02.github.io/ctf/stack-the-flags-2020#internet-of-things</pre>
 </div>
-<div created="20191219104819416" modified="20211116144411588" tags="Tech" title="Cyber Security">
+<div created="20191219104819416" modified="20211109125247365" tags="Tech" title="Cyber Security">
 <pre>A good &amp; easy way to get started in Cyber Security is to just participate in Capture the Flag Competitions, ans google for writeups, understanding &amp; solutions along the way
 
 ! Penetration Testing Framework
@@ -11764,7 +11762,6 @@ Example CTF Challenge: https://jloh02.github.io/ctf/stack-the-flags-2020#interne
 # [[Getting Shells]]
 # [[File Transfers]]
 # [[Pivoting]]
-# [[Post-Exploitation]]
 
 ! Exercises
 
@@ -12856,7 +12853,7 @@ void OnTriggerExit(Collider coll)
 }
 ```</pre>
 </div>
-<div created="20210901152347409" modified="20211027124248589" title="Pivoting" type="">
+<div created="20210901152347409" modified="20211116150135701" title="Pivoting" type="">
 <pre>Pivoting is basically gaining access to other networks (that were initially inaccessible)
 
 !! SSH
@@ -12874,6 +12871,7 @@ https://github.com/jpillora/chisel
 ```
  ./chisel_1.6.0_linux_amd64 server -p 8000 --reverse
 .\chisel.exe client 10.10.14.20:8000 R:8888:localhost:8888
+# &lt;local-host&gt;:&lt;local-port&gt;:&lt;remote-host&gt;:&lt;remote-port&gt;/&lt;protocol&gt;
 ```
 
 !! Metasploit
@@ -12900,12 +12898,6 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
 </div>
-<div created="20211116144415075" modified="20211116144535262" title="Post-Exploitation">
-<pre>Mimikatz
-https://www.ired.team/offensive-security/credential-access-and-credential-dumping/dumping-lsa-secrets
-
-https://github.com/emilyanncr/Windows-Post-Exploitation</pre>
-</div>
 <div created="20211014102800712" modified="20211027143743443" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/
 
@@ -12922,7 +12914,7 @@ nmap --interactive
 sudo /usr/bin/vi /var/www/html/test -c ':!/bin/sh' 
 ```</pre>
 </div>
-<div created="20210904164116778" modified="20211027160330723" title="Privilege Escalation">
+<div created="20210904164116778" modified="20211116114410843" title="Privilege Escalation">
 <pre>! Linux
 
 [[Linux]]
@@ -12942,6 +12934,13 @@ sudo /usr/bin/vi /var/www/html/test -c ':!/bin/sh'
 
 !! Techniques
 
+Escaping rbash
+
+https://d00mfist.gitbooks.io/ctf/content/escaping_restricted_shell.html
+
+```
+ssh alfred@10.10.10.101 -t &quot;bash --noprofile -i&quot;
+```
 
 
 # If find any binaries exploitable by `sudo -l`, SetUID
