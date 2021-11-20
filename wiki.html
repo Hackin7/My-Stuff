@@ -13389,7 +13389,7 @@ follow symlinks = yes
 wide links = yes
 ```</pre>
 </div>
-<div created="20211101125907368" modified="20211120165741791" title="SQL Injection">
+<div created="20211101125907368" modified="20211120175053848" title="SQL Injection">
 <pre>! Manual SQL Injection
 
 https://tryhackme.com/room/sqlinjectionlm
@@ -13429,10 +13429,14 @@ POST request
 sqlmap -u &quot;http://example.com/&quot; --data &quot;a=1&amp;b=2&amp;c=3&quot; -p &quot;a,b&quot; --method POST (--tables /--dump)
 ```
 
+Cookies [[*|https://stackoverflow.com/questions/24366856/how-to-inject-a-part-of-cookie-using-sqlmap]]
+
+
 # Whenever you find a user page, bruteforce SQL injection payloads.
 ## https://github.com/payloadbox/sql-injection-payload-list
 # If it is something like ?id=1, you can try enumerating all the ids by doing id=2, id=3
 ## Can move on to SQL Injection (eg. UNION)
+
 
 </pre>
 </div>
