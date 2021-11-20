@@ -10069,7 +10069,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211117093359875" list="[[Cyber Security]] Exploitation [[Web Hacking]] [[Privilege Escalation]] CrappyMakerProgrammer" modified="20211117110928149" title="$:/StoryList">
+<div created="20211120102430043" list="[[Cyber Security]] Pivoting CrappyMakerProgrammer" modified="20211120102431992" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -12853,7 +12853,7 @@ void OnTriggerExit(Collider coll)
 }
 ```</pre>
 </div>
-<div created="20210901152347409" modified="20211116154212158" title="Pivoting" type="">
+<div created="20210901152347409" modified="20211120102917508" title="Pivoting" type="">
 <pre>Pivoting is basically gaining access to other networks (that were initially inaccessible)
 
 !! SSH
@@ -12915,6 +12915,9 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 
 # Autoroute network from target to metasploit
 ## meterpreter&gt; `run autoroute -s &lt;subnet&gt;`
+## OR 
+### Background the meterpreter session
+### `route add 172.16.172.10/24 &lt;session_id&gt;`
 # Set up proxy
 ## msf&gt; `use auxiliary/server/socks_proxy`, `set VERSION 4a`, set up and run
 # Connect to proxy 
