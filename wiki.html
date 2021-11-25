@@ -10069,7 +10069,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211124100412780" list="[[Cyber Security Certifications]] CrappyMakerProgrammer" modified="20211124122534606" title="$:/StoryList">
+<div created="20211125112743584" list="[[Cyber Security]] Pivoting CrappyMakerProgrammer" modified="20211125122607762" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -12878,16 +12878,22 @@ void OnTriggerExit(Collider coll)
 }
 ```</pre>
 </div>
-<div created="20210901152347409" modified="20211120104021842" title="Pivoting" type="">
+<div created="20210901152347409" modified="20211125122817772" title="Pivoting" type="">
 <pre>Pivoting is basically gaining access to other networks (that were initially inaccessible)
 
 !! SSH
 
-Access remote port from local device
+https://0xdf.gitlab.io/2018/06/10/intro-to-ssh-tunneling.html
 
 ```
 ssh -L5901:127.0.0.1:5901 charix@10.10.10.84  
 ```
+# `-L [local port]:[remote ip]:[remote port]` - Listen on [local port] on the local host, and send any traffic that port receives through the ssh tunnel, and then forwarded by the ssh remote host to [remote ip]:[remote port]
+# `-R [remote port]:[dest ip]:[dest port]` - Listen on [remote port] on the remote host being sshed to, and forward and traffic through the ssh tunnel to the local host, which forwards it to [dest ip]:[dest port]
+## Note, this has to be enabled in the remote host’s config, and is typically off by default
+# `-D [port]` - Listen locally on [port], and act as a SOCKS proxy, delivering traffic to the other end of the connection.
+
+
 
 !! Chisel
 
