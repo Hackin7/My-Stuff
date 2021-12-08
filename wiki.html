@@ -175,6 +175,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>$:/state/edit/references-1601798809</li>
 
+<li>$:/state/edit/references-21080305</li>
+
 <li>$:/state/image-picker/system--1373324699</li>
 
 <li>$:/state/image-picker/system-1268353978</li>
@@ -486,6 +488,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <li>Domain Name System</li>
 
 <li>Draft of 'LinEnum'</li>
+
+<li>Draft of 'Physics'</li>
 
 <li>Draft of 'Post Exploitation'</li>
 
@@ -10048,6 +10052,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20211208151133827" modified="20211208151133827" title="$:/state/edit/references-1601798809">
 <pre>show</pre>
 </div>
+<div created="20211208154643064" modified="20211208154643064" title="$:/state/edit/references-21080305">
+<pre>show</pre>
+</div>
 <div created="20191105033855648" modified="20191105033856511" title="$:/state/image-picker/system--1373324699">
 <pre>hide</pre>
 </div>
@@ -10096,7 +10103,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20211208151819087" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211208113239359" list="CrappyMakerProgrammer Entertainment [[Nintendo DS]] Tech" modified="20211208154337432" title="$:/StoryList">
+<div created="20211208113239359" list="CrappyMakerProgrammer Academic [[Draft of 'Physics']] Unity Tech" modified="20211208154645296" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11968,10 +11975,49 @@ dig axfr @10.10.10.13 cronos.htb
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
 </div>
+<div created="20210925102955449" draft.of="Physics" draft.title="Unity Physics" modified="20211208154641624" title="Draft of 'Physics'">
+<pre>https://hackin7.itch.io/playableunitedreference 
+
+Colliders: Exerts force
+https://answers.unity.com/questions/597269/how-to-use-oncollisionenter.html
+
+```
+void OnCollisionEnter(Collision collision)
+{
+    Debug.Log(&quot;OnCollisionEnter: &quot; + collision.gameObject.name);
+}
+void OnCollisionStay(Collision collision)
+{
+    Debug.Log(&quot;OnCollisionStay: &quot; + collision.gameObject.name);
+}
+void OnCollisionExit(Collision collision)
+{
+    Debug.Log(&quot;OnCollisionExit: &quot; + collision.gameObject.name);
+}
+```
+
+For Triggers: A trigger is just a collider set only to report overlaps rather than apply a force.
+When a Box Collider is detected: If this has problems, use the above one with a kinematic rigidbody
+
+```
+void OnTriggerEnter(Collider coll)
+{
+    Debug.Log(&quot;OnTriggerEnter: &quot; + coll.gameObject.name);
+}
+void OnTriggerStay(Collider coll)
+{
+    Debug.Log(&quot;OnTriggerStay: &quot; + coll.gameObject.name);
+}
+void OnTriggerExit(Collider coll)
+{
+    Debug.Log(&quot;OnTriggerExit: &quot; + coll.gameObject.name);
+}
+```</pre>
+</div>
 <div created="20211205085541119" modified="20211205085541119" title="Draft of 'Post Exploitation'">
 <pre>https://attack.stealthbits.com/how-golden-ticket-attack-works</pre>
 </div>
-<div created="20191105030432236" modified="20191105034127657" title="Entertainment">
+<div created="20191105030432236" modified="20211208154426937" title="Entertainment">
 <pre>! Anime &amp; Manga
 Check [[MyAnimeList|https://myanimelist.net/profile/Hackin7]]
 
@@ -11981,7 +12027,7 @@ Platforms owned/ played on:
 # [[PSP]]
 # [[Wii]]
 # [[Nintendo DS]]
-#[[PC]]
+#[[PC Gaming]]
 # [[Nintendo Switch]]
 
 ! Youtube
@@ -13614,7 +13660,7 @@ Final size of war file: 1090 bytes
 
 #  https://github.com/xindongzhuaizhuai/CVE-2020-1938/blob/master/CVE-2020-1938.py </pre>
 </div>
-<div created="20191105043109254" modified="20211024163806889" tags="[[Game Development]]" title="Unity">
+<div created="20191105043109254" modified="20211208154652193" tags="[[Game Development]]" title="Unity">
 <pre>! Scripting
 
 [[C#]]
@@ -13625,7 +13671,7 @@ Final size of war file: 1090 bytes
 
 ! Others
 # [[Unity Animation]]
-# [[Physics]]
+# [[Unity Physics]]
 # [[Audio]]
 
 ! Publishing
