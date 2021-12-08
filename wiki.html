@@ -567,6 +567,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>SMB File Sharing</li>
 
+<li>SQL Databases</li>
+
 <li>SQL Injection</li>
 
 <li>Stocks</li>
@@ -10075,8 +10077,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191104231946357" modified="20210808134423222" title="$:/state/tab/moresidebar-1850697562">
 <pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
-<div created="20191104231909850" modified="20211208151400278" title="$:/state/tab/sidebar--595412856">
-<pre>TableOfContents</pre>
+<div created="20191104231909850" modified="20211208153610888" title="$:/state/tab/sidebar--595412856">
+<pre>$:/core/ui/SideBar/Open</pre>
 </div>
 <div created="20210808122159283" modified="20210808122159827" title="$:/state/toc/TableOfContents-Programming--118161433">
 <pre>close</pre>
@@ -10090,7 +10092,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20211208151819087" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211208113239359" list="Operations/IT [[Cyber Security]] [[Penetration Testing]] [[Network Services]] CrappyMakerProgrammer Tech" modified="20211208153426984" title="$:/StoryList">
+<div created="20211208113239359" list="Exploitation [[Network Services]] CrappyMakerProgrammer Tech" modified="20211208153600344" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -12590,7 +12592,7 @@ Check the Google Play Console
 [[Publishing Apps on Google Play]]
 </pre>
 </div>
-<div created="20210820120924872" modified="20211208153454649" tags="Operations/IT" title="Network Services">
+<div created="20210820120924872" modified="20211208153615192" tags="Operations/IT" title="Network Services">
 <pre>! Indexing
 
 By Ports
@@ -12626,6 +12628,8 @@ https://www.hackingarticles.in/a-little-guide-to-smb-enumeration/
 
 [[Web Development]]
 
+[[Web Exploitation]]
+
 Sample Services
 
 # [[NextCloud]]
@@ -12637,35 +12641,7 @@ Sample Services
 
 !!! SQL
 
-!!!! Microsoft SQL 
-
-https://book.hacktricks.xyz/pentesting/pentesting-mssql-microsoft-sql-server
-
-!!!! MySQL
-
-Usually at port 3306
-
-|Action | Command|
-|Connect | `mysql -u&lt;username&gt; -p&lt;password&gt; -h &lt;ip_address&gt;`|
-
-https://book.hacktricks.xyz/pentesting/pentesting-mysql 
-
-```
-show databases;
-use &lt;database&gt;;
-show tables;
-describe &lt;table_name&gt;;
-select grantee, table_schema, privilege_type FROM schema_privileges; #Exact privileges
-select user,file_priv from mysql.user where user='root'; #File privileges
-select version(); #version
-select @@version(); #version
-select user(); #User
-select database(); #database name
-
-#Try to execute code
-select do_system('id');
-```
-
+[[SQL Databases]]
 
 !!! MongoDB
 
@@ -13435,6 +13411,39 @@ allow insecure wide links = yes
 follow symlinks = yes
 wide links = yes
 ```</pre>
+</div>
+<div created="20211208153528124" modified="20211208153529409" title="SQL Databases">
+<pre>!!!! Microsoft SQL 
+
+https://book.hacktricks.xyz/pentesting/pentesting-mssql-microsoft-sql-server
+
+!!!! MySQL
+
+Usually at port 3306
+
+|Action | Command|
+|Connect | `mysql -u&lt;username&gt; -p&lt;password&gt; -h &lt;ip_address&gt;`|
+
+https://book.hacktricks.xyz/pentesting/pentesting-mysql 
+
+```
+show databases;
+use &lt;database&gt;;
+show tables;
+describe &lt;table_name&gt;;
+select grantee, table_schema, privilege_type FROM schema_privileges; #Exact privileges
+select user,file_priv from mysql.user where user='root'; #File privileges
+select version(); #version
+select @@version(); #version
+select user(); #User
+select database(); #database name
+
+#Try to execute code
+select do_system('id');
+```
+
+
+</pre>
 </div>
 <div created="20211101125907368" modified="20211203152155676" title="SQL Injection">
 <pre>! Manual SQL Injection
