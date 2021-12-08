@@ -171,6 +171,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>$:/state/edit/references-1551304317</li>
 
+<li>$:/state/edit/references-1601798809</li>
+
 <li>$:/state/image-picker/system--1373324699</li>
 
 <li>$:/state/image-picker/system-1268353978</li>
@@ -485,6 +487,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Entertainment</li>
 
+<li>Enumeration</li>
+
 <li>Exploitation</li>
 
 <li>File Transfers</li>
@@ -557,8 +561,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Robotics</li>
 
-<li>Scanning</li>
-
 <li>SMB File Sharing</li>
 
 <li>SQL Injection</li>
@@ -604,7 +606,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191105070718799" modified="20191105070720657" title="$:/config/Manager/System">
 <pre>system</pre>
 </div>
-<div created="20191105035136373" modified="20191105035136373" title="$:/config/RelinkOnRename">
+<div created="20191105035136373" modified="20211208151133355" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="" description="TiddlyWiki5 core" list="readme" plugin-priority="0" plugin-type="plugin" title="$:/core" type="application/json" version="5.1.21">
@@ -10030,6 +10032,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210825133651705" modified="20210825133651705" title="$:/state/edit/references-1551304317">
 <pre>show</pre>
 </div>
+<div created="20211208151133827" modified="20211208151133827" title="$:/state/edit/references-1601798809">
+<pre>show</pre>
+</div>
 <div created="20191105033855648" modified="20191105033856511" title="$:/state/image-picker/system--1373324699">
 <pre>hide</pre>
 </div>
@@ -10075,7 +10080,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20210825230930363" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211208113239359" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Post Exploitation]]" modified="20211208151016849" title="$:/StoryList">
+<div created="20211208113239359" list="CrappyMakerProgrammer Tech Enumeration" modified="20211208151312435" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11976,6 +11981,53 @@ Check my [[Youtube Channel|https://www.youtube.com/channel/UChDzBIt2yj4aGUKpPnjj
 
 Check my other youtube channel, the one with the Kimetsu no Yaiba OP Electone Cover</pre>
 </div>
+<div created="20210904162035734" modified="20211208151342265" title="Enumeration">
+<pre>! Find Devices on Network
+
+```
+fping -a -g &lt;IP Range&gt;
+nmap -sn &lt;ip&gt;/&lt;CIDR notation&gt;
+```
+
+! Port Scanning
+
+If no port is supplied, only scans for common ports
+
+```
+nmap -sV -A -p1-65535 &lt;IP Addresses&gt; 
+nmap -sT &lt;IP Addresses&gt; # TCP Scan (Fast)
+nmap -sS &lt;IP Addresses&gt; # Stealth Scan
+nmap -sV -A -n -p- -T4 &lt;IP Addresses&gt; # Standard template
+nmap -sV -Pn -v --script vuln &lt;IP Address&gt;
+```
+
+! Vulnerability Scanner
+
+!! Nessus
+
+To set up , you have to get an activation code and download the package and install from the [[official website|https://www.tenable.com/downloads/nessus]] . After that just start the service `nessusd.service` : `# /bin/systemctl start nessusd.service`
+
+On first run, it takes a long while to set up. After that, just login, set up a basic network scan and Nessus will give you a list of vulnerabilities.
+
+It is relatively good for finding vulnerabilities exploitable with Metasploit
+
+!! Nikto
+
+```
+nikto -h &lt;url&gt;
+```
+
+
+! Exploits
+
+For each service, google the version number and find exploits. also
+
+```
+searchsploit &lt;keyword1&gt; &lt;keyword2&gt; ...
+```
+
+If you find an exploit, add the words &quot;github&quot;, &quot;without metasploit&quot;, &quot;poc&quot; to find code without the need for meterpreter (OSCP)</pre>
+</div>
 <div created="20210904163141554" modified="20211208150747737" title="Exploitation">
 <pre>! Main ways of Exploitation
 
@@ -13305,53 +13357,6 @@ For more complicated formulas, you can use the z3 equation solver. Refer to the 
 ## Block Based Programming
 ## Learn as you go (Experience)
 ## Bluetooth between robots http://www.legoengineering.com/programming-bluetooth-on-ev3/</pre>
-</div>
-<div created="20210904162035734" modified="20211027130636529" title="Scanning">
-<pre>! Find Devices on Network
-
-```
-fping -a -g &lt;IP Range&gt;
-nmap -sn &lt;ip&gt;/&lt;CIDR notation&gt;
-```
-
-! Port Scanning
-
-If no port is supplied, only scans for common ports
-
-```
-nmap -sV -A -p1-65535 &lt;IP Addresses&gt; 
-nmap -sT &lt;IP Addresses&gt; # TCP Scan (Fast)
-nmap -sS &lt;IP Addresses&gt; # Stealth Scan
-nmap -sV -A -n -p- -T4 &lt;IP Addresses&gt; # Standard template
-nmap -sV -Pn -v --script vuln &lt;IP Address&gt;
-```
-
-! Vulnerability Scanner
-
-!! Nessus
-
-To set up , you have to get an activation code and download the package and install from the [[official website|https://www.tenable.com/downloads/nessus]] . After that just start the service `nessusd.service` : `# /bin/systemctl start nessusd.service`
-
-On first run, it takes a long while to set up. After that, just login, set up a basic network scan and Nessus will give you a list of vulnerabilities.
-
-It is relatively good for finding vulnerabilities exploitable with Metasploit
-
-!! Nikto
-
-```
-nikto -h &lt;url&gt;
-```
-
-
-! Exploits
-
-For each service, google the version number and find exploits. also
-
-```
-searchsploit &lt;keyword1&gt; &lt;keyword2&gt; ...
-```
-
-If you find an exploit, add the words &quot;github&quot;, &quot;without metasploit&quot;, &quot;poc&quot; to find code without the need for meterpreter (OSCP)</pre>
 </div>
 <div created="20211027131143898" modified="20211027131403457" title="SMB File Sharing">
 <pre>! Enumeration
