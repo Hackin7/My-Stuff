@@ -487,6 +487,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Draft of 'LinEnum'</li>
 
+<li>Draft of 'Network Services'</li>
+
 <li>Draft of 'Post Exploitation'</li>
 
 <li>Entertainment</li>
@@ -566,6 +568,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <li>Robotics</li>
 
 <li>SMB File Sharing</li>
+
+<li>SOCKS Proxy</li>
 
 <li>SQL Databases</li>
 
@@ -10092,7 +10096,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20211208151819087" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211208113239359" list="Exploitation [[Network Services]] CrappyMakerProgrammer Tech" modified="20211208153600344" title="$:/StoryList">
+<div created="20211208113239359" list="Exploitation [[Draft of 'Network Services']] [[SOCKS Proxy]] CrappyMakerProgrammer Tech" modified="20211208153803569" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11964,6 +11968,89 @@ dig axfr @10.10.10.13 cronos.htb
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
 </div>
+<div created="20210820120924872" draft.of="Network Services" draft.title="Network Services" modified="20211208153802057" tags="Operations/IT" title="Draft of 'Network Services'">
+<pre>! Indexing
+
+By Ports
+
+! Types of Services
+
+
+!! 1. File Management Services
+
+!!! FTP (21)
+# Server: `python3 -m pyftpdlib -w`
+# Mount: `sudo curlftpfs 192.168.1.124:2121 /mnt/ -o allow_other`
+## https://wiki.archlinux.org/title/CurlFtpFS
+## Edit `/etc/fuse.conf`  and add `user_allow_other` ([[reference|https://unix.stackexchange.com/questions/17402/why-does-root-get-permission-denied-when-accessing-fuse-directory]])
+# Connect: `ftp &lt;IP&gt;`
+# Download `wget -r ftp://172.16.37.234:40121 --user=ftpuser --password=ftpassword`
+
+For FTP try anonymous login (or credentials if any)
+
+```
+ftp &lt;ip&gt; &lt;port&gt;
+```
+
+!!! SMB (445)
+
+[[SMB File Sharing]]
+
+https://www.hackingarticles.in/a-little-guide-to-smb-enumeration/
+
+
+
+!!! Web Server
+
+[[Web Development]]
+
+[[Web Hacking]]
+
+Sample Services
+
+# [[NextCloud]]
+# [[Wordpress]] 
+# [[Tomcat]]
+# [[Git]]
+
+!! 2. Databases
+
+!!! SQL
+
+[[SQL Databases]]
+
+!!! MongoDB
+
+!! 3. General Networking
+
+!!! DNS Enumeration
+
+[[Domain Name System]]
+
+!!! VPN
+Wireguard works
+https://www.pivpn.io/
+
+[[SOCKS Proxy]]
+
+!! 4. Remote Access
+
+!!! SSH
+
+Connect to shell
+`ssh &lt;user&gt;@&lt;ip&gt; -p &lt;port, usually 22&gt;`
+
+# Add `-oKexAlgorithms=+diffie-hellman-group1-sha1` if `no matching key exchange found` [[*|https://unix.stackexchange.com/questions/340844/how-to-enable-diffie-hellman-group1-sha1-key-exchange-on-debian-8-0/340853]]
+# Transfer Files: `scp &lt;local_file&gt; &lt;user&gt;@&lt;ip&gt;:&lt;result_file&gt;` [[*|https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/]]
+
+!!! Remote Desktop Protocol
+
+https://manage.rackdc.com/knowledgebase/37/File-Transfer-From-Windows-to-Linux-via-rdesktop.html
+
+```
+rdesktop 192.168.172.10 -r disk:linux=/tmp -u corp.com\\jeff_admin -p lab
+```</pre>
+</div>
 <div created="20211205085541119" modified="20211205085541119" title="Draft of 'Post Exploitation'">
 <pre>https://attack.stealthbits.com/how-golden-ticket-attack-works</pre>
 </div>
@@ -12592,7 +12679,7 @@ Check the Google Play Console
 [[Publishing Apps on Google Play]]
 </pre>
 </div>
-<div created="20210820120924872" modified="20211208153615192" tags="Operations/IT" title="Network Services">
+<div created="20210820120924872" modified="20211208153625224" tags="Operations/IT" title="Network Services">
 <pre>! Indexing
 
 By Ports
@@ -12628,7 +12715,7 @@ https://www.hackingarticles.in/a-little-guide-to-smb-enumeration/
 
 [[Web Development]]
 
-[[Web Exploitation]]
+[[Web Hacking]]
 
 Sample Services
 
@@ -13411,6 +13498,19 @@ allow insecure wide links = yes
 follow symlinks = yes
 wide links = yes
 ```</pre>
+</div>
+<div created="20211208153805908" modified="20211208153810185" title="SOCKS Proxy">
+<pre>!!! SOCKS Proxy Server
+
+Referenced from [[here|https://howto.lintel.in/setup-socks-proxy-linux/]]
+
+Just need to clone [[this repo|https://github.com/rofl0r/microsocks]], `make` and run `./microsocks` to have a server start on port 1080
+
+To connect to it, you can do the following
+
+|Program|Steps|
+|`proxychains4` for Linux|&lt;ol&gt;&lt;li&gt;Edit `/etc/proxychains.conf` under `[ProxyList]`, adding `socks5 &lt;ip&gt; &lt;port&gt;` right below the line. &lt;/li&gt;&lt;li&gt;The IP address must be numeric (if you have a domain name, just ping to get it's IP address)&lt;/li&gt;&lt;li&gt;Run `proxychains4 &lt;command&gt;`&lt;/li&gt;&lt;/ol&gt;|
+|Android|Install [[TunProxy|https://github.com/raise-isayan/TunProxy]], [[SocksDroid|https://play.google.com/store/apps/details?id=net.typeblog.socks]] or other Proxy Tunnelling VPN|</pre>
 </div>
 <div created="20211208153528124" modified="20211208153529409" title="SQL Databases">
 <pre>!!!! Microsoft SQL 
