@@ -10090,7 +10090,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20211208151819087" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211208113239359" list="Operations/IT [[Cyber Security]] [[Penetration Testing]] CrappyMakerProgrammer Tech" modified="20211208151729824" title="$:/StoryList">
+<div created="20211208113239359" list="Operations/IT Linux [[Cyber Security]] [[Penetration Testing]] [[Network Services]] CrappyMakerProgrammer Tech" modified="20211208151931039" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11983,7 +11983,7 @@ Check my [[Youtube Channel|https://www.youtube.com/channel/UChDzBIt2yj4aGUKpPnjj
 
 Check my other youtube channel, the one with the Kimetsu no Yaiba OP Electone Cover</pre>
 </div>
-<div created="20210904162035734" modified="20211208151342265" title="Enumeration">
+<div created="20210904162035734" modified="20211208151909631" title="Enumeration">
 <pre>! Find Devices on Network
 
 ```
@@ -11998,7 +11998,7 @@ If no port is supplied, only scans for common ports
 ```
 nmap -sV -A -p1-65535 &lt;IP Addresses&gt; 
 nmap -sT &lt;IP Addresses&gt; # TCP Scan (Fast)
-nmap -sS &lt;IP Addresses&gt; # Stealth Scan
+nmap -sS &lt;IP Addresses&gt; # Stealth Scan, Doesn't complete the full scan
 nmap -sV -A -n -p- -T4 &lt;IP Addresses&gt; # Standard template
 nmap -sV -Pn -v --script vuln &lt;IP Address&gt;
 ```
@@ -12421,7 +12421,7 @@ Resources
 <div created="20210913120409136" modified="20210913120410342" title="LinEnum">
 <pre>https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh</pre>
 </div>
-<div created="20191116153954894" modified="20211003062959564" title="Linux">
+<div created="20191116153954894" modified="20211208151939193" title="Linux">
 <pre>! Install
 
 !! Operating Systems
@@ -12459,7 +12459,7 @@ https://unix.stackexchange.com/questions/385781/mouse-and-keyboard-dont-work-whe
 https://askubuntu.com/questions/1071299/how-to-install-wi-fi-driver-for-realtek-rtl8821ce-on-ubuntu-18-04
 The second answer
 
-[[Network Services]]
+
 
 https://superuser.com/questions/258633/why-is-thunar-not-creating-and-showing-thumbnails-of-images</pre>
 </div>
@@ -12912,11 +12912,20 @@ gpg -d credential.pgp
 
 https://book.hacktricks.xyz/forensics/basic-forensic-methodology/specific-software-file-type-tricks/pdf-file-analysis</pre>
 </div>
-<div created="20210927160738058" modified="20211208151514727" tags="[[Cyber Security]]" title="Penetration Testing">
+<div created="20210927160738058" modified="20211208151842359" tags="[[Cyber Security]]" title="Penetration Testing">
 <pre>! Overview
 
 This is a basic Penetration Testing Outline I made
 
+
+# [[Enumeration]]
+## [[Network Services]]
+# [[Exploitation]]
+# [[Privilege Escalation]]
+# [[Getting Shells]]
+# [[File Transfers]]
+# [[Pivoting]]
+# [[Post Exploitation]]
 
 !! General Enumeration
 
