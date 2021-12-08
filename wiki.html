@@ -11096,7 +11096,7 @@ http://marlinfw.org/docs/gcode/M302.html
 # [[Project Work]]
 # [[Economics|https://drive.google.com/open?id=1TPLzZ9AZ3WjlCvFcmPdK7OZKEtZ4KUGT]]</pre>
 </div>
-<div created="20211208160356790" modified="20211208161821177" title="Active Directory Exploitation" type="text/x-markdown">
+<div created="20211208160356790" modified="20211208162932492" title="Active Directory Exploitation" type="text/x-markdown">
 <pre># 1. Enumerations
 
 Base
@@ -11108,10 +11108,19 @@ net group /domain
 ```
 
 
-Get PowerView
+PowerView
 
+```
+Import-Module .\PowerView.ps1
+Get-NetLoggedon -ComputerName client251
+Get-NetSession -ComputerName dc01
+```
 
-# 2. Ticket</pre>
+# 2. Extracting Credentials
+
+# 3. Lateral Movement
+
+# 4. Active Directory Permanence</pre>
 </div>
 <div created="20191104235731828" modified="20191105042822561" title="Admin">
 <pre>! Past
