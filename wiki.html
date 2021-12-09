@@ -189,6 +189,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>$:/state/showeditpreview</li>
 
+<li>$:/state/sidebar</li>
+
 <li>$:/state/tab--1963855381</li>
 
 <li>$:/state/tab--86143343</li>
@@ -10074,6 +10076,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191104233104238" modified="20210925104140085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
+<div created="20211209134848704" modified="20211209134851296" title="$:/state/sidebar">
+<pre>yes</pre>
+</div>
 <div created="20191104232243165" modified="20211002045528558" title="$:/state/tab--1963855381">
 <pre>$:/core/ui/ControlPanel/StoryView</pre>
 </div>
@@ -13087,7 +13092,7 @@ https://sushant747.gitbooks.io/total-oscp-guide/content/loot_windows_-_for_crede
 
 [[Powershell Empire]]</pre>
 </div>
-<div created="20211209134133448" modified="20211209134614563" title="Powershell Empire" type="text/x-markdown">
+<div created="20211209134133448" modified="20211209134910716" title="Powershell Empire" type="text/x-markdown">
 <pre># 1. Setup
 
 # 2. Listener
@@ -13105,6 +13110,10 @@ The http listener is the most basic listener and like the windows/meterpreter/re
     usestager &lt;stager&gt;
     ...
     execute
+
+To stop a listener
+
+    kill &lt;listener, eg. http&gt;
 
 # 3. Empire Agent
 
