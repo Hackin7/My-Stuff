@@ -13092,7 +13092,7 @@ https://sushant747.gitbooks.io/total-oscp-guide/content/loot_windows_-_for_crede
 
 [[Powershell Empire]]</pre>
 </div>
-<div created="20211209134133448" modified="20211209140228600" title="Powershell Empire" type="text/x-markdown">
+<div created="20211209134133448" modified="20211209140536253" title="Powershell Empire" type="text/x-markdown">
 <pre># 1. Setup
 
 # 2. Connection
@@ -13123,7 +13123,15 @@ To stop a listener
 
  An agent is simply the final payload retrieved by the stager, and it allows us to execute commands and interact with the system. The stager (in this case the .bat file) deletes itself and exits once it finishes execution.
 
-# 3. Modules</pre>
+    agents
+    interact &lt;id&gt;
+
+# 3. Modules
+
+    usemodule &lt;module&gt;
+    info
+    set ....
+    execute</pre>
 </div>
 <div created="20211014102800712" modified="20211027143743443" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/
