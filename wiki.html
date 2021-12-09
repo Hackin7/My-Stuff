@@ -425,8 +425,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Academic</li>
 
-<li>Active Directory Exploitation</li>
-
 <li>Admin</li>
 
 <li>Aesthetics</li>
@@ -540,8 +538,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <li>NextCloud</li>
 
 <li>Nintendo DS</li>
-
-<li>Offensive Security Certified Professional (OSCP)</li>
 
 <li>Operations/IT</li>
 
@@ -10092,7 +10088,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20191104231946357" modified="20210808134423222" title="$:/state/tab/moresidebar-1850697562">
 <pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
-<div created="20191104231909850" modified="20211208160220498" title="$:/state/tab/sidebar--595412856">
+<div created="20191104231909850" modified="20211209113259220" title="$:/state/tab/sidebar--595412856">
 <pre>TableOfContents</pre>
 </div>
 <div created="20210808122159283" modified="20210808122159827" title="$:/state/toc/TableOfContents-Programming--118161433">
@@ -10107,7 +10103,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20211208151819087" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211208160221706" list="[[Cyber Security]] [[Cyber Security Certifications]] [[Penetration Testing]] [[Post Exploitation]] [[Active Directory Exploitation]] CrappyMakerProgrammer" modified="20211208164428651" title="$:/StoryList">
+<div created="20211209113300548" list="[[Penetration Testing]] [[Post Exploitation]] [[Cyber Security]] CrappyMakerProgrammer" modified="20211209113456436" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11098,39 +11094,6 @@ http://marlinfw.org/docs/gcode/M302.html
 # [[Project Work]]
 # [[Economics|https://drive.google.com/open?id=1TPLzZ9AZ3WjlCvFcmPdK7OZKEtZ4KUGT]]</pre>
 </div>
-<div created="20211208160356790" modified="20211208163754716" title="Active Directory Exploitation" type="text/x-markdown">
-<pre># 1. Enumerations
-
-Base
-
-```
-net user
-net user /domain
-net group /domain
-```
-
-
-PowerView
-
-```
-Import-Module .\PowerView.ps1
-Get-NetLoggedon -ComputerName client251
-Get-NetSession -ComputerName dc01
-```
-
-# 2. Extracting Credentials
-
-# 3. Lateral Movement
-
-## 3.1 Overpass the Hash
-
-## 3.2 Distributed Component Object Model
-
-# 4. Active Directory Permanence
-
-## Golden Tickets
-</pre>
-</div>
 <div created="20191104235731828" modified="20191105042822561" title="Admin">
 <pre>! Past
 # [[History By Year]]
@@ -11844,17 +11807,59 @@ Example CTF Challenge: https://jloh02.github.io/ctf/stack-the-flags-2020#interne
 ## https://book.hacktricks.xyz/pentesting/pentesting-web/nginx
 # [[Cyber Forensics]]</pre>
 </div>
-<div created="20211109125252973" modified="20211208164546274" title="Cyber Security Certifications" type="text/x-markdown">
-<pre># Penetration Testing Certificates
+<div created="20211109125252973" modified="20211205140212077" title="Cyber Security Certifications">
+<pre>! eLearnSecurity Junior Penetration Tester (eJPT)
 
-1. eLearnSecurity
-    1. [eLearnSecurity Junior Penetration Tester (eJPT)](#eLearnSecurity Junior Penetration Tester (eJPT))
-2. Offensive Security
-  1. [Offensive Security Certified Professional (OSCP)](#Offensive Security Certified Professional (OSCP))
 
-# Web Applications
+! Offensive Security Certified Professional (OSCP)
 
-1. Burp Suite Certified</pre>
+https://github.com/six2dez/OSCP-Human-Guide/blob/master/oscp_human_guide.md
+
+https://github.com/remembercds/OSCP-Exercises-Check-List
+
+https://help.offensive-security.com/hc/en-us/articles/360046787731-PEN-200-Reporting-Requirements
+
+https://www.reddit.com/r/oscp/comments/owfcl3/i_passed_oscp_and_here_is_how_you_shouldnt_do_it/
+
+https://rana-khalil.gitbook.io/hack-the-box-oscp-preparation/my-oscp-journey-a-review
+
+https://h4cklife.org/posts/starting-oscp-from-scratch/
+!! Forum
+
+https://forums.offensive-security.com/forumdisplay.php?138-Public-Network
+
+!! Lab Machines 
+
+https://www.pwndefend.com/2018/10/20/oscp-week-2/
+
+https://flast101.github.io/whoami/
+
+https://strongcourage.github.io/2020/03/01/oscp.html
+
+https://ivanitlearning.wordpress.com/2021/06/01/thoughts-on-pwk-labs-and-pg-practice/
+
+https://cs485.mjkranch.com/scoreboard_labs.html
+
+https://nandtech.co/2017/11/07/offensive-security-pwk-experience/
+
+WARNING SOLUTIONS: https://susiecybersecurity.wordpress.com/2019/12/21/pwk-lab-note/
+
+!! Lab Exercises
+
+https://community.infosecinstitute.com/discussion/122342/oscp-questions-about-lab-exercises-optional-reports-and-other-questions
+
+https://www.reddit.com/r/oscp/comments/hpv6t9/new_pwk_exercises_worth_the_5_points/
+
+https://www.reddit.com/r/oscp/comments/belnxw/exercise_lab_report_question/
+
+https://www.reddit.com/r/oscp/comments/gxvj42/oscp_exercises_lab_report/
+
+!! Guides
+
+https://www.mjkranch.com/2019/06/tips-for-success-in-pwk-oscp/
+
+https://ivanitlearning.wordpress.com/2021/06/02/tips-from-the-pwk-labs-and-pg-practice/
+</pre>
 </div>
 <div created="20210911124053877" modified="20211106074322149" title="Cyber Security Exercises">
 <pre>!! Communities
@@ -12038,7 +12043,7 @@ searchsploit &lt;keyword1&gt; &lt;keyword2&gt; ...
 
 If you find an exploit, add the words &quot;github&quot;, &quot;without metasploit&quot;, &quot;poc&quot; to find code without the need for meterpreter (OSCP)</pre>
 </div>
-<div created="20210904163141554" modified="20211208160339907" title="Exploitation">
+<div created="20210904163141554" modified="20211208150747737" title="Exploitation">
 <pre>! Main ways of Exploitation
 
 # [[Web Hacking]]
@@ -12061,9 +12066,6 @@ Check `/etc/knockd.conf`
 knock 192.168.1.8 7469 8475 9842
 ```
 
-! Ways to allow it
-
-[[Antivirus Evasion]]
 </pre>
 </div>
 <div created="20211002174442005" modified="20211029121721190" title="File Transfers">
@@ -12701,56 +12703,6 @@ http://www.r4isdhc.com/
 ! Nintendo DS Homebrew
 </pre>
 </div>
-<div created="20211208164430959" modified="20211208164435979" title="Offensive Security Certified Professional (OSCP)" type="text/x-markdown">
-<pre>
-https://github.com/six2dez/OSCP-Human-Guide/blob/master/oscp_human_guide.md
-
-https://github.com/remembercds/OSCP-Exercises-Check-List
-
-https://help.offensive-security.com/hc/en-us/articles/360046787731-PEN-200-Reporting-Requirements
-
-https://www.reddit.com/r/oscp/comments/owfcl3/i_passed_oscp_and_here_is_how_you_shouldnt_do_it/
-
-https://rana-khalil.gitbook.io/hack-the-box-oscp-preparation/my-oscp-journey-a-review
-
-https://h4cklife.org/posts/starting-oscp-from-scratch/
-!! Forum
-
-https://forums.offensive-security.com/forumdisplay.php?138-Public-Network
-
-!! Lab Machines 
-
-https://www.pwndefend.com/2018/10/20/oscp-week-2/
-
-https://flast101.github.io/whoami/
-
-https://strongcourage.github.io/2020/03/01/oscp.html
-
-https://ivanitlearning.wordpress.com/2021/06/01/thoughts-on-pwk-labs-and-pg-practice/
-
-https://cs485.mjkranch.com/scoreboard_labs.html
-
-https://nandtech.co/2017/11/07/offensive-security-pwk-experience/
-
-WARNING SOLUTIONS: https://susiecybersecurity.wordpress.com/2019/12/21/pwk-lab-note/
-
-!! Lab Exercises
-
-https://community.infosecinstitute.com/discussion/122342/oscp-questions-about-lab-exercises-optional-reports-and-other-questions
-
-https://www.reddit.com/r/oscp/comments/hpv6t9/new_pwk_exercises_worth_the_5_points/
-
-https://www.reddit.com/r/oscp/comments/belnxw/exercise_lab_report_question/
-
-https://www.reddit.com/r/oscp/comments/gxvj42/oscp_exercises_lab_report/
-
-!! Guides
-
-https://www.mjkranch.com/2019/06/tips-for-success-in-pwk-oscp/
-
-https://ivanitlearning.wordpress.com/2021/06/02/tips-from-the-pwk-labs-and-pg-practice/
-</pre>
-</div>
 <div created="20210825161939212" modified="20211208151952991" tags="Tech" title="Operations/IT">
 <pre>! Operating Systems
 # [[Windows]]
@@ -13090,27 +13042,16 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
 </div>
-<div created="20211205085540773" modified="20211208163055162" title="Post Exploitation" type="text/x-markdown">
-<pre>https://attack.stealthbits.com/how-golden-ticket-attack-works
-
-
-https://pentestlab.blog/2018/07/04/dumping-domain-password-hashes/
-
-https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1
-
-https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet
+<div created="20211205085540773" modified="20211209113513213" title="Post Exploitation">
+<pre>
 
 https://sushant747.gitbooks.io/total-oscp-guide/content/loot_windows_-_for_credentials_and_other_stuff.html
 
-# Windows
+[[Active Directory]]
 
-[Active Directory](#Active Directory)
+[[Active Directory Exploitation]]
 
-[Active Directory Exploitation](#Active Directory Exploitation)
-
-[Mimikatz](#Mimikatz)
-
-</pre>
+[[Mimikatz]]</pre>
 </div>
 <div created="20211014102800712" modified="20211027143743443" title="Privesc - Linux Binaries">
 <pre>https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binaries/
