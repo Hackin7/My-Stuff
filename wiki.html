@@ -10112,7 +10112,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20211208151819087" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211209113300548" list="[[Penetration Testing]] [[Post Exploitation]] [[Active Directory Exploitation]] [[Cyber Security]] CrappyMakerProgrammer" modified="20211209140918667" title="$:/StoryList">
+<div created="20211214123639401" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Penetration Testing]] [[Post Exploitation]]" modified="20211214123723161" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13128,10 +13128,19 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
 </div>
-<div created="20211205085540773" modified="20211209134127266" title="Post Exploitation">
+<div created="20211205085540773" modified="20211214123805605" title="Post Exploitation">
 <pre>
-
 https://sushant747.gitbooks.io/total-oscp-guide/content/loot_windows_-_for_credentials_and_other_stuff.html
+
+Windows
+https://forums.offensive-security.com/showthread.php?43343-Can-i-get-a-nudge-where-the-exe-stored-in-chris
+
+```
+cmd.exe /c dir /a C:/ ------------------------------------#Any strange or hidden directories/files in C drive?
+gci -Recurse C:\users | Select FullName ----------#Shows all files in C:\users and sub-directories.
+ls &quot;C:\Program Files&quot; ---------------------------------- # What non-default software is installed?
+ls &quot;C:\Program Files (x86)&quot; ----------------------------# What non-default software is installed?
+```
 
 [[Active Directory]]
 
