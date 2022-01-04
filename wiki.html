@@ -10131,7 +10131,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." />
 <div created="20211224142936076" modified="20211224142936076" title="$:/state/toc/TableOfContents/Tech-Operations/IT--118161433">
 <pre>open</pre>
 </div>
-<div created="20220101073411491" list="[[Penetration Testing]] [[Network Services]] CrappyMakerProgrammer" modified="20220101074652780" title="$:/StoryList">
+<div created="20220104002347901" list="[[Penetration Testing]] [[Post Exploitation]] [[Active Directory Exploitation]] [[Active Directory Exploitation - Password Spraying]] CrappyMakerProgrammer" modified="20220104123619323" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -11245,10 +11245,18 @@ Generating Ticket
 
     mimikatz #</pre>
 </div>
-<div created="20211228154257950" modified="20211228154304612" title="Active Directory Exploitation - Password Spraying">
-<pre>https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-password-spraying
+<div created="20211228154257950" modified="20220104123954135" title="Active Directory Exploitation - Password Spraying" type="text/x-markdown">
+<pre>Password Spraying is a variant of what is known as a brute force attack. In a traditional brute force attack, the perpetrator attempts to gain unauthorized access to a single account by guessing the password repeatedly in a very short period of time. Most organizations have employed countermeasures, commonly a lock-out after three to five attempts. In a Password Spraying attack, the attacker circumvents common countermeasures (e.g., account lock out) by “spraying” the same password across many accounts before trying another password.
 
-https://github.com/dafthack/DomainPasswordSpray</pre>
+https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-password-spraying
+
+https://github.com/dafthack/DomainPasswordSpray
+
+https://book.hacktricks.xyz/windows/active-directory-methodology/password-spraying
+
+
+
+    crackmapexec smb &lt;IP&gt; -u users.txt -p passwords.txt</pre>
 </div>
 <div created="20191104235731828" modified="20191105042822561" title="Admin">
 <pre>! Past
